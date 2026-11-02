@@ -813,6 +813,25 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .sv-card p.sv-d2{font-size:14px;padding:8px 12px;border-radius:10px;background:#F4F8F7}
 .ov-point ul{margin:0;padding-left:1.1em}.ov-point li{margin:.25em 0}
 
+/* ---------- Thẻ thể tích nước cất (tương tác khi nhỏ nước lên lam kính) ---------- */
+.vol-card{position:absolute;left:16px;top:84px;z-index:9;width:300px;padding:14px 16px 12px;border-radius:14px;background:rgba(255,255,255,.96);box-shadow:0 8px 24px rgba(4,28,27,.35);color:#10302E;display:none;pointer-events:none}
+.vol-card.show{display:block;animation:pop .25s ease}
+.vol-card .vt{font-size:12.5px;font-weight:700;color:#35504d;margin:0 0 4px}
+.vol-card .vr{display:flex;align-items:baseline;gap:6px}
+.vol-card .vn{font-size:30px;font-weight:800;line-height:1.1;color:#10302E;font-variant-numeric:tabular-nums}
+.vol-card .vu{font-size:13px;font-weight:700;color:#4A6461}
+.vol-card .vg{margin-left:auto;font-size:11.5px;color:#4A6461}
+.vol-card .vchip{display:inline-block;margin:4px 0 8px;padding:1px 8px;border-radius:5px;font-size:10.5px;font-weight:800;letter-spacing:.04em;background:#FFE9A8;color:#8A5A00}
+.vol-card.ok .vchip{background:#CFF3D3;color:#14602A}.vol-card.over .vchip{background:#FFD3CE;color:#A02A1C}
+.vol-card .vtrack{position:relative;height:16px;margin:2px 4px 0}
+.vol-card .vtrack:before{content:"";position:absolute;left:0;right:0;top:6px;height:4px;border-radius:2px;background:#DCE6E4}
+.vol-card .vband{position:absolute;top:2px;height:12px;border:1.5px dashed #5C7C78;border-radius:3px;background:rgba(168,214,42,.22)}
+.vol-card.ok .vband{border-color:#1C8A3A;background:rgba(60,190,90,.3)}
+.vol-card .vthumb{position:absolute;top:1px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:#fff;border:2.5px solid #10302E;box-sizing:border-box;transition:left .3s ease}
+.vol-card.ok .vthumb{border-color:#1C8A3A}.vol-card.over .vthumb{border-color:#C2402E}
+.vol-card .vtick{display:flex;justify-content:space-between;margin:3px 0 0;padding:0 1px;font-size:9.5px;color:#4A6461}
+.vol-card .vh{margin:6px 0 0;font-size:11.5px;line-height:1.4;color:#4A6461}
+@media (max-width:620px){.vol-card{left:10px;right:10px;top:auto;bottom:10px;width:auto}}
 </style>
 </head>
 <body>
@@ -859,6 +878,7 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
       <button class="stage-nav next" id="btnNextStep" type="button" aria-label="Bước tiếp theo">▶</button>
       <div class="cam-hint" aria-hidden="true">Cuộn để phóng to · Chọn số để xem ghi chú</div>
       <div class="toast" id="toast"></div>
+      <div class="vol-card" id="volCard" role="status" aria-live="polite"><div class="vt">Thể tích nước cất trên lam kính</div><div class="vr"><span class="vn" id="volN">0,00</span><span class="vu">mL</span><span class="vg" id="volG"></span></div><span class="vchip" id="volChip">CHƯA ĐỦ</span><div class="vtrack"><div class="vband" id="volBand"></div><div class="vthumb" id="volThumb"></div></div><div class="vtick" id="volTick"></div><p class="vh" id="volH"></p></div>
       <div class="fallback" id="fallback"><div class="spinner" style="border-top-color:#ad493f"></div><p id="fallbackMsg">Không thể tải mô hình 3D.</p><p id="fallbackDetail" style="font-size:11px;color:#a54527;max-width:480px"></p><div class="row"><button class="fallback-retry" id="btnRetryModel" type="button">Thử tải lại</button><button class="fallback-retry" id="btnUseFallback" type="button" style="background:var(--brand-light)">Dùng mô hình dự phòng</button></div></div>
       <div class="loading" id="loadingEl"><div class="spinner"></div><p id="loadingText">Đang tải mô hình 3D…</p></div>
     </div>
@@ -1222,7 +1242,7 @@ function knowledge(sKey, onBtn) {
   showOverlay(`<div class="ov-kicker">${YT.mdInline(K.kicker)}</div><h2>${YT.mdInline(K.title)}</h2><div class="ov-point">${YT.md(K.point)}</div>`, K.button, onBtn);
 }
 function hideOverlay() { $('overlay').classList.remove('show'); }
-function hideTransient() { hideGate(); hideOverlay(); }
+function hideTransient() { hideGate(); hideOverlay(); if (typeof hideVol === 'function') hideVol(); }
 
 /* ---------- Danh sách bước góc trên phải ---------- */
 const stepLabel = s => String(s ?? '').replace(/^\s*Bước\s*\d+\s*[:.\-–—]?\s*/i, '');
@@ -1522,7 +1542,7 @@ function buildTray(cfg) {
   const { x, z, w, d } = cfg, { floor, wall } = TRAY, th = .1, R = .4;
   const rr = (W, D, r) => { const s = new THREE.Shape(), X = -W / 2, Y = -D / 2; s.moveTo(X + r, Y); s.lineTo(X + W - r, Y); s.absarc(X + W - r, Y + r, r, -Math.PI / 2, 0, false); s.lineTo(X + W, Y + D - r); s.absarc(X + W - r, Y + D - r, r, 0, Math.PI / 2, false); s.lineTo(X + r, Y + D); s.absarc(X + r, Y + D - r, r, Math.PI / 2, Math.PI, false); s.lineTo(X, Y + r); s.absarc(X + r, Y + r, r, Math.PI, Math.PI * 1.5, false); return s; };
   const outer = rr(w, d, R), rim = rr(w, d, R); rim.holes.push(rr(w - 2 * th, d - 2 * th, R - th * .6));
-  const mat = new THREE.MeshStandardMaterial({ color: 0xe8f0f4, roughness: .32, metalness: .05, envMapIntensity: 1.2 });
+  const mat = new THREE.MeshStandardMaterial({ color: 0x23292e, roughness: .42, metalness: .12, envMapIntensity: 1.0 });   // khay màu đen
   const g = new THREE.Group();
   const fl = new THREE.Mesh(new THREE.ExtrudeGeometry(outer, { depth: floor, bevelEnabled: false }).rotateX(-Math.PI / 2), mat);
   const wl = new THREE.Mesh(new THREE.ExtrudeGeometry(rim, { depth: floor + wall, bevelEnabled: true, bevelThickness: .03, bevelSize: .03, bevelSegments: 2 }).rotateX(-Math.PI / 2), mat);
@@ -2085,16 +2105,63 @@ async function loadLiquid(pip, bot, col) {
   if (bot.cap) await capMove(bot, 0);
   await flyTo(pip, aimPose(pip, mouth.clone().add(V3(.4, .9, .5)), DIR_TRAVEL()), 600, .2);
 }
-/* nhỏ 1 giọt lên lam kính (kind = 'water'), rồi trả ống nhỏ giọt về chỗ cũ */
+/* ---------- Tương tác nhỏ nước cất: thẻ thể tích (mL) + khoảng đạt; mỗi lần bóp bầu cao su nhỏ thêm một lượng nhỏ ---------- */
+const VOL = { step: .02, max: .12, lo: .04, hi: .08, ideal: .06 };   // mL: mỗi lần bóp +0,02 · khoảng đạt 0,04 ~ 0,08
+const fmtV = v => v.toFixed(2).replace('.', ',');
+const volState = v => v > VOL.hi + 1e-9 ? 'over' : v >= VOL.lo - 1e-9 ? 'ok' : 'low';
+function showVol(v) {
+  const c = $('volCard'), st = volState(v);
+  if (!$('volTick').childElementCount) {
+    $('volTick').innerHTML = Array.from({ length: 7 }, (_, i) => '<span>' + fmtV(VOL.max / 6 * i) + '</span>').join('');
+    $('volBand').style.left = VOL.lo / VOL.max * 100 + '%'; $('volBand').style.width = (VOL.hi - VOL.lo) / VOL.max * 100 + '%';
+    $('volG').textContent = 'Khoảng đạt ' + fmtV(VOL.lo) + ' ~ ' + fmtV(VOL.hi);
+    $('volH').textContent = 'Cần khoảng ' + fmtV(VOL.ideal) + ' mL. Bấm vào bầu cao su của ống nhỏ giọt để bóp.';
+  }
+  $('volN').textContent = fmtV(v); $('volThumb').style.left = Math.min(1, v / VOL.max) * 100 + '%';
+  $('volChip').textContent = st === 'ok' ? 'ĐẠT' : st === 'over' ? 'QUÁ NHIỀU' : 'CHƯA ĐỦ';
+  c.classList.toggle('ok', st === 'ok'); c.classList.toggle('over', st === 'over'); c.classList.add('show');
+}
+function hideVol() { const c = $('volCard'); if (c) c.classList.remove('show'); }
+/* học sinh tự nhỏ nước: bấm vào ống nhỏ giọt để bóp (mỗi lần +0,02 mL); đạt khoảng 0,04 ~ 0,08 mL thì bấm XONG */
+function waitDropVolume(pip, hover, spot) {
+  return new Promise(res => {
+    let vol = 0, busy = false;
+    const T = V3(.5, .055, .3), blob = FX.water;
+    const setBlob = (ms) => {
+      if (vol <= 0) { blob.visible = false; blob.scale.set(1e-4, 1e-4, 1e-4); return Promise.resolve(); }
+      const k = Math.sqrt(vol / VOL.ideal), a = blob.scale.clone(); blob.visible = true;
+      return anim(ms, e => blob.scale.set(lerp(a.x, T.x * k, e), lerp(a.y, T.y * Math.min(1.6, k), e), lerp(a.z, T.z * k, e)));
+    };
+    const finish = () => { if (!waitUI) return; if (volState(vol) !== 'ok') { showToast('Chưa đạt khoảng ' + fmtV(VOL.lo) + ' ~ ' + fmtV(VOL.hi) + ' mL.'); return; } waitUI = null; hideVol(); lock(true); renderStep2(); res(); };
+    const reset = () => { if (busy) return; vol = 0; setBlob(0); setFill(pip, 1); refresh(); };
+    const quick = () => { if (busy) return; vol = VOL.ideal; setBlob(0); setFill(pip, .7); refresh(); finish(); };
+    const refresh = () => {
+      showVol(vol); const st = volState(vol);
+      const msg = st === 'over' ? 'Nước nhiều quá rồi. Bấm [LÀM LẠI]{b} để nhỏ lại từ đầu.' : st === 'ok' ? 'Đã đủ nước. Bấm [XONG]{b} để tiếp tục.' : '[Bấm vào ống nhỏ giọt]{b} để bóp, nhỏ nước cất lên lát cắt (' + fmtV(vol) + '/' + fmtV(VOL.ideal) + ' mL).';
+      setPanel('Tương tác', msg, '', [{ label: 'XONG', disabled: st !== 'ok', fn: finish }, { label: 'LÀM LẠI', alt: true, disabled: vol === 0, fn: reset }, { label: 'LÀM NHANH', alt: true, quick: true, fn: quick }]);
+    };
+    waitUI = { cfg: { hint: pip.id }, done: finish, click: async (e, id) => {
+      if (busy) return; if (id !== pip.id) { showToast('Em bấm vào ống nhỏ giọt đang nhấp nháy để bóp nhé.'); return; }
+      if (vol >= VOL.max - 1e-9) { showToast('Đã nhiều quá. Bấm LÀM LẠI nhé.'); return; }
+      busy = true; await squeezeAnim(pip);
+      await dropFall(hover.clone().add(V3(0, -.05, 0)), spot, COL.water);
+      vol = Math.round((vol + VOL.step) * 100) / 100; setFill(pip, Math.max(.25, pip.fill - .08)); await setBlob(300); busy = false; refresh();
+    } };
+    lock(false); refresh();
+  });
+}
+/* nhỏ nước cất lên lam kính (kind = 'water'), rồi trả ống nhỏ giọt về chỗ cũ */
 async function dropOn(pip, kind) {
   const sl = IT.slide; sl.g.updateMatrixWorld(true);
   const spot = sl.g.localToWorld(V3(SPOT_X, SLIDE_H + (kind === 'water' ? .1 : 0), 0)), hover = spot.clone().add(V3(0, 1.1, 0)), dir = DIR_PIPET();
   await flyTo(pip, aimPose(pip, hover, dir), 900, .8);
-  await waitSqueeze(pip, 'Ống nhỏ giọt đang ở trên lam kính. [Bấm vào ống nhỏ giọt]{b} để bóp nhẹ, nhỏ 1 giọt nước cất lên lát cắt.');
-  const f0 = pip.fill; await anim(300, e => setFill(pip, lerp(f0, f0 * .68, e)));
-  await dropFall(hover.clone().add(V3(0, -.05, 0)), spot, COL[kind]);
-  const blob = FX.water, T = V3(.5, .055, .3);
-  blob.visible = true; await anim(450, e => blob.scale.set(T.x * e, T.y * e, T.z * e));
+  if (!FAST && !autoMode) await waitDropVolume(pip, hover, spot);   // học sinh tự bóp ống nhỏ giọt, theo dõi thể tích trên thẻ
+  else {
+    const f0 = pip.fill; await anim(300, e => setFill(pip, lerp(f0, f0 * .68, e)));
+    await dropFall(hover.clone().add(V3(0, -.05, 0)), spot, COL[kind]);
+    const blob = FX.water, T = V3(.5, .055, .3);
+    blob.visible = true; await anim(450, e => blob.scale.set(T.x * e, T.y * e, T.z * e));
+  }
   const f1 = pip.fill; anim(500, e => setFill(pip, f1 * (1 - e)));
   await dropTool(pip); setFill(pip, 0);
 }
