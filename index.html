@@ -870,10 +870,12 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 @media (max-width:620px){.sv-eye.lens .sv-rim{inset:-12px;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 11px));mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 11px))}
   .sv-eye.lens .sv-handle{width:50%}.sv-handle i{width:66%}.scope-view .sv-eye.lens .sv-mag{top:-30px}.sv-zbox{padding:10px}}
 /* ---------- Kính lúp 3D: thẻ SOI KÍNH LÚP (cùng phong cách .vol-card) ---------- */
-.lens-card{pointer-events:auto;width:292px}
-.lens-card .lc-name{font-size:15px;font-weight:800;color:#10302E;margin:0 0 8px}
-.lens-card .lc-zt{display:flex;align-items:baseline;justify-content:space-between;font-size:12.5px;font-weight:700;color:#35504d}
-.lens-card .lc-zt output{font-size:24px;font-weight:800;color:#10302E;font-variant-numeric:tabular-nums}
+#lvCanvas{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;display:block;background:#0b1a19;touch-action:none;user-select:none}
+.lens-view .sv-eye.lens .sv-clip{cursor:grab}.lens-view .sv-eye.lens.dragging .sv-clip{cursor:grabbing}
+.lc-card .sv-zh{margin:0;font-size:12px;line-height:1.4;color:#4A6461}
+.lc-card .lc-name{font-size:15px;font-weight:800;color:#10302E;margin:0 0 8px}
+.lc-card .lc-zt{display:flex;align-items:baseline;justify-content:space-between;font-size:12.5px;font-weight:700;color:#35504d}
+.lc-card .lc-zt output{font-size:24px;font-weight:800;color:#10302E;font-variant-numeric:tabular-nums}
 .lc-zrow{display:flex;align-items:center;gap:6px;margin:2px 0 8px}
 .lc-zrow input[type=range]{flex:1 1 auto;min-width:0;height:44px;margin:0;accent-color:#0E5A55;cursor:pointer}
 .lc-b{flex:0 0 auto;width:44px;height:44px;border:1.5px solid #0E5A55;border-radius:12px;background:#fff;color:#0E5A55;font:800 20px/1 Roboto,'Segoe UI',sans-serif;cursor:pointer;padding:0;touch-action:manipulation}
@@ -881,12 +883,9 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .lc-c{height:44px;padding:0 6px;border:1.5px solid #D3DEDB;border-radius:12px;background:#fff;color:#10302E;font:700 12.5px Roboto,'Segoe UI',sans-serif;cursor:pointer}
 .lc-pad{display:grid;grid-template-columns:44px 1fr 44px;grid-template-areas:". up ." "lf c rt" ". dn .";gap:4px 6px;justify-items:center;align-items:center;margin:0 0 8px}
 .lc-pad .lc-up{grid-area:up}.lc-pad .lc-lf{grid-area:lf}.lc-pad .lc-rt{grid-area:rt}.lc-pad .lc-dn{grid-area:dn}.lc-pad .lc-c{grid-area:c;width:100%}
-.lens-card .vh{margin:0 0 10px}
-.lc-donew{display:block}
-.lc-done{width:100%;min-height:46px;border:0;border-radius:12px;background:#0E5A55;color:#fff;font:800 14px Roboto,'Segoe UI',sans-serif;letter-spacing:.03em;cursor:pointer}
 .lc-done[aria-disabled="true"]{opacity:.42;cursor:not-allowed}
-@media (max-width:620px){.lens-card{width:auto;padding:10px 12px}.lens-card .vh{display:none}
-  .lens-card .lc-name{margin:0 0 2px;font-size:14px}.lens-card .lc-zt output{font-size:20px}.lc-zrow{margin:0 0 4px}
+@media (max-width:620px){.lc-card .sv-zh{display:none}
+  .lc-card .lc-name{margin:0 0 2px;font-size:14px}.lc-card .lc-zt output{font-size:20px}.lc-zrow{margin:0 0 4px}
   .lc-pad{display:flex;gap:6px;margin:0 0 8px}.lc-pad .lc-c{flex:1 1 auto;width:auto}.lc-pad .lc-lf{order:1}.lc-pad .lc-up{order:2}.lc-pad .lc-dn{order:3}.lc-pad .lc-rt{order:4}.lc-pad .lc-c{order:5}}
 </style>
 </head>
@@ -934,12 +933,6 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
       <button class="stage-nav next" id="btnNextStep" type="button" aria-label="Bước tiếp theo">▶</button>
       <div class="cam-hint" aria-hidden="true">Cuộn để phóng to · Chọn số để xem ghi chú</div>
       <div class="toast" id="toast"></div>
-      <div class="vol-card lens-card" id="lensCard" role="group" aria-label="Soi kính lúp"><div class="vt">SOI KÍNH LÚP</div><div class="lc-name" id="lcName">Đang soi: </div>
-        <div class="lc-zt"><span>Độ phóng đại</span><output id="lcVal" for="lcRange">×3</output></div>
-        <div class="lc-zrow"><button type="button" class="lc-b" id="lcMinus" aria-label="Thu nhỏ">－</button><input type="range" id="lcRange" min="1" max="8" step="0.5" value="3" aria-label="Độ phóng đại kính lúp"><button type="button" class="lc-b" id="lcPlus" aria-label="Phóng to">＋</button></div>
-        <div class="lc-pad" role="group" aria-label="Di chuyển kính lúp"><button type="button" class="lc-b lc-up" data-mv="0,-1" aria-label="Lên">↑</button><button type="button" class="lc-b lc-lf" data-mv="-1,0" aria-label="Sang trái">←</button><button type="button" class="lc-c" id="lcCenter">Về giữa</button><button type="button" class="lc-b lc-rt" data-mv="1,0" aria-label="Sang phải">→</button><button type="button" class="lc-b lc-dn" data-mv="0,1" aria-label="Xuống">↓</button></div>
-        <p class="vh">Kéo kính lúp hoặc dùng mũi tên để di chuyển · kéo thanh trượt để phóng to.</p>
-        <span class="lc-donew" id="lcDoneW"><button type="button" class="lc-done" id="lcDone">XONG QUAN SÁT</button></span></div>
       <div class="vol-card" id="volCard" role="status" aria-live="polite"><div class="vt">Thể tích nước cất trên lam kính</div><div class="vr"><span class="vn" id="volN">0,00</span><span class="vu">mL</span><span class="vg" id="volG"></span></div><span class="vchip" id="volChip">CHƯA ĐỦ</span><div class="vtrack"><div class="vband" id="volBand"></div><div class="vthumb" id="volThumb"></div></div><div class="vtick" id="volTick"></div><p class="vh" id="volH"></p></div>
       <div class="fallback" id="fallback"><div class="spinner" style="border-top-color:#ad493f"></div><p id="fallbackMsg">Không thể tải mô hình 3D.</p><p id="fallbackDetail" style="font-size:11px;color:#a54527;max-width:480px"></p><div class="row"><button class="fallback-retry" id="btnRetryModel" type="button">Thử tải lại</button><button class="fallback-retry" id="btnUseFallback" type="button" style="background:var(--brand-light)">Dùng mô hình dự phòng</button></div></div>
       <div class="loading" id="loadingEl"><div class="spinner"></div><p id="loadingText">Đang tải mô hình 3D…</p></div>
@@ -963,6 +956,21 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
         <button type="button" class="sv-lbtn" id="svLabelBtn" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg><span id="svLabelTxt">Hiện tên bộ phận</span></button>
         <p class="sv-note" id="svNote" role="status" hidden></p>
         <div class="sv-act"><button class="btn alt" id="svBack" type="button" aria-label="Về bàn thí nghiệm"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg><span class="t">Về bàn thí nghiệm</span></button><button class="btn" id="svNext" type="button">Em rút ra được gì?</button></div>
+      </section>
+    </div>
+    <div class="scope-view lens-view" id="lensView" aria-label="Soi kính lúp">
+      <div class="sv-view"><div class="sv-eye lens" id="lvEye"><div class="sv-handle" aria-hidden="true"><i></i></div>
+        <div class="sv-clip" id="lvClip"><canvas id="lvCanvas" aria-label="Hình 3D qua kính lúp"></canvas><div class="sv-glare" aria-hidden="true"></div></div>
+        <div class="sv-rim" aria-hidden="true"></div><div class="sv-mag" id="lvMag">Kính lúp ×3</div>
+      </div></div>
+      <section class="sv-card lc-card" aria-labelledby="lcName">
+        <span class="sv-k">SOI KÍNH LÚP</span>
+        <h2 id="lcName">Đang soi: </h2>
+        <div class="sv-zbox"><div class="sv-zt"><span>Độ phóng đại</span><output id="lcVal" for="lcRange">×3</output></div>
+          <div class="lc-zrow"><button type="button" class="lc-b" id="lcMinus" aria-label="Thu nhỏ">－</button><input type="range" id="lcRange" min="1" max="8" step="0.5" value="3" aria-label="Độ phóng đại kính lúp"><button type="button" class="lc-b" id="lcPlus" aria-label="Phóng to">＋</button></div></div>
+        <div class="lc-pad" role="group" aria-label="Di chuyển kính lúp"><button type="button" class="lc-b lc-up" data-mv="0,-1" aria-label="Lên">↑</button><button type="button" class="lc-b lc-lf" data-mv="-1,0" aria-label="Sang trái">←</button><button type="button" class="lc-c" id="lcCenter">Về giữa</button><button type="button" class="lc-b lc-rt" data-mv="1,0" aria-label="Sang phải">→</button><button type="button" class="lc-b lc-dn" data-mv="0,1" aria-label="Xuống">↓</button></div>
+        <p class="sv-zh">Kéo ảnh hoặc dùng mũi tên để di chuyển kính trên mẫu vật · kéo thanh trượt hoặc lăn chuột để phóng to.</p>
+        <div class="sv-act" id="lcDoneW"><button type="button" class="btn lc-done" id="lcDone">XONG QUAN SÁT</button></div>
       </section>
     </div>
     <div class="action-bar" id="actionBar" role="group" aria-label="Thao tác"></div>
@@ -2243,124 +2251,106 @@ async function magnify(id, at) {
   const pos = top.clone().add(V3(0, .75, 0)).sub(lens);
   await flyTo(lp, { pos, quat: lp.home.quat.clone() }, 900, .9);
   if (!FAST) camTo('tool_' + id, 900);
-  if (!FAST && !autoMode && lensMesh) await lensSession(id);
+  if (!FAST && !autoMode && lensRT) await lensSession(id);
   else await anim(1200, (e, k) => { const a = k * Math.PI * 2; lp.g.position.copy(pos).add(V3(Math.sin(a) * .22, -.25 * Math.sin(k * Math.PI), (1 - Math.cos(a)) * .12)); });
   sfx('click'); captureLens(lp); await sleep(250);
   await dropTool(lp);
 }
-/* ---------- Kính lúp 3D thật: lensCam nhìn từ mắt người xem xuyên tâm kính, render vào lensRT; mặt kính dùng texture đó (ShaderMaterial theo toạ độ màn hình) ---------- */
+/* ---------- Kính lúp 3D: màn soi giống màn kết quả 2D (mắt kính tròn lớn + thẻ điều khiển), nhưng hình bên trong là cảnh 3D thật của mẫu vật.
+   lensCam nhìn xuống phần mẫu vật nằm dưới kính (cùng hướng nhìn của camera chính) → vẽ vào lensRT → chép sang <canvas> trong mắt kính. Chỉ vẽ khi đang soi và khi có thay đổi. ---------- */
 const LENS_MAX = { moss: 8, fern: 6, pine: 6, pumpkin: 5 };   // zoom tối đa theo mẫu vật (nhìn vỡ thì hạ số này)
 const LENS_KEY = { moss: 'moss', fiddle: 'fern', fern: 'fern', pine: 'pine', cone: 'pine', pumpkin: 'pumpkin' };
-const LENS_DEF = 3, LENS_MIN = 1, LENS_MOVE = .1, LENS_MARGIN = .2, LENS_R_K = .92;   // zoom mặc định · bước mũi tên (đơn vị cảnh) · lề vùng bao · hệ số bán kính mặt kính so với model
+const LENS_DEF = 3, LENS_MIN = 1, LENS_MOVE = .1, LENS_MARGIN = .2, LENS_VIEW_K = .55;   // zoom mặc định · bước mũi tên (đơn vị cảnh) · lề vùng bao · nửa vùng nhìn ở ×1 = hệ số × cạnh lớn nhất của mẫu vật
 const LENS_DONE = {};          // mẫu vật đã chỉnh zoom ít nhất một lần
-let lensCam = null, lensRT = null, lensMesh = null, lensR = .4, lensZoom = LENS_DEF, L3 = null;
+let lensCam = null, lensRT = null, lensZoom = LENS_DEF, L3 = null, lensPx = 768, lensBuf = null, lensImg = null, _lt, _ld;
 function buildLens() {
-  const lp = IT.lup; if (!lp || !lp.lensLocal) return; _lc = V3(); _lr = V3(); _lp = V3(); _lt = V3();
-  lensR = Math.max(.12, Math.min(lp.size.x * .5, lp.size.z * .245) * LENS_R_K);   // bán kính mặt kính (suy từ cỡ model; chỉnh LENS_R_K nếu lệch viền)
-  const px = lowEnd ? 384 : 512;
-  lensRT = new THREE.WebGLRenderTarget(px, px, { samples: lowEnd ? 0 : 4 }); lensRT.texture.colorSpace = THREE.SRGBColorSpace;
-  lensCam = new THREE.PerspectiveCamera(20, 1, camera.near, camera.far);
-  const mat = new THREE.ShaderMaterial({
-    uniforms: { uTex: { value: lensRT.texture }, uC: { value: new THREE.Vector2() }, uR: { value: 100 } },
-    vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-    fragmentShader: `uniform sampler2D uTex; uniform vec2 uC; uniform float uR; varying vec2 vUv;
-      void main(){
-        vec2 uv = 0.5 + (gl_FragCoord.xy - uC) / (2.0 * uR);          // toạ độ màn hình: hình trong kính khớp đúng phần mẫu vật phía sau, không méo theo góc nhìn
-        vec3 col = texture2D(uTex, clamp(uv, 0.0, 1.0)).rgb;
-        float d = length(vUv - 0.5) * 2.0;
-        col *= 1.0 - smoothstep(0.62, 1.0, d) * 0.6;                    // mép kính tối dần
-        float g = smoothstep(0.55, 0.0, length(vUv - vec2(0.3, 0.74))) * 0.16 + smoothstep(0.045, 0.0, abs(vUv.x + vUv.y - 1.06) - 0.03) * 0.06 * (1.0 - d);   // vệt phản chiếu
-        gl_FragColor = vec4(col + vec3(g), 1.0);
-        #include <colorspace_fragment>
-      }`
-  });
-  lensMesh = new THREE.Mesh(new THREE.CircleGeometry(lensR, 64).rotateX(-Math.PI / 2), mat);
-  lensMesh.position.copy(lp.lensLocal).add(V3(0, .002, 0)); lensMesh.renderOrder = 4; lensMesh.frustumCulled = false; lensMesh.visible = false; lp.g.add(lensMesh);
+  lensPx = lowEnd ? 384 : 768;
+  lensRT = new THREE.WebGLRenderTarget(lensPx, lensPx, { samples: lowEnd ? 0 : 4 }); lensRT.texture.colorSpace = THREE.SRGBColorSpace;
+  lensCam = new THREE.PerspectiveCamera(20, 1, .05, 300); _lt = V3(); _ld = V3();
+  const cv = $('lvCanvas'); cv.width = cv.height = lensPx;
+  lensBuf = new Uint8Array(lensPx * lensPx * 4); lensImg = cv.getContext('2d').createImageData(lensPx, lensPx);
 }
-let _lc, _lr, _lp, _lt; const _bg = () => new THREE.Color(0x195658);
-function lensCenter(out) { const lp = IT.lup; lp.g.updateMatrixWorld(true); return lp.g.localToWorld(out.copy(lp.lensLocal)); }
-/* mỗi khung hình khi đang soi (gọi TRƯỚC renderer.render chính): vẽ cảnh nhìn xuyên kính vào lensRT */
+const lensCenter = () => IT.lup.g.position.clone().add(L3.off);
+/* mỗi khung hình khi đang soi (TRƯỚC renderer.render chính): nếu có thay đổi thì vẽ lại hình qua kính */
 function renderLens() {
-  if (!lensOn || !lensCam) return;
-  const lp = IT.lup, c = lensCenter(_lc); camera.updateMatrixWorld();
-  const d = camera.position.distanceTo(c);
-  lensCam.position.copy(camera.position); lensCam.up.copy(camera.up); lensCam.lookAt(_lt.set(c.x, L3 ? L3.ty : c.y, c.z));   // nhìn xuống đúng phần mẫu vật nằm ngay dưới tâm kính (tránh lệch do góc nhìn xiên)
-  lensCam.fov = THREE.MathUtils.radToDeg(2 * Math.atan(lensR / (d * lensZoom))); lensCam.aspect = 1; lensCam.updateProjectionMatrix();
-  const el = renderer.domElement, W = el.width, H = el.height, pc = _lp.copy(c).project(camera), right = _lr.setFromMatrixColumn(camera.matrixWorld, 0).normalize();
-  const pe = right.multiplyScalar(lensR).add(c).project(camera), U = lensMesh.material.uniforms;
-  U.uC.value.set((pc.x * .5 + .5) * W, (pc.y * .5 + .5) * H); U.uR.value = Math.max(1, Math.hypot((pe.x - pc.x) * .5 * W, (pe.y - pc.y) * .5 * H));
-  const bg = scene.background; scene.background = _bg();
-  lp.g.visible = false;   // ẩn kính lúp (cả mặt kính) khi vẽ: kính không soi chính nó
-  renderer.setRenderTarget(lensRT); renderer.render(scene, lensCam); renderer.setRenderTarget(null);
+  if (!lensOn || !L3 || !lensCam) return;
+  const now = performance.now(); if (!L3.dirty && now - L3.t < 250) return; L3.dirty = false; L3.t = now;   // cảnh tĩnh: làm tươi vài lần/giây là đủ
+  const lp = IT.lup, c = lensCenter(), tg = _lt.set(c.x, L3.ty, c.z);
+  camera.updateMatrixWorld(); _ld.copy(camera.position).sub(controls.target); if (_ld.lengthSq() < 1e-6) _ld.set(0, 1, 1); _ld.normalize();   // cùng hướng nhìn với camera chính
+  lensCam.position.copy(tg).addScaledVector(_ld, L3.dist); lensCam.up.set(0, 1, 0); lensCam.lookAt(tg);
+  lensCam.fov = THREE.MathUtils.radToDeg(2 * Math.atan(L3.rv / (L3.dist * lensZoom))); lensCam.aspect = 1; lensCam.updateProjectionMatrix();
+  const bg = scene.background; scene.background = new THREE.Color(0x195658);
+  lp.g.visible = false;   // ẩn kính lúp khi vẽ: kính không soi chính nó
+  renderer.setRenderTarget(lensRT); renderer.render(scene, lensCam);
+  renderer.readRenderTargetPixels(lensRT, 0, 0, lensPx, lensPx, lensBuf); renderer.setRenderTarget(null);
   lp.g.visible = true; scene.background = bg;
+  const N = lensPx, row = N * 4, d = lensImg.data;   // readPixels lật dọc → chép ngược từng hàng
+  for (let y = 0; y < N; y++) d.set(lensBuf.subarray((N - 1 - y) * row, (N - y) * row), y * row);
+  $('lvCanvas').getContext('2d').putImageData(lensImg, 0, 0);
+  L3.sinE = Math.max(.3, _ld.y);
 }
 function lensSession(id) {
   return new Promise(res => {
-    const key = LENS_KEY[id] || id, T = IT[id], lp = IT.lup, c0 = lensCenter(V3()).clone(), bb = new THREE.Box3().setFromObject(T.holder), sz = bb.getSize(V3());
-    L3 = { id, key, off: c0.clone().sub(lp.g.position), c0, lo: bb.min.clone().addScaledVector(sz, -LENS_MARGIN), hi: bb.max.clone().addScaledVector(sz, LENS_MARGIN), y: c0.y, ty: bb.min.y + sz.y * .55, touched: !!LENS_DONE[key], res, max: LENS_MAX[key] || 6 };
+    const key = LENS_KEY[id] || id, T = IT[id], lp = IT.lup; lp.g.updateMatrixWorld(true);
+    const c0 = lp.g.localToWorld(lp.lensLocal.clone()), bb = new THREE.Box3().setFromObject(T.holder), sz = bb.getSize(V3()), rv = Math.max(sz.x, sz.y, sz.z, .5) * LENS_VIEW_K;
+    L3 = { id, key, off: c0.clone().sub(lp.g.position), c0, lo: bb.min.clone().addScaledVector(sz, -LENS_MARGIN), hi: bb.max.clone().addScaledVector(sz, LENS_MARGIN), ty: bb.min.y + sz.y * .55,
+      rv, dist: Math.max(7, rv * 7), sinE: .7, touched: !!LENS_DONE[key], res, max: LENS_MAX[key] || 6, dirty: true, t: 0 };
     lensZoom = Math.min(LENS_DEF, L3.max);
     $('lcName').textContent = 'Đang soi: ' + ITEMS[id].name;
     const r = $('lcRange'); r.min = LENS_MIN; r.max = L3.max;
-    lensOn = true; lensMesh.visible = true; if (controls) controls.enableZoom = false;
-    lock(false); lensUI(); $('lensCard').classList.add('show');
+    lensOn = true; if (controls) controls.enableZoom = false;
+    lock(false); lensUI(); $('lensView').classList.add('show');
   });
 }
 function lensEnd() {
   if (!L3) return;
   if (!L3.touched) { showToast('Em hãy thử phóng to để quan sát rõ hơn.'); return; }
   LENS_DONE[L3.key] = true; const res = L3.res; L3 = null;
-  lensOn = false; lensMesh.visible = false; $('lensCard').classList.remove('show'); if (controls) controls.enableZoom = true;
+  lensOn = false; $('lensView').classList.remove('show'); if (controls) controls.enableZoom = true;
   lock(true); res();
 }
 function lensUI() {
-  if (!L3) return; const z = lensZoom;
-  $('lcVal').textContent = '×' + String(Math.round(z * 10) / 10).replace('.', ','); $('lcRange').value = z; $('lcRange').setAttribute('aria-valuetext', 'Phóng to ' + String(z).replace('.', ',') + ' lần');
+  if (!L3) return; const z = lensZoom, t = String(Math.round(z * 10) / 10).replace('.', ',');
+  $('lcVal').textContent = '×' + t; $('lvMag').textContent = 'Kính lúp ×' + t; $('lcRange').value = z; $('lcRange').setAttribute('aria-valuetext', 'Phóng to ' + t + ' lần');
   $('lcMinus').disabled = z <= LENS_MIN + 1e-6; $('lcPlus').disabled = z >= L3.max - 1e-6;
-  const ok = L3.touched, b = $('lcDone'); b.setAttribute('aria-disabled', ok ? 'false' : 'true'); $('lcDoneW').title = ok ? '' : 'Em hãy thử phóng to để quan sát rõ hơn';
+  const ok = L3.touched; $('lcDone').setAttribute('aria-disabled', ok ? 'false' : 'true'); $('lcDoneW').title = ok ? '' : 'Em hãy thử phóng to để quan sát rõ hơn';
 }
 function setLensZoom(z) {
-  if (!L3) return; z = clamp(Math.round(z * 10) / 10, LENS_MIN, L3.max); if (z !== lensZoom) { lensZoom = z; L3.touched = true; } lensUI();
+  if (!L3) return; z = clamp(Math.round(z * 10) / 10, LENS_MIN, L3.max); if (z !== lensZoom) { lensZoom = z; L3.touched = true; L3.dirty = true; } lensUI();
 }
-function moveLens(cx, cz) {
+function moveLens(cx, cz) {   // đưa tâm kính tới (cx, cz); giữ nguyên độ cao, không ra ngoài vùng bao mẫu vật + lề
   if (!L3) return; const lp = IT.lup;
   cx = clamp(cx, L3.lo.x, L3.hi.x); cz = clamp(cz, L3.lo.z, L3.hi.z);
-  lp.g.position.set(cx - L3.off.x, lp.g.position.y, cz - L3.off.z);   // giữ nguyên độ cao
+  lp.g.position.set(cx - L3.off.x, lp.g.position.y, cz - L3.off.z); L3.dirty = true;
 }
 function initLens3D() {
-  const el = renderer.domElement, rc = new THREE.Raycaster(), v2 = new THREE.Vector2(), pl = new THREE.Plane(V3(0, 1, 0), 0), pt = V3(), P = new Map();
-  let dr = null, pin = null;
-  const ray = e => { const r = el.getBoundingClientRect(); v2.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1); rc.setFromCamera(v2, camera); };
-  const overLens = e => { ray(e); return rc.intersectObjects([lensMesh, IT.lup.hit], false).length > 0; };
-  const planePt = e => { ray(e); pl.constant = -L3.y; return rc.ray.intersectPlane(pl, pt); };
-  const centerNow = () => IT.lup.g.position.clone().add(L3.off);
-  el.addEventListener('pointerdown', e => {
-    if (!lensOn || !L3) return; P.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (P.size === 2) { const [a, b] = [...P.values()]; pin = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, z: lensZoom }; dr = null; e.stopImmediatePropagation(); return; }
-    if (e.button !== 0 || !overLens(e)) return;
-    const p = planePt(e); if (!p) return; const c = centerNow(); dr = { dx: c.x - p.x, dz: c.z - p.z };
-    try { el.setPointerCapture(e.pointerId); } catch (_) { /* bỏ qua */ } el.style.cursor = 'grabbing'; e.stopImmediatePropagation();
-  }, true);
-  el.addEventListener('pointermove', e => {
-    if (!lensOn || !L3) return; if (P.has(e.pointerId)) P.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (pin && P.size === 2) { const [a, b] = [...P.values()]; setLensZoom(pin.z * Math.hypot(a.x - b.x, a.y - b.y) / pin.d); }
-    else if (dr) { const p = planePt(e); if (p) moveLens(p.x + dr.dx, p.z + dr.dz); }
-    else if (!e.buttons) el.style.cursor = overLens(e) ? 'grab' : '';
+  const eye = $('lvEye'), clip = $('lvClip'), P = new Map(); let dr = null, pin = null;
+  const size = () => eye.clientWidth || 1, wpp = () => 2 * L3.rv / lensZoom / size();   // đơn vị cảnh trên mỗi px màn hình
+  clip.addEventListener('pointerdown', e => {
+    if (!L3) return; try { clip.setPointerCapture(e.pointerId); } catch (_) { /* bỏ qua */ } P.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (P.size === 1) { const c = lensCenter(); dr = { x: e.clientX, y: e.clientY, cx: c.x, cz: c.z }; }
+    else if (P.size === 2) { const [a, b] = [...P.values()]; dr = null; pin = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, z: lensZoom }; }
+    eye.classList.add('dragging');
   });
-  const up = e => { P.delete(e.pointerId); pin = null; if (dr) { dr = null; el.style.cursor = ''; } };
-  el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
-  el.addEventListener('wheel', e => {   // lăn chuột: trên mặt kính → đổi zoom; luôn khoá zoom camera khi đang soi
-    if (!lensOn || !L3) return; e.preventDefault(); e.stopImmediatePropagation();
-    if (!overLens(e)) return; let z = lensZoom * Math.exp(-e.deltaY * (e.deltaMode ? .05 : .0015)); z = Math.round(z * 10) / 10; if (z === lensZoom) z += e.deltaY < 0 ? .1 : -.1; setLensZoom(z);
-  }, { passive: false, capture: true });
+  clip.addEventListener('pointermove', e => {
+    if (!L3 || !P.has(e.pointerId)) return; P.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pin && P.size === 2) { const [a, b] = [...P.values()]; setLensZoom(pin.z * Math.hypot(a.x - b.x, a.y - b.y) / pin.d); }
+    else if (dr) { const k = wpp(); moveLens(dr.cx - (e.clientX - dr.x) * k, dr.cz - (e.clientY - dr.y) * k / L3.sinE); }   // kéo ảnh: hình đi theo con trỏ
+  });
+  const up = e => { P.delete(e.pointerId); pin = null; if (P.size === 1) { const [p] = [...P.values()], c = L3 && lensCenter(); dr = c ? { x: p.x, y: p.y, cx: c.x, cz: c.z } : null; } else { dr = null; if (!P.size) eye.classList.remove('dragging'); } };
+  clip.addEventListener('pointerup', up); clip.addEventListener('pointercancel', up);
+  clip.addEventListener('wheel', e => {   // lăn chuột trên mặt kính: đổi zoom
+    if (!L3) return; e.preventDefault(); let z = lensZoom * Math.exp(-e.deltaY * (e.deltaMode ? .05 : .0015)); z = Math.round(z * 10) / 10; if (z === lensZoom) z += e.deltaY < 0 ? .1 : -.1; setLensZoom(z);
+  }, { passive: false });
   /* thẻ điều khiển */
   $('lcRange').addEventListener('input', e => setLensZoom(+e.target.value));
   const stepZ = dir => setLensZoom(dir > 0 ? Math.floor(lensZoom * 2 + 1e-6) / 2 + .5 : Math.ceil(lensZoom * 2 - 1e-6) / 2 - .5);
   $('lcPlus').addEventListener('click', () => stepZ(1)); $('lcMinus').addEventListener('click', () => stepZ(-1));
   $('lcCenter').addEventListener('click', () => L3 && moveLens(L3.c0.x, L3.c0.z));
   $('lcDone').addEventListener('click', lensEnd);
-  document.querySelectorAll('#lensCard [data-mv]').forEach(b => {   // mũi tên: bấm 1 lần = 0,1 đơn vị; giữ để di chuyển liên tục
+  document.querySelectorAll('#lensView [data-mv]').forEach(b => {   // mũi tên: bấm 1 lần = 0,1 đơn vị; giữ để di chuyển liên tục
     const [dx, dz] = b.dataset.mv.split(',').map(Number); let t = 0, iv = 0;
-    const go = () => { if (!L3) return; const c = centerNow(); moveLens(c.x + dx * LENS_MOVE, c.z + dz * LENS_MOVE); };
+    const go = () => { if (!L3) return; const c = lensCenter(); moveLens(c.x + dx * LENS_MOVE, c.z + dz * LENS_MOVE); };
     const stop = () => { clearTimeout(t); clearInterval(iv); };
     b.addEventListener('pointerdown', e => { if (e.button) return; e.preventDefault(); go(); stop(); t = setTimeout(() => { iv = setInterval(go, 70); }, 350); });
     ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => b.addEventListener(ev, stop));
