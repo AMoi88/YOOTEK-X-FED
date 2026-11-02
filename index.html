@@ -666,7 +666,6 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .sv-labels.on{display:block}
 .sv-labels svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .sv-labels line{stroke:#fff;stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.6))}
-.sv-labels circle{fill:#C8F04A;stroke:#10302E;stroke-width:1.5;vector-effect:non-scaling-stroke}
 .sv-lb{position:absolute;transform:translate(-50%,-50%);padding:4px 11px;border-radius:99px;background:rgba(16,48,46,.92);color:#C8F04A;font:700 13px/1.2 Roboto,'Segoe UI',sans-serif;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.35)}
 .sv-lbtn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:44px;padding:0 14px;border:1.5px solid #D3DEDB;border-radius:12px;background:#fff;color:#10302E;font:700 14px Roboto,'Segoe UI',sans-serif;cursor:pointer}
 .sv-lbtn[aria-pressed="true"]{background:#E7F2D0;border-color:#A8D62A;color:#0E5A55}
@@ -832,6 +831,44 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .vol-card .vtick{display:flex;justify-content:space-between;margin:3px 0 0;padding:0 1px;font-size:9.5px;color:#4A6461}
 .vol-card .vh{margin:6px 0 0;font-size:11.5px;line-height:1.4;color:#4A6461}
 @media (max-width:620px){.vol-card{left:10px;right:10px;top:auto;bottom:10px;width:auto}}
+/* ---------- Màn kết quả: kính lúp thật (viền, cán, vệt sáng) + phóng to / kéo ảnh. View kính hiển vi (×10 / ×40) giữ nguyên ---------- */
+.sv-clip{position:absolute;inset:0;border-radius:50%}
+.sv-zoom{position:absolute;inset:0;transform-origin:0 0}
+.sv-rim,.sv-glare,.sv-handle{display:none;pointer-events:none}
+.sv-eye.lens{box-shadow:none;background:#0b1a19}
+.sv-eye.lens .sv-clip{overflow:hidden;touch-action:none;cursor:default;isolation:isolate}
+.sv-eye.lens .sv-clip.zoomed{cursor:grab}.sv-eye.lens.dragging .sv-clip{cursor:grabbing}
+.sv-eye.lens .sv-zoom{transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--z,1));transition:transform .15s ease-out;will-change:transform}
+.sv-eye.lens.dragging .sv-zoom,.sv-eye.lens.nodur .sv-zoom{transition:none}
+.sv-eye.lens.slow .sv-zoom{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.sv-eye.lens .sv-lb,.sv-eye.lens .sv-dot{transform:translate(-50%,-50%) scale(calc(1 / var(--z,1)))}
+.sv-dot{position:absolute;width:3.6%;aspect-ratio:1;box-sizing:border-box;border-radius:50%;background:#C8F04A;border:1.5px solid #10302E;transform:translate(-50%,-50%)}
+.sv-labels .is-out{display:none}
+.sv-eye.lens .sv-glare{display:block;position:absolute;inset:0;border-radius:50%;z-index:2;
+  background:radial-gradient(circle at 50% 50%,rgba(0,0,0,0) 58%,rgba(0,0,0,.18) 80%,rgba(0,0,0,.5) 100%),
+  radial-gradient(ellipse 32% 20% at 27% 20%,rgba(255,255,255,.42),rgba(255,255,255,0) 100%),
+  linear-gradient(128deg,rgba(255,255,255,.2) 0,rgba(255,255,255,.07) 20%,rgba(255,255,255,0) 34%)}
+.sv-eye.lens .sv-rim{display:block;position:absolute;inset:-17px;border-radius:50%;z-index:3;
+  background:conic-gradient(from 200deg,#15191c,#59616a,#1c2125,#7b858d,#15191c 52%,#444b52,#15191c);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 17px),#000 calc(100% - 16px));mask:radial-gradient(farthest-side,transparent calc(100% - 17px),#000 calc(100% - 16px));
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,.55))}
+.sv-eye.lens .sv-handle{display:block;position:absolute;left:50%;top:50%;width:50%;height:8%;transform-origin:0 50%;transform:translateY(-50%) rotate(45deg);z-index:1}
+.sv-handle i{position:absolute;left:97%;top:0;width:92%;height:100%;border-radius:6px 999px 999px 6px;
+  background:linear-gradient(180deg,#6a727a 0,#2a3035 36%,#13171a 64%,#3d444a 100%);box-shadow:0 8px 14px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.07)}
+.sv-handle i:before{content:"";position:absolute;left:0;top:-14%;width:9%;height:128%;border-radius:4px;background:linear-gradient(180deg,#8a939a,#2c3237 55%,#4a5258)}
+.scope-view .sv-eye.lens .sv-mag{top:-38px;z-index:4}
+.sv-zbox{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border-radius:12px;background:#F4F8F7}
+.sv-zbox[hidden]{display:none}
+.sv-zt{display:flex;align-items:baseline;justify-content:space-between;font-size:13px;font-weight:700;color:#35504d}
+.sv-zt output{font-size:20px;font-weight:800;color:#10302E;font-variant-numeric:tabular-nums}
+.sv-zrow{display:flex;align-items:center;gap:8px}
+.sv-zrow input[type=range]{flex:1 1 auto;min-width:0;height:44px;accent-color:#0E5A55;cursor:pointer;margin:0}
+.sv-zb{flex:0 0 auto;width:44px;height:44px;border:1.5px solid #0E5A55;border-radius:12px;background:#fff;color:#0E5A55;font:800 20px/1 Roboto,'Segoe UI',sans-serif;cursor:pointer;padding:0}
+.sv-zb:disabled{opacity:.4;cursor:not-allowed}
+.sv-zr{flex:0 0 auto;height:44px;padding:0 12px;border:1.5px solid #D3DEDB;border-radius:12px;background:#fff;color:#10302E;font:700 13px Roboto,'Segoe UI',sans-serif;cursor:pointer}
+.sv-card p.sv-zh{margin:0;font-size:12px;line-height:1.4;color:#4A6461}
+@media (max-width:620px){.sv-eye.lens .sv-rim{inset:-12px;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 11px));mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 11px))}
+  .sv-eye.lens .sv-handle{width:50%}.sv-handle i{width:66%}.scope-view .sv-eye.lens .sv-mag{top:-30px}.sv-zbox{padding:10px}}
 </style>
 </head>
 <body>
@@ -884,8 +921,10 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
     </div>
     <div class="dock" id="dock"><div class="panel" id="panel"><div class="panel-k" id="panelK"></div><div class="panel-t" id="panelT"></div><div class="panel-x" id="panelX"></div><a href="#" class="quick-act" id="quickAct" hidden>Thao tác nhanh</a><div class="panel-a" id="panelA"></div></div></div>
     <div class="scope-view" id="scopeView" aria-label="Kết quả quan sát mẫu vật">
-      <div class="sv-view"><div class="sv-eye"><img id="svCanvas" alt="Hình ảnh mẫu vật quan sát được" draggable="false"><div class="sv-mag" id="svMagLbl">Kính lúp</div>
-        <div class="sv-labels" id="svLabels" role="group" aria-label="Tên các bộ phận"></div>
+      <div class="sv-view"><div class="sv-eye" id="svEye"><div class="sv-handle" aria-hidden="true"><i></i></div>
+        <div class="sv-clip" id="svClip"><div class="sv-zoom" id="svZoom"><img id="svCanvas" alt="Hình ảnh mẫu vật quan sát được" draggable="false">
+          <div class="sv-labels" id="svLabels" role="group" aria-label="Tên các bộ phận"></div></div><div class="sv-glare" aria-hidden="true"></div></div>
+        <div class="sv-rim" aria-hidden="true"></div><div class="sv-mag" id="svMagLbl">Kính lúp</div>
       </div></div>
       <section class="sv-card" id="svCard" aria-labelledby="svT">
         <span class="sv-k" id="svK"></span>
@@ -893,6 +932,9 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
         <p id="svDesc"></p>
         <div class="sv-seg sv-tabs" id="svTabs" role="tablist" aria-label="Mẫu vật"></div>
         <div class="sv-seg sv-sub" id="svSub" role="radiogroup" aria-label="Cách quan sát"></div>
+        <div class="sv-zbox" id="svZoomBox" hidden><div class="sv-zt"><span>Độ phóng đại</span><output id="svZoomVal" for="svZoomRange">×2</output></div>
+          <div class="sv-zrow"><button type="button" class="sv-zb" id="svZm" aria-label="Thu nhỏ">－</button><input type="range" id="svZoomRange" min="1" max="6" step="0.5" value="2" aria-label="Độ phóng đại kính lúp"><button type="button" class="sv-zb" id="svZp" aria-label="Phóng to">＋</button><button type="button" class="sv-zr" id="svZr">Đặt lại</button></div>
+          <p class="sv-zh">Kéo thanh trượt hoặc lăn chuột để phóng to · kéo ảnh để di chuyển vùng quan sát.</p></div>
         <button type="button" class="sv-lbtn" id="svLabelBtn" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg><span id="svLabelTxt">Hiện tên bộ phận</span></button>
         <p class="sv-note" id="svNote" role="status" hidden></p>
         <div class="sv-act"><button class="btn alt" id="svBack" type="button" aria-label="Về bàn thí nghiệm"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg><span class="t">Về bàn thí nghiệm</span></button><button class="btn" id="svNext" type="button">Em rút ra được gì?</button></div>
@@ -2173,8 +2215,18 @@ async function magnify(id, at) {
   await flyTo(lp, { pos, quat: lp.home.quat.clone() }, 900, .9);
   if (!FAST) camTo('tool_' + id, 900);
   await anim(1200, (e, k) => { const a = k * Math.PI * 2; lp.g.position.copy(pos).add(V3(Math.sin(a) * .22, -.25 * Math.sin(k * Math.PI), (1 - Math.cos(a)) * .12)); });
-  sfx('click'); await sleep(250);
+  sfx('click'); captureLens(lp); await sleep(250);
   await dropTool(lp);
+}
+/* vị trí + đường kính mắt kính lúp trên màn hình (px viewport) lúc đang soi: màn kết quả phóng ra từ đây */
+let LENS_FROM = null;
+function captureLens(lp) {
+  try {
+    lp.g.updateMatrixWorld(true); camera.updateMatrixWorld();
+    const c = lp.g.localToWorld(lp.lensLocal.clone()), e = c.clone().add(V3(Math.min(lp.size.x, lp.size.z) * .4, 0, 0)), el = renderer.domElement, r = el.getBoundingClientRect(), W = el.clientWidth, H = el.clientHeight;
+    const pr = p => { const v = p.clone().project(camera); return { x: (v.x + 1) / 2 * W, y: (1 - v.y) / 2 * H }; }, a = pr(c), b = pr(e);
+    LENS_FROM = { x: r.left + a.x, y: r.top + a.y, d: Math.max(48, 2 * Math.hypot(b.x - a.x, b.y - a.y)) };
+  } catch (err) { LENS_FROM = null; }
 }
 /* cắt lát thân rêu: lưỡi dao rọc giấy ấn xuống thân rêu rồi kéo ngang; một lát mỏng bật ra nằm trên khay */
 async function cutMoss() {
@@ -2520,9 +2572,10 @@ const DRAW = {
   }
 };
 const imgCache = {};
+const DRAW_PX = 1600;   // hình minh hoạ vẽ ở 1600×1600 (toạ độ vẫn theo hệ 640×640) để không vỡ khi phóng to kính lúp. Ảnh thật trong IMG nên dùng ≥ 2000 px.
 function imgOf(key) {
   if (IMG[key]) return IMG[key];
-  if (!imgCache[key]) { const c = document.createElement('canvas'); c.width = c.height = 640; DRAW[key](c.getContext('2d')); imgCache[key] = c.toDataURL('image/jpeg', .9); }
+  if (!imgCache[key]) { const c = document.createElement('canvas'); c.width = c.height = DRAW_PX; const g = c.getContext('2d'); g.scale(DRAW_PX / 640, DRAW_PX / 640); DRAW[key](g); imgCache[key] = c.toDataURL('image/jpeg', .92); }
   return imgCache[key];
 }
 
@@ -2539,8 +2592,12 @@ function openScopeView(tab, view, mode) {
   sv.mode = mode || 'review';
   if (tab) sv.tab = tab;
   const T = tabOf(sv.tab); sv.view = view || (T.views.find(v => viewOk(T.id, v.id)) || T.views[0]).id;
-  scopeOpen = true; syncScopeBtns();
-  clearTimeout(openScopeView.t); openScopeView.t = setTimeout(() => { if (scopeOpen) $('scopeView').classList.add('show'); }, 0);
+  scopeOpen = true; const lensView = isLensView(), fly = sv.mode === 'flow' && lensView && LENS_FROM && !FAST;
+  lensReset(fly ? 1 : LZ.def); syncScopeBtns();
+  clearTimeout(openScopeView.t); openScopeView.t = setTimeout(() => {
+    if (!scopeOpen) return; $('scopeView').classList.add('show'); lensApply();
+    if (fly) lensFly(); else if (lensView) lensApply();
+  }, 0);
   const s = state.steps[1];
   if (sv.mode === 'observe' && state.currentStep === 1 && s.phase === 'observe' && !s.viewed) { s.viewed = true; renderStep2(); }   // lần đầu xem: thẻ kết quả thay cho khung nhiệm vụ
 }
@@ -2550,7 +2607,8 @@ function syncScopeBtns() {
   const T = tabOf(sv.tab), V = T.views.find(v => v.id === sv.view) || T.views[0], s = state.steps[1], obs = sv.mode === 'observe';
   const img = $('svCanvas'), src = imgOf(V.img); if (img.getAttribute('src') !== src) img.src = src;
   img.alt = T.title + ' – ' + V.btn;
-  $('svMagLbl').textContent = V.mag;
+  const lens = V.mag === 'Kính lúp'; $('svEye').classList.toggle('lens', lens); $('svZoomBox').hidden = !lens; LZ.labels = V.labels || [];
+  $('svMagLbl').textContent = lens ? 'Kính lúp ×' + fmtZ(LZ.z) : V.mag;
   $('svK').textContent = sv.mode === 'flow' ? 'THAO TÁC ' + Math.min(s.sub, ACTIONS.length) + '/' + ACTIONS.length + ' · KẾT QUẢ' : obs ? 'SO SÁNH CÁC MẪU VẬT' : 'KẾT QUẢ QUAN SÁT';
   $('svT').textContent = T.title;
   $('svDesc').innerHTML = YT.mdInline(obs ? TEXT.s2.observe.t : V.desc || T.desc);
@@ -2563,10 +2621,11 @@ function syncScopeBtns() {
   $('scopeView').classList.remove('sv-hide-card');
   /* nhãn tên bộ phận trên ảnh */
   const L = V.labels || [];
-  $('svLabels').innerHTML = '<svg viewBox="0 0 100 100" aria-hidden="true">' + L.map(l => '<line x1="' + l[0] + '" y1="' + l[1] + '" x2="' + l[2] + '" y2="' + l[3] + '"/>').join('') + L.map(l => '<circle cx="' + l[0] + '" cy="' + l[1] + '" r="1.8"/>').join('') + '</svg>' +
-    L.map(l => '<span class="sv-lb" style="left:' + l[2] + '%;top:' + l[3] + '%">' + YT.esc(l[4]) + '</span>').join('');
+  $('svLabels').innerHTML = '<svg viewBox="0 0 100 100" aria-hidden="true">' + L.map((l, i) => '<line data-i="' + i + '" x1="' + l[0] + '" y1="' + l[1] + '" x2="' + l[2] + '" y2="' + l[3] + '"/>').join('') + '</svg>' +
+    L.map((l, i) => '<span class="sv-dot" data-d="' + i + '" style="left:' + l[0] + '%;top:' + l[1] + '%"></span>').join('') +
+    L.map((l, i) => '<span class="sv-lb" data-i="' + i + '" style="left:' + l[2] + '%;top:' + l[3] + '%">' + YT.esc(l[4]) + '</span>').join('');
   $('svLabelBtn').hidden = !L.length || obs;   // so sánh cuối bước 2: thẻ đã nhiều chữ, nhãn giữ nguyên trạng thái bật / tắt
-  syncLabels();
+  syncLabels(); lensApply();
 }
 /* nhãn tên bộ phận: bật / tắt bằng nút */
 function syncLabels() {
@@ -2574,11 +2633,80 @@ function syncLabels() {
   $('svLabels').classList.toggle('on', show);
   const b = $('svLabelBtn'); b.setAttribute('aria-pressed', show ? 'true' : 'false'); $('svLabelTxt').textContent = show ? 'Ẩn tên bộ phận' : 'Hiện tên bộ phận';
 }
+/* ---------- Kính lúp: phóng to ×1 → ×6 (bước 0,5), kéo ảnh, lăn chuột, chụm 2 ngón; nhãn đi theo ảnh ---------- */
+const LZ = { min: 1, max: 6, def: 2, z: 2, px: -.5, py: -.5, labels: [] };   // px, py: dịch chuyển theo tỉ lệ cạnh mặt kính (tx = px × cạnh)
+const isLensView = () => { const T = tabOf(sv.tab), V = T.views.find(v => v.id === sv.view) || T.views[0]; return V.mag === 'Kính lúp'; };
+const fmtZ = z => String(Math.round(z * 10) / 10).replace('.', ',');
+function lensReset(z) { LZ.z = z == null ? LZ.def : z; LZ.px = LZ.py = (1 - LZ.z) / 2; }
+function lensApply() {
+  const eye = $('svEye'), lens = eye.classList.contains('lens'), S = eye.clientWidth, z = LZ.z;
+  LZ.px = clamp(LZ.px, 1 - z, 0); LZ.py = clamp(LZ.py, 1 - z, 0);   // ảnh luôn phủ kín mặt kính
+  eye.style.setProperty('--z', lens ? z : 1); eye.style.setProperty('--tx', (lens ? LZ.px * S : 0) + 'px'); eye.style.setProperty('--ty', (lens ? LZ.py * S : 0) + 'px');
+  if (!lens) { $('svLabels').querySelectorAll('.is-out').forEach(e => e.classList.remove('is-out')); return; }
+  $('svMagLbl').textContent = 'Kính lúp ×' + fmtZ(z);
+  $('svZoomVal').textContent = '×' + fmtZ(z); const r = $('svZoomRange'); r.value = z; r.setAttribute('aria-valuetext', 'Phóng to ' + fmtZ(z) + ' lần');
+  $('svZm').disabled = z <= LZ.min + 1e-6; $('svZp').disabled = z >= LZ.max - 1e-6; $('svClip').classList.toggle('zoomed', z > 1.001);
+  if (!S) return;
+  /* nhãn nào trôi ra ngoài mặt kính thì ẩn (cả điểm chỉ, đường kẻ) */
+  const inLens = (x, y, k) => Math.hypot(x / 100 * S * z + LZ.px * S - S / 2, y / 100 * S * z + LZ.py * S - S / 2) <= S / 2 * k;
+  LZ.labels.forEach((l, i) => {
+    const d = inLens(l[0], l[1], .95), t = inLens(l[2], l[3], .86), q = '[data-i="' + i + '"]';
+    const hide = !(d && t);   // điểm chỉ hoặc nhãn ra ngoài mặt kính → ẩn cả bộ (điểm, đường kẻ, nhãn)
+    $('svLabels').querySelector('.sv-dot[data-d="' + i + '"]').classList.toggle('is-out', hide);
+    $('svLabels').querySelector('.sv-lb' + q).classList.toggle('is-out', hide);
+    $('svLabels').querySelector('line' + q).classList.toggle('is-out', hide);
+  });
+}
+function lensZoomTo(z2, cx, cy) {   // phóng tới z2, giữ nguyên điểm (cx, cy) (px trong mặt kính) đứng yên
+  const S = $('svEye').clientWidth || 1; z2 = clamp(Math.round(z2 * 10) / 10, LZ.min, LZ.max); const k = z2 / LZ.z;
+  if (cx == null) { cx = S / 2; cy = S / 2; }
+  LZ.px = (cx - (cx - LZ.px * S) * k) / S; LZ.py = (cy - (cy - LZ.py * S) * k) / S; LZ.z = z2; lensApply();
+}
+/* hiệu ứng mở: mắt kính lúp phóng từ vị trí kính lúp trên cảnh 3D ra giữa màn; ảnh ×1 rồi tự phóng lên mức mặc định */
+function lensFly() {
+  const eye = $('svEye'), R = eye.getBoundingClientRect(), F = LENS_FROM; if (!R.width || !F) return lensZoomTo(LZ.def);
+  eye.classList.add('slow');
+  eye.animate([{ translate: (F.x - (R.left + R.width / 2)) + 'px ' + (F.y - (R.top + R.height / 2)) + 'px', scale: F.d / R.width, opacity: .25 }, { translate: '0px 0px', scale: 1, opacity: 1 }], { duration: 500, easing: 'cubic-bezier(.2,.7,.2,1)' });
+  clearTimeout(lensFly.t); lensFly.t = setTimeout(() => { if (scopeOpen && isLensView()) { lensZoomTo(LZ.def); } setTimeout(() => eye.classList.remove('slow'), 520); }, 480);
+}
+function initLens() {
+  const eye = $('svEye'), clip = $('svClip'), P = new Map(); let drag = null, pinch = null;
+  const rel = e => { const r = eye.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  const step = dir => LZ.z = dir > 0 ? Math.min(LZ.max, Math.floor(LZ.z * 2 + 1e-6) / 2 + .5) : Math.max(LZ.min, Math.ceil(LZ.z * 2 - 1e-6) / 2 - .5);
+  $('svZoomRange').addEventListener('input', e => lensZoomTo(+e.target.value));
+  $('svZp').addEventListener('click', () => { const z = LZ.z; step(1); const z2 = LZ.z; LZ.z = z; lensZoomTo(z2); });
+  $('svZm').addEventListener('click', () => { const z = LZ.z; step(-1); const z2 = LZ.z; LZ.z = z; lensZoomTo(z2); });
+  $('svZr').addEventListener('click', () => { lensReset(); lensApply(); });
+  clip.addEventListener('wheel', e => {
+    if (!eye.classList.contains('lens')) return; e.preventDefault();
+    let z2 = LZ.z * Math.exp(-e.deltaY * (e.deltaMode ? .05 : .0015)); z2 = Math.round(z2 * 10) / 10; if (z2 === LZ.z) z2 += e.deltaY < 0 ? .1 : -.1;
+    const [x, y] = rel(e); lensZoomTo(z2, x, y);
+  }, { passive: false });
+  clip.addEventListener('pointerdown', e => {
+    if (!eye.classList.contains('lens')) return; try { clip.setPointerCapture(e.pointerId); } catch (_) { /* bỏ qua */ }
+    P.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (P.size === 1) drag = { x: e.clientX, y: e.clientY, px: LZ.px, py: LZ.py };
+    else if (P.size === 2) { const [a, b] = [...P.values()]; drag = null; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, z: LZ.z }; }
+    eye.classList.add('dragging');
+  });
+  clip.addEventListener('pointermove', e => {
+    if (!P.has(e.pointerId)) return; P.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pinch && P.size === 2) { const [a, b] = [...P.values()], r = eye.getBoundingClientRect(); lensZoomTo(pinch.z * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d, (a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top); }
+    else if (drag && LZ.z > 1) { const S = eye.clientWidth || 1; LZ.px = drag.px + (e.clientX - drag.x) / S; LZ.py = drag.py + (e.clientY - drag.y) / S; lensApply(); }
+  });
+  const up = e => {
+    P.delete(e.pointerId); pinch = null;
+    if (P.size === 1) { const [p] = [...P.values()]; drag = { x: p.x, y: p.y, px: LZ.px, py: LZ.py }; } else { drag = null; if (!P.size) eye.classList.remove('dragging'); }
+  };
+  clip.addEventListener('pointerup', up); clip.addEventListener('pointercancel', up);
+  if (window.ResizeObserver) new ResizeObserver(() => { if (scopeOpen) lensApply(); }).observe(eye);
+}
 function initScopeView() {
+  initLens();
   const d2 = document.createElement('p'); d2.id = 'svDesc2'; d2.className = 'sv-d2'; d2.hidden = true; $('svSub').after(d2);
   const swap = () => { const e = $('svCanvas'); e.classList.remove('sv-swap'); void e.offsetWidth; e.classList.add('sv-swap'); syncScopeBtns(); };
-  $('svTabs').addEventListener('click', e => { const b = e.target.closest('button[data-tab]'); if (!b || b.disabled || b.dataset.tab === sv.tab) return; const T = tabOf(b.dataset.tab); sv.tab = T.id; sv.view = (T.views.find(v => viewOk(T.id, v.id)) || T.views[0]).id; swap(); });
-  $('svSub').addEventListener('click', e => { const b = e.target.closest('button[data-view]'); if (!b || b.disabled || b.dataset.view === sv.view) return; sv.view = b.dataset.view; swap(); });
+  $('svTabs').addEventListener('click', e => { const b = e.target.closest('button[data-tab]'); if (!b || b.disabled || b.dataset.tab === sv.tab) return; const T = tabOf(b.dataset.tab); sv.tab = T.id; sv.view = (T.views.find(v => viewOk(T.id, v.id)) || T.views[0]).id; lensReset(); swap(); });
+  $('svSub').addEventListener('click', e => { const b = e.target.closest('button[data-view]'); if (!b || b.disabled || b.dataset.view === sv.view) return; sv.view = b.dataset.view; lensReset(); swap(); });
   $('svLabelBtn').addEventListener('click', () => { svLabelsOn = !svLabelsOn; syncLabels(); });   // Hiện / ẩn tên bộ phận
   const leave = () => {   // đóng màn kết quả, về bàn thí nghiệm
     closeScopeView(); const s = state.steps[1];
