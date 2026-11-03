@@ -2306,7 +2306,7 @@ async function magnify(id, at) {
   const pos = top.clone().add(V3(0, .75, 0)).sub(lens);
   await flyTo(lp, { pos, quat: lp.home.quat.clone() }, 900, .9);
   if (!FAST) camTo('tool_' + id, 900);
-  if (!FAST && !autoMode && lensRT) await lensSession(id);
+  if (!FAST && lensRT) await lensSession(id);   // kể cả "Làm nhanh": vẫn mở màn soi 3D (có bảng kết quả); chỉ khi dựng lại cảnh (FAST) mới bỏ qua
   else await anim(1200, (e, k) => { const a = k * Math.PI * 2; lp.g.position.copy(pos).add(V3(Math.sin(a) * .22, -.25 * Math.sin(k * Math.PI), (1 - Math.cos(a)) * .12)); });
   sfx('click'); captureLens(lp); await sleep(250);
   await dropTool(lp);
@@ -2353,7 +2353,7 @@ function lensSetup(id, res, rev) {
   const key = LENS_KEY[id] || id, T = IT[id], lp = IT.lup; lp.g.updateMatrixWorld(true);
   const c0 = lp.g.localToWorld(lp.lensLocal.clone()), bb = new THREE.Box3().setFromObject(T.holder), sz = bb.getSize(V3()), rv = Math.max(sz.x, sz.y, sz.z, .5) * LENS_VIEW_K;
   L3 = { id, key, off: c0.clone().sub(lp.g.position), c0, lo: bb.min.clone().addScaledVector(sz, -LENS_MARGIN), hi: bb.max.clone().addScaledVector(sz, LENS_MARGIN), ty: bb.min.y + sz.y * .55,
-    rv, dist: Math.max(7, rv * 7), sinE: .7, touched: !!rev || !!LENS_DONE[key], res, review: !!rev, max: LENS_MAX[key] || 6, dirty: true, t: 0 };
+    rv, dist: Math.max(7, rv * 7), sinE: .7, touched: !!rev || !!LENS_DONE[key] || autoMode, res, review: !!rev, max: LENS_MAX[key] || 6, dirty: true, t: 0 };
   lensZoom = Math.min(LENS_DEF, L3.max);
   lensCardFill(rev);
   const r = $('lcRange'); r.min = LENS_MIN; r.max = L3.max;
