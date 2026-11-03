@@ -1017,6 +1017,7 @@ const ASSETS = {
   table:   CDN + 'W9qYu8FFRIGXL_ThfS/W9qYu8FFRIGXL_ThfS.glb',   // bàn thí nghiệm
   scope:   CDN + 'Qw1Y5wSjC8Z6KBVpOc/Qw1Y5wSjC8Z6KBVpOc.glb',   // kính hiển vi
   lup:     CDN + 'orVwImd-tbTvm9-rZv/orVwImd-tbTvm9-rZv.glb',   // kính lúp
+  forceps: CDN + 'QPfQd4RImSXo24wNpf/QPfQd4RImSXo24wNpf.glb',   // panh gắp
   knife:   CDN + 'oyG33nvNOmKDMwaW3c/oyG33nvNOmKDMwaW3c.glb',   // dao rọc giấy
   water:   CDN + 'LIt_p1hOqUXlqNYG3o/LIt_p1hOqUXlqNYG3o.glb',   // nước cất
   pipet:   CDN + 'JNP6fzod0Q1YX5qwKR/JNP6fzod0Q1YX5qwKR.glb',   // ống nhỏ giọt
@@ -1028,7 +1029,7 @@ const ASSETS = {
   pumpkin: CDN + 'jOrTuwvUg0KEgL9PRh/jOrTuwvUg0KEgL9PRh.glb',   // quả bí ngô (model là MỘT NỬA quả có mặt cắt; nửa còn lại = bản soi gương)
   sfxCorrect: '', sfxWrong: ''
 };
-const MODEL_KEYS = ['table', 'scope', 'lup', 'knife', 'water', 'pipet', 'slide', 'cover', 'moss', 'fern', 'pine', 'pumpkin'];
+const MODEL_KEYS = ['table', 'scope', 'lup', 'knife', 'forceps', 'water', 'pipet', 'slide', 'cover', 'moss', 'fern', 'pine', 'pumpkin'];
 const DRACO_PATH = 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/';   // model rêu, dương xỉ nén Draco
 
 /* Giọng thuyết minh. Bước 1: đọc khi bấm vào từng dụng cụ / mẫu vật. Bước 2: đọc khi bắt đầu mỗi thao tác (TEXT.s2.acts[i].voice).
@@ -1059,23 +1060,24 @@ const TIP_CLICK = ':::tip\n✋ **Nhấn giữ** dụng cụ có bàn tay chỉ, 
 const TEXT = {
   steps: ['Chuẩn bị', 'Tiến hành thí nghiệm', 'Phiếu thực hành'],
   s1: {
-    task:  { k: 'Nhiệm vụ', t: 'Em hãy quan sát các [dụng cụ]{b} và [mẫu vật]{b} trên bàn: bấm vào [chấm ghi chú]{b} để xem (đủ 11 mục).', x: '' },
+    task:  { k: 'Nhiệm vụ', t: 'Em hãy quan sát các [dụng cụ]{b} và [mẫu vật]{b} trên bàn: bấm vào [chấm ghi chú]{b} để xem (đủ 12 mục).', x: '' },
     items: {
       scope:   { k: 'Dụng cụ 1 · Dụng cụ quan sát', t: '**Kính hiển vi** dùng để quan sát [lát cắt thân cây rêu]{b} ở vật kính 10x và 40x.', x: '' },
       lup:     { k: 'Dụng cụ 2 · Dụng cụ quan sát', t: '**Kính lúp** dùng để phóng to, quan sát [rễ, thân, lá và cơ quan sinh sản]{b} của các mẫu vật.', x: '' },
       knife:   { k: 'Dụng cụ 3 · Dụng cụ cắt', t: '**Dao rọc giấy** dùng để [cắt lát mỏng]{b} thân cây rêu và cắt đôi quả bí.', x: 'Lưỡi dao rất sắc, cần cẩn thận.' },
-      water:   { k: 'Dụng cụ 4 · Hoá chất', t: '**Nước cất** dùng để nhỏ lên mẫu vật khi làm tiêu bản.', x: '' },
-      pipet:   { k: 'Dụng cụ 5 · Dụng cụ nhỏ giọt', t: '**Ống nhỏ giọt** dùng để lấy và nhỏ [một giọt nước cất]{b} lên mẫu vật.', x: '' },
-      slide:   { k: 'Dụng cụ 6 · Tấm đặt mẫu', t: '**Lam kính** là tấm kính để [đặt mẫu vật]{b} khi làm tiêu bản.', x: '' },
-      cover:   { k: 'Dụng cụ 7 · Tấm đậy mẫu', t: '**Lamen** là tấm kính mỏng để [đậy lên mẫu]{b} trước khi quan sát bằng kính hiển vi.', x: '' },
-      moss:    { k: 'Mẫu vật 8 · Rêu', t: '**Rêu** – đại diện [thực vật không có mạch]{b}. Cây nhỏ, mọc thành đám ở nơi ẩm.', x: '' },
-      fern:    { k: 'Mẫu vật 9 · Dương xỉ', t: '**Dương xỉ** – đại diện [ngành Dương xỉ]{b}. Có lá non và lá già.', x: '' },
-      pine:    { k: 'Mẫu vật 10 · Hạt trần', t: '**Cành thông** – đại diện [ngành Hạt trần]{b}. Mang hai loại nón: nón đực và nón cái.', x: '' },
-      pumpkin: { k: 'Mẫu vật 11 · Hạt kín', t: '**Bí ngô** – đại diện [ngành Hạt kín]{b}. Cây có hoa, hạt nằm trong quả.', x: '' }
+      forceps: { k: 'Dụng cụ 4 · Dụng cụ gắp', t: '**Panh gắp** dùng để [gắp]{b} những vật mẫu nhỏ , mỏng một cách chính xác.', x: '' },
+      water:   { k: 'Dụng cụ 5 · Hoá chất', t: '**Nước cất** dùng để nhỏ lên mẫu vật khi làm tiêu bản.', x: '' },
+      pipet:   { k: 'Dụng cụ 6 · Dụng cụ nhỏ giọt', t: '**Ống nhỏ giọt** dùng để lấy và nhỏ [một giọt nước cất]{b} lên mẫu vật.', x: '' },
+      slide:   { k: 'Dụng cụ 7 · Tấm đặt mẫu', t: '**Lam kính** là tấm kính để [đặt mẫu vật]{b} khi làm tiêu bản.', x: '' },
+      cover:   { k: 'Dụng cụ 8 · Tấm đậy mẫu', t: '**Lamen** là tấm kính mỏng để [đậy lên mẫu]{b} trước khi quan sát bằng kính hiển vi.', x: '' },
+      moss:    { k: 'Mẫu vật 9 · Rêu', t: '**Rêu** – đại diện [thực vật không có mạch]{b}. Cây nhỏ, mọc thành đám ở nơi ẩm.', x: '' },
+      fern:    { k: 'Mẫu vật 10 · Dương xỉ', t: '**Dương xỉ** – đại diện [ngành Dương xỉ]{b}. Có lá non và lá già.', x: '' },
+      pine:    { k: 'Mẫu vật 11 · Hạt trần', t: '**Cành thông** – đại diện [ngành Hạt trần]{b}. Mang hai loại nón: nón đực và nón cái.', x: '' },
+      pumpkin: { k: 'Mẫu vật 12 · Hạt kín', t: '**Bí ngô** – đại diện [ngành Hạt kín]{b}. Cây có hoa, hạt nằm trong quả.', x: '' }
     },
     done:    { k: 'Đã hoàn thành', t: '✓ Em đã làm quen với các dụng cụ và mẫu vật.', x: '' },
     btnNext: 'XEM MỤC TIẾP THEO', btnFirst: 'BẮT ĐẦU XEM', btnQuiz: 'TRẢ LỜI CÂU HỎI', btnOverview: 'TOÀN CẢNH',
-    knowledge: { kicker: 'Hình thành kiến thức', title: 'EM RÚT RA ĐƯỢC GÌ?', point: 'Để quan sát và phân biệt các nhóm thực vật, em cần: [kính hiển vi]{b up}, [kính lúp]{b up}, [dao rọc giấy]{b up}, [ống nhỏ giọt]{b up}, [lam kính]{b up}, [lamen]{b up}, nước cất và 4 mẫu vật đại diện: [rêu]{b up}, [dương xỉ]{b up}, [cành thông]{b up} (hạt trần), [quả bí ngô]{b up} (hạt kín).', button: 'TIẾP TỤC' }
+    knowledge: { kicker: 'Hình thành kiến thức', title: 'EM RÚT RA ĐƯỢC GÌ?', point: 'Để quan sát và phân biệt các nhóm thực vật, em cần: [kính hiển vi]{b up}, [kính lúp]{b up}, [dao rọc giấy]{b up}, [panh gắp]{b up}, [ống nhỏ giọt]{b up}, [lam kính]{b up}, [lamen]{b up}, nước cất và 4 mẫu vật đại diện: [rêu]{b up}, [dương xỉ]{b up}, [cành thông]{b up} (hạt trần), [quả bí ngô]{b up} (hạt kín).', button: 'TIẾP TỤC' }
   },
   s2: {
     /* mỗi nhiệm vụ: g = chặng · tên thao tác · t = lời nhiệm vụ (chữ hiện khi rê chuột vào biểu tượng gợi ý) · d = lời khi đang chạy hoạt ảnh · btn = nút "Làm nhanh"
@@ -1085,7 +1087,9 @@ const TEXT = {
         voice: VA + '1793433792151-3828.mp3', say: 'Đầu tiên, em quan sát cây rêu. Em hãy kéo kính lúp vào cây rêu để quan sát rễ, thân, lá và túi bào tử của cây.' },
       { g: 'Chặng A · Rêu – Cắt lát thân rêu', t: 'Kéo [dao rọc giấy]{b} vào [thân cây rêu]{b} để cắt một lát thật mỏng.', d: 'Đang cắt lát mỏng thân cây rêu…', btn: 'CẮT LÁT THÂN RÊU',
         voice: VA + '1793690905921-6493.mp3', say: 'Tiếp theo, em dùng dao rọc giấy cắt một lát thật mỏng ngang thân cây rêu. Lưỡi dao rất sắc, em nhớ thao tác cẩn thận nhé.' },
-      { g: 'Chặng A · Rêu – Đặt lát cắt lên lam kính', t: 'Kéo [lát cắt thân rêu]{b} đặt lên giữa [lam kính]{b}.', d: 'Đang đặt lát cắt lên lam kính…', btn: 'ĐẶT LÁT CẮT LÊN LAM KÍNH',
+      { g: 'Chặng A · Rêu – Gắp lát cắt', t: 'Kéo [panh gắp]{b} vào [lát cắt thân rêu]{b} để gắp lát cắt lên.', d: 'Đang gắp lát cắt thân rêu…', btn: 'GẮP LÁT CẮT',
+        voice: '' /* chưa có file thu: tạm đọc bằng giọng máy theo say */, say: 'Em dùng panh gắp, gắp nhẹ lát cắt thân rêu lên để không làm rách lát cắt.' },
+      { g: 'Chặng A · Rêu – Đặt lát cắt lên lam kính', t: 'Kéo [panh gắp]{b} (đang gắp lát cắt) đặt lên giữa [lam kính]{b}.', d: 'Đang đặt lát cắt lên lam kính…', btn: 'ĐẶT LÁT CẮT LÊN LAM KÍNH',
         voice: VA + '1793433884702-4255.mp3', say: 'Em đặt lát cắt thân rêu vào giữa lam kính.' },
       { g: 'Chặng A · Rêu – Nhỏ nước cất', t: 'Kéo [ống nhỏ giọt]{b} vào [lọ nước cất]{b} để nhỏ một giọt nước lên mẫu.', d: 'Đang lấy nước cất và nhỏ lên lát cắt…', btn: 'NHỎ NƯỚC CẤT',
         voice: VA + '1793433938611-5019.mp3', say: 'Em dùng ống nhỏ giọt lấy nước cất, rồi nhỏ một giọt lên lát cắt trên lam kính.' },
@@ -1126,7 +1130,7 @@ const QUIZ = {
 };
 
 /* Dụng cụ + mẫu vật: thứ tự xem ở bước 1 (số trên ghi chú) */
-const TOOLS = ['scope', 'lup', 'knife', 'water', 'pipet', 'slide', 'cover', 'moss', 'fern', 'pine', 'pumpkin'];
+const TOOLS = ['scope', 'lup', 'knife', 'forceps', 'water', 'pipet', 'slide', 'cover', 'moss', 'fern', 'pine', 'pumpkin'];
 
 /* Bố trí trên bàn: pos = [x, z, góc xoay Y]; fit = cỡ hiển thị (h = chiều cao, l = chiều dài lớn nhất; đơn vị cảnh, đã phóng đại các dụng cụ nhỏ cho dễ bấm)
    tip = hướng đầu làm việc trong toạ độ model (dùng để hướng đầu dụng cụ xuống mẫu) · lab = lệch nhãn ghi chú trên màn hình (px) */
@@ -1134,9 +1138,10 @@ const ITEMS = {
   /* Hàng TRƯỚC: khay dụng cụ (kính lúp, dao rọc giấy, ống nhỏ giọt, nước cất, lam kính, lamen)
      Hàng SAU: kính hiển vi · 4 mẫu vật Rêu → Dương xỉ → Thông → Bí ngô (lát cắt rêu hiện ra khi cắt). y = mặt khay */
   scope:   { name: 'Kính hiển vi',  pos: [-9.6, -2.5, -Math.PI / 2], fit: { h: 5.6 }, lab: [0, -52] },
-  lup:     { name: 'Kính lúp',      pos: [-4.9, 2.9, 0],    y: .1, prep: 'lup', fit: { l: 2.1 }, lab: [0, -70] },
-  knife:   { name: 'Dao rọc giấy',       pos: [-2.9, 2.9, .05],  y: .1, fit: { l: 1.5 },  lab: [0, -96], tip: [0, 0, 1] },
-  pipet:   { name: 'Ống nhỏ giọt',  pos: [-1.3, 2.9, 0],    y: .1, fit: { l: 3.1 },  lab: [0, -70], tip: [0, 0, -1] },
+  lup:     { name: 'Kính lúp',      pos: [-5.3, 2.9, 0],    y: .1, prep: 'lup', fit: { l: 2.1 }, lab: [0, -70] },
+  knife:   { name: 'Dao rọc giấy',       pos: [-3.7, 2.9, .05],  y: .1, fit: { l: 1.5 },  lab: [0, -96], tip: [0, 0, 1] },
+  forceps: { name: 'Panh gắp',       pos: [-2.4, 2.9, 0],    y: .1, fit: { l: 2.4 },  lay: 'z', tip: 'auto', lab: [0, -110] },
+  pipet:   { name: 'Ống nhỏ giọt',  pos: [-1.1, 2.9, 0],    y: .1, fit: { l: 3.1 },  lab: [0, -70], tip: [0, 0, -1] },
   water:   { name: 'Lọ nước cất', label: 'Nước cất', pos: [.7, 2.9, 0], y: .1, fit: { h: 2.0 }, lab: [0, -64] },
   slide:   { name: 'Lam kính',      pos: [3.1, 2.9, 0],     y: .1, prep: 'slide', fit: { l: 2.2 }, lab: [0, -72] },
   cover:   { name: 'Lamen',         pos: [5.3, 2.9, .2],    y: .1, fit: { l: .64 },  lab: [0, -52] },
@@ -1151,6 +1156,7 @@ const TRAYS = [   // khay nhựa: hàng TRƯỚC (dụng cụ) · hàng SAU (m�
 ];
 const TRAY = { floor: .1, wall: .32 };
 const FALLBACK = {   // hình dự phòng (cỡ x, y, z, màu) khi model không tải được
+  forceps: [.3, .12, 2.4, 0x9aa5ab],
   scope: [3.4, 5.6, 3, 0x6d7478], lup: [.9, .1, 1.8, 0x3a3a3a], knife: [.7, .05, 1.5, 0xc9d2d6], water: [1.0, 2.0, 1.0, 0x7fb6d6], pipet: [.3, .3, 3.1, 0x3a4a6a],
   slide: [2.2, .08, .76, 0xe9fbf8], cover: [.64, .03, .64, 0xbfe3ee], moss: [2, 1.3, 1.9, 0x4f8a2b], fern: [3.3, 2.5, 1.4, 0x3f8f3a], pine: [1.7, 3.1, 2.1, 0x2f6b3a],
   pumpkin: [2.5, 1.8, 2.4, 0xe8822a], mslice: [.6, .06, .6, 0x6fae3e]
@@ -1585,6 +1591,38 @@ function sharpenLabel(m) {
     m.map = tx; m.emissive = new THREE.Color(0xffffff); m.emissiveMap = tx; m.emissiveIntensity = .55; m.needsUpdate = true;
   } catch (e) { console.warn('[3D] không làm rõ được nhãn', e); }
 }
+/* Đặt dụng cụ nằm trên khay: mặt mỏng nhất nằm ngang, chiều dài theo trục along ('x' | 'z') — dùng cho model chưa biết hướng */
+function layFlat(root, along) {
+  const w1 = new THREE.Group(); w1.add(root); w1.updateMatrixWorld(true);
+  let s0 = new THREE.Box3().setFromObject(w1).getSize(V3());
+  if (s0.x < s0.y && s0.x <= s0.z) w1.rotation.z = Math.PI / 2; else if (s0.z < s0.y && s0.z < s0.x) w1.rotation.x = Math.PI / 2;
+  const w2 = new THREE.Group(); w2.add(w1); w2.updateMatrixWorld(true);
+  s0 = new THREE.Box3().setFromObject(w2).getSize(V3());
+  if ((along === 'x' && s0.z > s0.x) || (along === 'z' && s0.x > s0.z)) w2.rotation.y = Math.PI / 2;
+  return w2;
+}
+/* Tìm mũi của dụng cụ dài: theo trục dài nhất, đầu nào thon hơn là mũi → trả về hướng [x, y, z] */
+function autoTip(obj) {
+  obj.updateMatrixWorld(true);
+  const pts = [], v = V3();
+  obj.traverse(o => {
+    if (!o.isMesh || !o.geometry || !o.geometry.attributes.position) return;
+    const p = o.geometry.attributes.position, st = Math.max(1, Math.floor(p.count / 4000));
+    for (let i = 0; i < p.count; i += st) { v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld); pts.push(v.x, v.y, v.z); }
+  });
+  const bb = new THREE.Box3().setFromObject(obj), sz = bb.getSize(V3());
+  const ax = sz.x >= sz.y && sz.x >= sz.z ? 0 : sz.y >= sz.z ? 1 : 2, o1 = (ax + 1) % 3, o2 = (ax + 2) % 3;
+  const lo = bb.min.getComponent(ax), L = sz.getComponent(ax) || 1;
+  const spread = hi => {
+    let a0 = Infinity, a1 = -Infinity, b0 = Infinity, b1 = -Infinity;
+    for (let i = 0; i < pts.length; i += 3) {
+      const t = (pts[i + ax] - lo) / L; if (hi ? t < .88 : t > .12) continue;
+      const p1 = pts[i + o1], p2 = pts[i + o2]; a0 = Math.min(a0, p1); a1 = Math.max(a1, p1); b0 = Math.min(b0, p2); b1 = Math.max(b1, p2);
+    }
+    return isFinite(a0) ? Math.max(a1 - a0, b1 - b0) : Infinity;
+  };
+  const d = [0, 0, 0]; d[ax] = spread(true) < spread(false) ? 1 : -1; return d;
+}
 function makeItem(id, root) {
   const c = ITEMS[id], g = new THREE.Group(); g.name = id;
   const real = !!root;
@@ -1592,6 +1630,7 @@ function makeItem(id, root) {
   else if (c.prep === 'lup') root = prepLup(root);
   else if (c.prep === 'pumpkin') root = prepPumpkin(root);
   else if (c.prep === 'slide') root = prepSlide(root);
+  if (c.lay && real) root = layFlat(root, c.lay);   // model chưa biết hướng: đặt nằm trên khay, chiều dài theo trục cấu hình
   const liq = id.startsWith('pipet') && real ? addPipetLiquid(root) : null;
   const holder = new THREE.Group(); holder.add(root); g.add(holder); scene.add(g);
   holder.updateMatrixWorld(true);
@@ -1602,6 +1641,7 @@ function makeItem(id, root) {
   bb.setFromObject(holder); const cc = bb.getCenter(V3());
   holder.position.set(-cc.x, -bb.min.y, -cc.z); g.updateMatrixWorld(true);
   bb.setFromObject(g); sz = bb.getSize(V3());
+  if (c.tip === 'auto') c.tip = real ? autoTip(holder) : [0, 0, -1];   // tự tìm mũi dụng cụ (đầu thon hơn); đảo hướng bằng cách đổi dấu nếu mũi bị ngược
   const tp = c.tip || [0, 0, -1];
   const it = { id, cfg: c, g, holder, root, size: sz, k, meshes: [], liq, fill: 0, glow: 0, dl: 0, dt: 0, dApplied: 0, flags: {}, enabled: true,
     tipDir: V3(...tp).normalize(), tipLocal: V3(tp[0] * sz.x / 2, sz.y / 2 + tp[1] * sz.y / 2, tp[2] * sz.z / 2) };
@@ -1976,7 +2016,7 @@ function pickItem(e) {
 /* Kéo thả: nhấn giữ đúng dụng cụ của nhiệm vụ (bước 2) → dụng cụ nhấc lên theo con trỏ (đầu dụng cụ bám con trỏ) → thả lên đích. Thả đúng thì thao tác tự chạy tiếp, sai thì dụng cụ về chỗ cũ. */
 const DRAG_Y = 1.3, DRAG_PLANE = () => new THREE.Plane(V3(0, 1, 0), -DRAG_Y);
 function dragAim(it, p) {
-  if (it.cfg.tip) { const D = { pipet: DIR_TRAVEL, knife: DIR_KNIFE }[it.id] || DIR_TRAVEL; return aimPose(it, V3(p.x, DRAG_Y, p.z), D()); }
+  if (it.cfg.tip) { const D = { pipet: DIR_TRAVEL, knife: DIR_KNIFE, forceps: DIR_FORCEPS }[it.id] || DIR_TRAVEL; return aimPose(it, V3(p.x, DRAG_Y, p.z), D()); }
   return { pos: V3(p.x, DRAG_Y, p.z), quat: it.g.quaternion.clone() };
 }
 function initPick() {
@@ -2105,7 +2145,7 @@ function applyViewShift() {
 
 /* =====================================================================================================
    NỘI DUNG — BƯỚC 1: chuẩn bị thí nghiệm. Toàn cảnh: mọi dụng cụ, mẫu vật đặt trên bàn.
-   Bấm nút / ghi chú / chính dụng cụ để xem từng cái: camera đến gần, các dụng cụ còn lại mờ đi, hiện mô tả. Xem đủ 11 mục thì có nút TRẢ LỜI CÂU HỎI.
+   Bấm nút / ghi chú / chính dụng cụ để xem từng cái: camera đến gần, các dụng cụ còn lại mờ đi, hiện mô tả. Xem đủ 12 mục thì có nút TRẢ LỜI CÂU HỎI.
    ===================================================================================================== */
 const meterHTML = (n, total) => '<div class="meter" style="margin-top:6px">' + Array.from({ length: total }, (_, i) => '<i' + (i < n ? ' class="on"' : '') + '></i>').join('') + '<b>' + n + '/' + total + '</b></div>';
 function renderStep1() {
@@ -2169,7 +2209,7 @@ function completeStep1() {
    Bấm sai: báo nhẹ và dụng cụ rung. Nút giữa đáy / "Thao tác nhanh" làm đúng thao tác đang chờ.
    Thao tác kính lúp / kính hiển vi xong thì mở MÀN KẾT QUẢ ở đúng tab mẫu vật. Phase: task → doing → task … → observe (bấm kính lúp xem lại kết quả) → quiz → done.
    ===================================================================================================== */
-const DIR_PIPET = () => V3(.1, -1, -.22), DIR_TRAVEL = () => V3(.55, -.8, -.2), DIR_KNIFE = () => V3(0, -.72, .7);
+const DIR_PIPET = () => V3(.1, -1, -.22), DIR_TRAVEL = () => V3(.55, -.8, -.2), DIR_KNIFE = () => V3(0, -.72, .7), DIR_FORCEPS = () => V3(.12, -.75, -.65);
 
 /* Tư thế để đầu làm việc (tip) của dụng cụ tới vị trí tip và hướng theo dir (hướng đầu dụng cụ trong thế giới) */
 function aimPose(it, tip, dir) {
@@ -2486,13 +2526,27 @@ async function cutMoss() {
   ms.g.position.copy(end); ms.g.scale.setScalar(1); popAt(end.clone().setY(.14), 0xd8ff64);
   await dn;
 }
-/* đặt lát cắt vào giữa lam kính (lát cắt gắn theo lam kính) */
+/* panh gắp lát cắt lên: mũi panh hạ xuống mép lát cắt, kẹp lại; lát cắt đi theo mũi panh (carry) rồi nhấc lên */
+async function grabSlice() {
+  const fo = IT.forceps, ms = IT.mslice, dir = DIR_FORCEPS(); ms.g.updateMatrixWorld(true);
+  const edge = ms.g.localToWorld(V3(ms.size.x * .22, ms.size.y * .5, 0));
+  await flyTo(fo, aimPose(fo, edge.clone().add(V3(0, 1.0, 0)), dir), 850, .7);
+  await anim(450, e => setTip(fo, edge.clone().add(V3(0, 1.0 * (1 - e), 0)), dir));
+  sfx('click'); carry = { by: fo, it: ms, off: ms.g.position.clone().sub(edge), s0: ms.g.scale.x }; ms.flags.noShadow = true;
+  await anim(750, e => setTip(fo, edge.clone().add(V3(0, 1.5 * e, 0)), dir));
+  fo.flags.sel = true;
+}
+/* panh (đang gắp lát cắt) đặt lát cắt vào giữa lam kính (lát cắt gắn theo lam kính), rồi panh về khay */
 async function placeSlice() {
-  const ms = IT.mslice, sl = IT.slide; sl.g.updateMatrixWorld(true);
-  const spot = sl.g.localToWorld(V3(SPOT_X, SLIDE_H, 0));
-  await flyTo(ms, { pos: spot, quat: new THREE.Quaternion() }, 1000, 1.1);
-  ms.g.scale.set(1, .6, 1); sl.g.attach(ms.g); ms.flags.sel = false; ms.flags.noShadow = true; sfx('click');
+  const fo = IT.forceps, ms = IT.mslice, sl = IT.slide, dir = DIR_FORCEPS(); sl.g.updateMatrixWorld(true);
+  const spot = sl.g.localToWorld(V3(SPOT_X, SLIDE_H, 0)), above = spot.clone().add(V3(0, 1.0, 0));
+  if (!carry) carry = { by: fo, it: ms, off: V3(0, 0, 0), s0: ms.g.scale.x };   // dựng lại cảnh: panh đang giữ lát cắt
+  await flyTo(fo, aimPose(fo, above, dir), 1000, .8);
+  const low = spot.clone().add(V3(0, ms.size.y * .6 + .05, 0));
+  await anim(650, e => setTip(fo, V3().lerpVectors(above, low, e), dir));
+  carry = null; ms.flags.noShadow = true; ms.g.position.copy(spot); ms.g.quaternion.identity(); ms.g.scale.set(1, .6, 1); sl.g.attach(ms.g); ms.flags.sel = false; sfx('click');
   popAt(spot.clone().setY(sl.baseY + .14), 0xffffff);
+  await dropTool(fo);
 }
 /* đặt lamen: nghiêng một cạnh chạm lam kính trước rồi hạ từ từ */
 async function putCover() {
@@ -2535,7 +2589,8 @@ const ACTIONS = [
   /* CHẶNG A — cây rêu */
   { drag: 'lup',    drop: 'moss',    cam: 'work',     run: () => magnify('moss'), view: ['moss', 'lup'] },
   { drag: 'knife',  drop: 'moss',    cam: 'mossA',    run: cutMoss },
-  { drag: 'mslice', drop: 'slide',   cam: 'mossA',    run: placeSlice },
+  { drag: 'forceps', drop: 'mslice',  cam: 'mossA',    run: grabSlice },
+  { drag: 'forceps', drop: 'slide',   cam: 'mossA',    run: placeSlice },
   { drag: 'pipet',  drop: 'water',   cam: 'mossA',    run: async () => { await loadLiquid(IT.pipet, IT.water, COL.water); await dropOn(IT.pipet, 'water'); } },
   { drag: 'cover',  drop: 'slide',   cam: 'mossA',    run: putCover },
   { drag: 'slide',  drop: 'scope',   cam: 'overview', run: toScope, view: ['moss', 'x10', 'x40'] },
