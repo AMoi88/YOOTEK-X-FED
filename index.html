@@ -1140,7 +1140,7 @@ const ITEMS = {
   scope:   { name: 'Kính hiển vi',  pos: [-9.6, -2.5, -Math.PI / 2], fit: { h: 5.6 }, lab: [0, -52] },
   lup:     { name: 'Kính lúp',      pos: [-5.3, 2.9, 0],    y: .1, prep: 'lup', fit: { l: 2.1 }, lab: [0, -70] },
   knife:   { name: 'Dao rọc giấy',       pos: [-3.7, 2.9, .05],  y: .1, fit: { l: 1.5 },  lab: [0, -96], tip: [0, 0, 1] },
-  forceps: { name: 'Panh gắp',       pos: [-2.4, 2.9, 0],    y: .1, fit: { l: 2.4 },  lay: 'z', tip: 'auto', lab: [0, -110] },
+  forceps: { name: 'Panh gắp',       pos: [-2.4, 2.9, 0],    y: .1, fit: { l: 2.4 },  lay: 'z', tip: 'auto', tipFlip: true, lab: [0, -110] },   // tipFlip: mũi nhọn (hai đầu tự do) hướng xuống khi gắp; đầu bản lề (hai càng nối nhau) hướng lên
   pipet:   { name: 'Ống nhỏ giọt',  pos: [-1.1, 2.9, 0],    y: .1, fit: { l: 3.1 },  lab: [0, -70], tip: [0, 0, -1] },
   water:   { name: 'Lọ nước cất', label: 'Nước cất', pos: [.7, 2.9, 0], y: .1, fit: { h: 2.0 }, lab: [0, -64] },
   slide:   { name: 'Lam kính',      pos: [3.1, 2.9, 0],     y: .1, prep: 'slide', fit: { l: 2.2 }, lab: [0, -72] },
@@ -1641,7 +1641,7 @@ function makeItem(id, root) {
   bb.setFromObject(holder); const cc = bb.getCenter(V3());
   holder.position.set(-cc.x, -bb.min.y, -cc.z); g.updateMatrixWorld(true);
   bb.setFromObject(g); sz = bb.getSize(V3());
-  if (c.tip === 'auto') c.tip = real ? autoTip(holder) : [0, 0, -1];   // tự tìm mũi dụng cụ (đầu thon hơn); đảo hướng bằng cách đổi dấu nếu mũi bị ngược
+  if (c.tip === 'auto') { c.tip = real ? autoTip(holder) : [0, 0, -1]; if (c.tipFlip && real) c.tip = c.tip.map(v => -v); }   // tipFlip: model có mũi ở đầu còn lại → đảo   // tự tìm mũi dụng cụ (đầu thon hơn); đảo hướng bằng cách đổi dấu nếu mũi bị ngược
   const tp = c.tip || [0, 0, -1];
   const it = { id, cfg: c, g, holder, root, size: sz, k, meshes: [], liq, fill: 0, glow: 0, dl: 0, dt: 0, dApplied: 0, flags: {}, enabled: true,
     tipDir: V3(...tp).normalize(), tipLocal: V3(tp[0] * sz.x / 2, sz.y / 2 + tp[1] * sz.y / 2, tp[2] * sz.z / 2) };
