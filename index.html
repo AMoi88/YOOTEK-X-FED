@@ -882,6 +882,8 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .lc-b:active{background:#E7F2D0}
 .lc-c{height:44px;padding:0 6px;border:1.5px solid #D3DEDB;border-radius:12px;background:#fff;color:#10302E;font:700 12.5px Roboto,'Segoe UI',sans-serif;cursor:pointer}
 .lc-pad{display:flex;gap:6px}.lc-pad .lc-c{flex:1 1 auto;width:auto}.lc-pad .lc-lf{order:1}.lc-pad .lc-up{order:2}.lc-pad .lc-dn{order:3}.lc-pad .lc-rt{order:4}.lc-pad .lc-c{order:5}
+.lc-card [hidden]{display:none!important}
+.lc-card.rev .sv-zh{display:none}
 .lc-chips{display:flex;gap:6px;flex-wrap:wrap}.lc-chips span{padding:4px 11px;border-radius:99px;font:700 12.5px/1.3 Roboto,'Segoe UI',sans-serif;background:#EEF3F2;color:#8AA09D}
 .lc-chips span.on{background:#E7F2D0;color:#0E5A55}.lc-chips span.now{background:#10302E;color:#C8F04A}
 @media (min-width:621px){.lc-card .sv-act{position:sticky;bottom:-22px;margin:0 -22px -22px;padding:10px 22px 22px;background:#fff;z-index:2}}
@@ -970,11 +972,15 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
         <h2 id="lcName">Đang soi</h2>
         <p id="lcDesc"></p>
         <div class="lc-chips" id="lcChips" role="list" aria-label="Các mẫu vật đã quan sát"></div>
+        <div class="sv-seg sv-tabs" id="lcTabs" role="tablist" aria-label="Mẫu vật" hidden></div>
+        <div class="sv-seg sv-sub" id="lcSub" role="radiogroup" aria-label="Cách quan sát" hidden></div>
+        <p class="sv-d2" id="lcDesc2" hidden></p>
+        <p class="sv-note" id="lcNote" role="status" hidden></p>
         <div class="sv-zbox"><div class="sv-zt"><span>Độ phóng đại</span><output id="lcVal" for="lcRange">×3</output></div>
           <div class="lc-zrow"><button type="button" class="lc-b" id="lcMinus" aria-label="Thu nhỏ">－</button><input type="range" id="lcRange" min="1" max="8" step="0.5" value="3" aria-label="Độ phóng đại kính lúp"><button type="button" class="lc-b" id="lcPlus" aria-label="Phóng to">＋</button></div></div>
         <div class="lc-pad" role="group" aria-label="Di chuyển kính lúp"><button type="button" class="lc-b lc-up" data-mv="0,-1" aria-label="Lên">↑</button><button type="button" class="lc-b lc-lf" data-mv="-1,0" aria-label="Sang trái">←</button><button type="button" class="lc-c" id="lcCenter">Về giữa</button><button type="button" class="lc-b lc-rt" data-mv="1,0" aria-label="Sang phải">→</button><button type="button" class="lc-b lc-dn" data-mv="0,1" aria-label="Xuống">↓</button></div>
         <p class="sv-zh">Kéo ảnh hoặc dùng mũi tên để di chuyển kính trên mẫu vật · kéo thanh trượt hoặc lăn chuột để phóng to.</p>
-        <div class="sv-act" id="lcDoneW"><button type="button" class="btn lc-done" id="lcDone">XONG QUAN SÁT</button></div>
+        <div class="sv-act" id="lcDoneW"><button class="btn alt" id="lcBack" type="button" aria-label="Về bàn thí nghiệm" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg><span class="t">Về bàn thí nghiệm</span></button><button class="btn" id="lcNext" type="button" hidden>Em rút ra được gì?</button><button type="button" class="btn lc-done" id="lcDone">XONG QUAN SÁT</button></div>
       </section>
     </div>
     <div class="action-bar" id="actionBar" role="group" aria-label="Thao tác"></div>
@@ -1351,11 +1357,11 @@ function unlockStep(i) {
 }
 async function showStep(i) {
   if (i < 0 || i >= TOTAL_STEPS || state.isAnimating) return;
-  if (lensOn) { showToast('Em bấm XONG QUAN SÁT trước nhé.'); return; }
+  if (lensOn && !(L3 && L3.review)) { showToast('Em bấm XONG QUAN SÁT trước nhé.'); return; }
   if (!freeNav() && i > 0 && !state.steps[i - 1].completed) { showToast('Hãy hoàn thành bước trước'); return; }
   const changedStep = i !== state.currentStep;
   const tr = changedStep && ready ? sceneChange() : null;
-  hideTransient(); closeScopeView(); stopVoice(); $('sheet').classList.remove('show');
+  hideTransient(); closeScopeView(); closeLensReview(); stopVoice(); $('sheet').classList.remove('show');
   state.currentStep = i; updateStepbar();
   if (ready) { curCam = ''; await applyScene(); }
   rerender();
@@ -1809,7 +1815,7 @@ function updateTags() {
 let handEl = null, ringEl = null, hoverId = null, drag = null;
 /* Gợi ý: bước 1 = { from } (bấm); bước 2 = { from, to } (kéo từ dụng cụ from tới đích to; dragging = đang kéo) */
 function hintInfo() {
-  if (!lessonEntered || !ready || scopeOpen) return null;
+  if (!lessonEntered || !ready || scopeOpen || lensOn) return null;
   if ($('overlay').classList.contains('show') || $('gatepane').classList.contains('show')) return null;
   const st = state.currentStep, s = state.steps[st];
   if (st === 0) { if (state.isAnimating || s.phase !== 'task' || s.focus) return null; const f = TOOLS.find(x => !s.seen.includes(x)); return f ? { from: f } : null; }
@@ -2269,20 +2275,59 @@ function renderLens() {
   $('lvCanvas').getContext('2d').putImageData(lensImg, 0, 0);
   L3.sinE = Math.max(.3, _ld.y);
 }
-function lensSession(id) {
-  return new Promise(res => {
-    const key = LENS_KEY[id] || id, T = IT[id], lp = IT.lup; lp.g.updateMatrixWorld(true);
-    const c0 = lp.g.localToWorld(lp.lensLocal.clone()), bb = new THREE.Box3().setFromObject(T.holder), sz = bb.getSize(V3()), rv = Math.max(sz.x, sz.y, sz.z, .5) * LENS_VIEW_K;
-    L3 = { id, key, off: c0.clone().sub(lp.g.position), c0, lo: bb.min.clone().addScaledVector(sz, -LENS_MARGIN), hi: bb.max.clone().addScaledVector(sz, LENS_MARGIN), ty: bb.min.y + sz.y * .55,
-      rv, dist: Math.max(7, rv * 7), sinE: .7, touched: !!LENS_DONE[key], res, max: LENS_MAX[key] || 6, dirty: true, t: 0 };
-    lensZoom = Math.min(LENS_DEF, L3.max);
+const TAB_ITEM = { moss: 'moss', fern: 'fern', pine: 'pine', pumpkin: 'pumpkin' };   // tab kết quả → mẫu vật 3D
+/* Thao tác 7 và 9 chỉ hiện phần kết quả vừa quan sát được; thao tác 8 và 10 mới hiện đầy đủ */
+const LENS_PART = { 'fern:young': 'Lá non [cuộn tròn ở đầu]{b}.', 'pine:cones': 'Lá [hình kim]{b}, chưa có hoa, cơ quan sinh sản là [nón]{b}.' };
+function lensSession(id) { return new Promise(res => lensSetup(id, res, null)); }
+/* dựng phiên soi: res = hàm gọi khi bấm XONG (soi trong thao tác); rev = { tab, view, mode } khi xem lại kết quả (cuối bước 2 / từ phiếu) */
+function lensSetup(id, res, rev) {
+  const key = LENS_KEY[id] || id, T = IT[id], lp = IT.lup; lp.g.updateMatrixWorld(true);
+  const c0 = lp.g.localToWorld(lp.lensLocal.clone()), bb = new THREE.Box3().setFromObject(T.holder), sz = bb.getSize(V3()), rv = Math.max(sz.x, sz.y, sz.z, .5) * LENS_VIEW_K;
+  L3 = { id, key, off: c0.clone().sub(lp.g.position), c0, lo: bb.min.clone().addScaledVector(sz, -LENS_MARGIN), hi: bb.max.clone().addScaledVector(sz, LENS_MARGIN), ty: bb.min.y + sz.y * .55,
+    rv, dist: Math.max(7, rv * 7), sinE: .7, touched: !!rev || !!LENS_DONE[key], res, review: !!rev, max: LENS_MAX[key] || 6, dirty: true, t: 0 };
+  lensZoom = Math.min(LENS_DEF, L3.max);
+  lensCardFill(rev);
+  const r = $('lcRange'); r.min = LENS_MIN; r.max = L3.max;
+  lensOn = true; if (controls) controls.enableZoom = false;
+  lock(false); lensUI(); $('lensView').classList.add('show');
+}
+/* nội dung thẻ: soi trong thao tác → bảng kết quả của thao tác đó; xem lại → tab mẫu vật + cách quan sát + mô tả đầy đủ */
+function lensCardFill(rev) {
+  const card = $('lensView').querySelector('.lc-card'); card.classList.toggle('rev', !!rev);
+  ['lcChips'].forEach(i => { $(i).hidden = !!rev; }); ['lcTabs', 'lcSub'].forEach(i => { $(i).hidden = !rev; });
+  $('lcDone').hidden = !!rev; $('lcBack').hidden = !rev; $('lcNext').hidden = !rev;
+  if (!rev) {
     const sx = state.steps[1], av = ACTIONS[sx.sub] && ACTIONS[sx.sub].view || [], Tt = tabOf(av[0]) || RESULT.tabs[0], Vv = Tt.views.find(v => v.id === av[1]) || Tt.views[0];
-    $('lcK').textContent = 'THAO TÁC ' + (sx.sub + 1) + '/' + ACTIONS.length + ' · KẾT QUẢ'; $('lcName').textContent = Tt.title; $('lcDesc').innerHTML = YT.mdInline(Vv.desc || Tt.desc);   // bảng kết quả hiện ngay khi soi
+    $('lcK').textContent = 'THAO TÁC ' + (sx.sub + 1) + '/' + ACTIONS.length + ' · KẾT QUẢ'; $('lcName').textContent = Tt.title;
+    $('lcDesc').innerHTML = YT.mdInline(LENS_PART[Tt.id + ':' + Vv.id] || Vv.desc || Tt.desc);   // bảng kết quả hiện ngay khi soi
+    $('lcDesc2').hidden = $('lcNote').hidden = true;
     $('lcChips').innerHTML = RESULT.tabs.map(t => '<span role="listitem" class="' + (t.id === Tt.id ? 'now' : ACTIONS.slice(0, sx.sub).some(A => A.view && A.view[0] === t.id) ? 'on' : '') + '">' + YT.esc(t.name) + '</span>').join('');
-    const r = $('lcRange'); r.min = LENS_MIN; r.max = L3.max;
-    lensOn = true; if (controls) controls.enableZoom = false;
-    lock(false); lensUI(); $('lensView').classList.add('show');
-  });
+    return;
+  }
+  const T = tabOf(rev.tab), V = T.views.find(v => v.id === rev.view) || T.views[0], obs = rev.mode === 'observe', s = state.steps[1];
+  $('lcK').textContent = obs ? 'SO SÁNH CÁC MẪU VẬT' : 'KẾT QUẢ QUAN SÁT'; $('lcName').textContent = T.title;
+  $('lcDesc').innerHTML = YT.mdInline(obs ? TEXT.s2.observe.t : V.desc || T.desc);
+  $('lcDesc2').hidden = !obs; $('lcDesc2').innerHTML = obs ? YT.mdInline(V.desc || T.desc) : '';
+  $('lcNote').hidden = !obs; $('lcNote').innerHTML = obs ? YT.mdInline(TEXT.s2.observe.x) : '';
+  $('lcTabs').innerHTML = RESULT.tabs.map(t => '<button type="button" role="tab" data-tab="' + t.id + '" aria-selected="' + (t.id === T.id) + '" aria-pressed="' + (t.id === T.id) + '">' + YT.esc(t.name) + '</button>').join('');
+  $('lcSub').hidden = T.views.length < 2;
+  $('lcSub').innerHTML = T.views.map(v => '<button type="button" role="radio" data-view="' + v.id + '" aria-pressed="' + (v.id === V.id) + '">' + YT.esc(v.btn) + '</button>').join('');
+  $('lcNext').textContent = obs ? 'Em rút ra được gì?' : s.phase === 'done' ? 'Làm phiếu thực hành' : 'Đóng';
+}
+/* xem lại kết quả bằng kính lúp 3D (thay cho ảnh 2D): kính đặt sẵn trên mẫu vật của tab; ×10 / ×40 của kính hiển vi vẫn là ảnh chụp */
+function openLensReview(tab, view, mode) {
+  const T = tabOf(tab || sv.tab), id = TAB_ITEM[T.id], lp = IT.lup, Tt = IT[id]; sv.tab = T.id; sv.view = view || T.views[0].id; sv.mode = mode || 'review';
+  Tt.g.updateMatrixWorld(true);
+  const top = Tt.g.localToWorld(V3(0, Tt.size.y, 0)), lens = lp.lensLocal.clone().applyQuaternion(lp.home.quat);
+  lp.g.position.copy(top).add(V3(0, .75, 0)).sub(lens); lp.g.quaternion.copy(lp.home.quat);
+  lensSetup(id, null, { tab: T.id, view: sv.view, mode: sv.mode });
+  const s = state.steps[1];
+  if (sv.mode === 'observe' && state.currentStep === 1 && s.phase === 'observe' && !s.viewed) { s.viewed = true; renderStep2(); }   // lần đầu xem: thẻ kết quả thay cho khung nhiệm vụ
+}
+function closeLensReview() {
+  if (!(L3 && L3.review)) return; const lp = IT.lup;
+  L3 = null; lensOn = false; $('lensView').classList.remove('show'); if (controls) controls.enableZoom = true;
+  lp.g.position.copy(lp.home.pos); lp.g.quaternion.copy(lp.home.quat);   // kính lúp về khay
 }
 function lensEnd() {
   if (!L3) return;
@@ -2330,6 +2375,15 @@ function initLens3D() {
   $('lcPlus').addEventListener('click', () => stepZ(1)); $('lcMinus').addEventListener('click', () => stepZ(-1));
   $('lcCenter').addEventListener('click', () => L3 && moveLens(L3.c0.x, L3.c0.z));
   $('lcDone').addEventListener('click', lensEnd);
+  $('lcBack').addEventListener('click', resultLeave); $('lcNext').addEventListener('click', resultNext);
+  $('lcTabs').addEventListener('click', e => {   // xem lại: đổi mẫu vật
+    const b = e.target.closest('button[data-tab]'); if (!b || !L3 || !L3.review || b.dataset.tab === sv.tab) return; const T = tabOf(b.dataset.tab);
+    openScopeView(T.id, T.views[0].id, sv.mode);
+  });
+  $('lcSub').addEventListener('click', e => {   // xem lại: đổi cách quan sát (kính lúp ↔ ×10 / ×40)
+    const b = e.target.closest('button[data-view]'); if (!b || !L3 || !L3.review || b.dataset.view === sv.view) return;
+    sv.view = b.dataset.view; openScopeView(sv.tab, sv.view, sv.mode);
+  });
   document.querySelectorAll('#lensView [data-mv]').forEach(b => {   // mũi tên: bấm 1 lần = 0,1 đơn vị; giữ để di chuyển liên tục
     const [dx, dz] = b.dataset.mv.split(',').map(Number); let t = 0, iv = 0;
     const go = () => { if (!L3) return; const c = lensCenter(); moveLens(c.x + dx * LENS_MOVE, c.z + dz * LENS_MOVE); };
@@ -2710,6 +2764,11 @@ function viewOk(tab, view) {
 }
 /* mở màn kết quả ở tab / ảnh; mode: 'flow' (vừa làm xong thao tác) · 'observe' (so sánh cuối bước 2) · 'review' (xem lại từ phiếu thực hành) */
 function openScopeView(tab, view, mode) {
+  if ((mode || 'review') !== 'flow') {   // xem lại kết quả: ảnh kính lúp thay bằng soi 3D; ×10 / ×40 giữ ảnh chụp
+    const T0 = tabOf(tab || sv.tab), vw = view || T0.views[0].id, V0 = T0.views.find(v => v.id === vw) || T0.views[0];
+    if (V0.mag === 'Kính lúp' && TAB_ITEM[T0.id] && IT.lup) { closeScopeView(); openLensReview(T0.id, V0.id, mode || 'review'); return; }
+    closeLensReview();
+  }
   sv.mode = mode || 'review';
   if (tab) sv.tab = tab;
   const T = tabOf(sv.tab); sv.view = view || (T.views.find(v => viewOk(T.id, v.id)) || T.views[0]).id;
@@ -2826,22 +2885,25 @@ function initScopeView() {
   initLens();
   const d2 = document.createElement('p'); d2.id = 'svDesc2'; d2.className = 'sv-d2'; d2.hidden = true; $('svSub').after(d2);
   const swap = () => { const e = $('svCanvas'); e.classList.remove('sv-swap'); void e.offsetWidth; e.classList.add('sv-swap'); syncScopeBtns(); };
-  $('svTabs').addEventListener('click', e => { const b = e.target.closest('button[data-tab]'); if (!b || b.disabled || b.dataset.tab === sv.tab) return; const T = tabOf(b.dataset.tab); sv.tab = T.id; sv.view = (T.views.find(v => viewOk(T.id, v.id)) || T.views[0]).id; lensReset(); swap(); });
-  $('svSub').addEventListener('click', e => { const b = e.target.closest('button[data-view]'); if (!b || b.disabled || b.dataset.view === sv.view) return; sv.view = b.dataset.view; lensReset(); swap(); });
+  $('svTabs').addEventListener('click', e => { const b = e.target.closest('button[data-tab]'); if (!b || b.disabled || b.dataset.tab === sv.tab) return; const T = tabOf(b.dataset.tab); sv.tab = T.id; sv.view = (T.views.find(v => viewOk(T.id, v.id)) || T.views[0]).id; if (sv.mode !== 'flow' && isLensView() && IT.lup) { closeScopeView(); openLensReview(sv.tab, sv.view, sv.mode); return; } lensReset(); swap(); });
+  $('svSub').addEventListener('click', e => { const b = e.target.closest('button[data-view]'); if (!b || b.disabled || b.dataset.view === sv.view) return; sv.view = b.dataset.view; if (sv.mode !== 'flow' && isLensView() && IT.lup) { closeScopeView(); openLensReview(sv.tab, sv.view, sv.mode); return; } lensReset(); swap(); });
   $('svLabelBtn').addEventListener('click', () => { svLabelsOn = !svLabelsOn; syncLabels(); });   // Hiện / ẩn tên bộ phận
-  const leave = () => {   // đóng màn kết quả, về bàn thí nghiệm
-    closeScopeView(); const s = state.steps[1];
-    if (state.currentStep !== 1) return;
-    if (sv.mode === 'observe' && s.phase === 'observe') { camTo('work', 900); say('s2.observe0', [{ label: 'XEM KẾT QUẢ', fn: () => openScopeView(null, null, 'observe') }]); }
-    else renderStep2();
-  };
-  $('svBack').addEventListener('click', leave);
-  $('svNext').addEventListener('click', () => {   // Thao tác tiếp theo / Em rút ra được gì? / Làm phiếu thực hành / Đóng
-    const s = state.steps[1];
-    if (sv.mode === 'observe' && s.phase === 'observe') { $('scopeView').classList.add('sv-hide-card'); openQuiz2(); }
-    else if (sv.mode !== 'flow' && s.phase === 'done') { closeScopeView(); showStep(2); }
-    else leave();
-  });
+  $('svBack').addEventListener('click', resultLeave);
+  $('svNext').addEventListener('click', resultNext);
+}
+/* thoát / tiếp tục từ màn kết quả (ảnh 2D hoặc soi 3D xem lại) */
+function closeResults() { closeScopeView(); closeLensReview(); }
+function resultLeave() {   // đóng màn kết quả, về bàn thí nghiệm
+  closeResults(); const s = state.steps[1];
+  if (state.currentStep !== 1) return;
+  if (sv.mode === 'observe' && s.phase === 'observe') { camTo('work', 900); say('s2.observe0', [{ label: 'XEM KẾT QUẢ', fn: () => openScopeView(null, null, 'observe') }]); }
+  else renderStep2();
+}
+function resultNext() {   // Thao tác tiếp theo / Em rút ra được gì? / Làm phiếu thực hành / Đóng
+  const s = state.steps[1];
+  if (sv.mode === 'observe' && s.phase === 'observe') { $('scopeView').classList.add('sv-hide-card'); closeLensReview(); openQuiz2(); }
+  else if (sv.mode !== 'flow' && s.phase === 'done') { closeResults(); showStep(2); }
+  else resultLeave();
 }
 
 
