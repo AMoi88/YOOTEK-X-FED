@@ -1025,7 +1025,7 @@ const ASSETS = {
   moss:    CDN + 'mIFNedLPtNt5Zd_Lk7/mIFNedLPtNt5Zd_Lk7.glb',   // cây rêu
   fern:    CDN + 'QYIOtxLAM4Ujye2rcc/QYIOtxLAM4Ujye2rcc.glb',   // cây dương xỉ
   pine:    CDN + 'bc2dtmpvxX6X8smshM/bc2dtmpvxX6X8smshM.glb',   // cành thông
-  pumpkin: CDN + 'X_0I6OElE47_67NaKk/X_0I6OElE47_67NaKk.glb',   // quả bí ngô (model là MỘT NỬA quả có mặt cắt; nửa còn lại = bản soi gương)
+  pumpkin: CDN + 'jOrTuwvUg0KEgL9PRh/jOrTuwvUg0KEgL9PRh.glb',   // quả bí ngô (model là MỘT NỬA quả có mặt cắt; nửa còn lại = bản soi gương)
   sfxCorrect: '', sfxWrong: ''
 };
 const MODEL_KEYS = ['table', 'scope', 'lup', 'knife', 'water', 'pipet', 'slide', 'cover', 'moss', 'fern', 'pine', 'pumpkin'];
@@ -1450,7 +1450,38 @@ function prepLup(root) {
 /* Quả bí ngô: model là MỘT NỬA quả (mặt cắt ở z = 0, quay về +z) chưa có vật liệu → tô màu theo tên phần, ghép thêm nửa soi gương để thành quả nguyên.
    Khi cắt: hai nửa tách ra, nghiêng cho mặt cắt (thịt quả, ruột, hạt) ngửa lên. userData.cut = { a, b, d, th, lift } */
 const PUMPKIN_COL = { vo_qua: 0xe27a1f, thit_qua: 0xf6b24c, ruot_qua: 0xf0c25e, xo_ruot: 0xe59a33, hat: 0xf6ead0, cuong: 0x6f7f35 };
+/* Mặt cắt quả bí vẽ bằng canvas: vỏ cam, thịt quả, ruột có xơ và hạt */
+function pumpkinCapTex() {
+  const S = 512, c = document.createElement('canvas'); c.width = c.height = S; const g = c.getContext('2d'), m = S / 2; let sd = 7; const r = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+  g.fillStyle = '#d8741a'; g.beginPath(); g.arc(m, m, m, 0, 7); g.fill(); g.fillStyle = '#f39a3a'; g.beginPath(); g.arc(m, m, m * .93, 0, 7); g.fill();
+  const rg = g.createRadialGradient(m, m, m * .15, m, m, m * .6); rg.addColorStop(0, '#f8dc92'); rg.addColorStop(1, '#f2b45a'); g.fillStyle = rg; g.beginPath(); g.arc(m, m, m * .6, 0, 7); g.fill();
+  g.strokeStyle = 'rgba(214,150,60,.55)'; g.lineWidth = 3; for (let i = 0; i < 28; i++) { const a = i / 28 * 6.283; g.beginPath(); g.moveTo(m + Math.cos(a) * m * .14, m + Math.sin(a) * m * .14); g.quadraticCurveTo(m + Math.cos(a + .3) * m * .32, m + Math.sin(a + .3) * m * .32, m + Math.cos(a) * m * .56, m + Math.sin(a) * m * .56); g.stroke(); }
+  [[.44, 16], [.28, 11]].forEach(([k, n], j) => { for (let i = 0; i < n; i++) { const a = (i + j * .5) / n * 6.283 + r() * .1; g.save(); g.translate(m + Math.cos(a) * m * k, m + Math.sin(a) * m * k); g.rotate(a); g.fillStyle = '#fff4d8'; g.strokeStyle = '#c9a868'; g.lineWidth = 3; g.beginPath(); g.ellipse(0, 0, 22, 11, 0, 0, 7); g.fill(); g.stroke(); g.restore(); } });
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+/* Model quả NGUYÊN (giữ vật liệu / texture của model): dựng hai nửa (z ≤ 0 và z ≥ 0) bằng mặt phẳng cắt, mỗi nửa có mặt cắt vẽ bằng canvas; tách nửa như model cũ (userData.cut = { a, b, d, th, lift, sync }) */
+function prepPumpkinWhole(root) {
+  root.traverse(o => { if (o.isMesh && !o.geometry.attributes.normal) o.geometry.computeVertexNormals(); });
+  const bb = new THREE.Box3().setFromObject(root), sz = bb.getSize(V3()), c = bb.getCenter(V3()), w = new THREE.Group(), tex = pumpkinCapTex();
+  const mk = side => {   // side = -1: nửa z ≤ 0 · +1: nửa z ≥ 0
+    const g = new THREE.Group(), inner = side < 0 ? root : root.clone(true); inner.position.set(-c.x, 0, -c.z); g.add(inner);
+    inner.traverse(o => { if (o.isMesh && o.material) { o.material = o.material.clone(); o.material.side = THREE.DoubleSide; } });
+    const cap = new THREE.Mesh(new THREE.CircleGeometry(1, 56), new THREE.MeshStandardMaterial({ map: tex, roughness: .75, side: THREE.DoubleSide })); cap.userData.noclip = true;
+    cap.scale.set(sz.x / 2 * .97, sz.y / 2 * .97, 1); cap.position.set(0, c.y, -side * sz.z * .002); if (side > 0) cap.rotation.y = Math.PI;
+    g.add(cap); w.add(g); return { g, lp: new THREE.Plane(V3(0, 0, side), 0), pl: new THREE.Plane() };
+  };
+  const A = mk(-1), B = mk(1), a = A.g, b = B.g, d = Math.max(.15, sz.z * .3), th = .55;
+  a.position.z = -d; a.rotation.x = -th; w.updateMatrixWorld(true);
+  const lo0 = new THREE.Box3().setFromObject(a).min.y;
+  a.position.z = 0; a.rotation.x = 0; w.updateMatrixWorld(true);
+  const lift = Math.max(0, new THREE.Box3().setFromObject(a).min.y - lo0);
+  const sync = () => { w.updateMatrixWorld(true); [A, B].forEach(h => { h.pl.copy(h.lp).applyMatrix4(h.g.matrixWorld); h.g.traverse(o => { if (o.isMesh && o.material && !o.userData.noclip) o.material.clippingPlanes = [h.pl]; }); }); };
+  w.userData.cut = { a, b, d, th, lift, sync }; sync();
+  return w;
+}
 function prepPumpkin(root) {
+  let named = false; root.traverse(o => { if (PUMPKIN_COL[o.name] !== undefined) named = true; });
+  if (!named) return prepPumpkinWhole(root);   // model quả nguyên, có vật liệu riêng
   root.traverse(o => { if (o.isMesh && !o.geometry.attributes.normal) o.geometry.computeVertexNormals(); });   // model không kèm pháp tuyến → tự tính, không thì bị đen
   root.traverse(o => { if (o.isMesh) o.material = matOf(PUMPKIN_COL[o.name] ?? 0xe27a1f, { roughness: o.name === 'vo_qua' ? .5 : .7, side: THREE.DoubleSide }); });
   const w = new THREE.Group(), a = new THREE.Group(), b = new THREE.Group(), rb = root.clone(true);
@@ -1465,6 +1496,7 @@ function prepPumpkin(root) {
 }
 function setPumpkinCut(it, e) {
   const C = it.cut; if (!C) return;
+  if (C.sync) C.sync();   // model quả nguyên: mặt phẳng cắt đi theo từng nửa
   C.a.position.set(0, C.lift * e, -C.d * e); C.a.rotation.x = -C.th * e;
   C.b.position.set(0, C.lift * e, C.d * e); C.b.rotation.x = C.th * e;
 }
@@ -1868,6 +1900,7 @@ function syncCarry() {
   carry.it.g.position.copy(tip).addScaledVector(carry.off, carry.it.g.scale.x / carry.s0);
 }
 function tick(dt, time) {
+  if (IT.pumpkin && IT.pumpkin.cut && IT.pumpkin.cut.sync) IT.pumpkin.cut.sync();   // quả bí nguyên: cập nhật mặt phẳng cắt
   const pulse = .12 + .88 * (.5 + .5 * Math.sin(time * 3.2)), HI = hintInfo(), hid = HI && HI.from, hto = HI && HI.to;
   if (drag && drag.started && drag.tpos) { const kk = 1 - Math.exp(-20 * dt); drag.it.g.position.lerp(drag.tpos, kk); drag.it.g.quaternion.slerp(drag.tquat, kk); }
   syncCarry(); updateDim(dt);
@@ -3053,7 +3086,7 @@ async function init3D() {
     lowEnd = (navigator.deviceMemory && navigator.deviceMemory <= 4) || /Android|iPhone|iPad/i.test(navigator.userAgent);
     renderer = new THREE.WebGLRenderer({ antialias: !lowEnd, alpha: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(devicePixelRatio, lowEnd ? 1.25 : 1.8)); renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.1;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.1; renderer.localClippingEnabled = true;   // mặt phẳng cắt: cắt đôi quả bí
     stage.insertBefore(renderer.domElement, stage.firstChild);
     scene = new THREE.Scene(); camera = new THREE.PerspectiveCamera(42, 1, .05, 200); camera.position.set(0, 13, 12.6);
     controls = new OrbitControls(camera, renderer.domElement);
