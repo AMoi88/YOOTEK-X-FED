@@ -1450,76 +1450,75 @@ function prepLup(root) {
 /* Quả bí ngô: model là MỘT NỬA quả (mặt cắt ở z = 0, quay về +z) chưa có vật liệu → tô màu theo tên phần, ghép thêm nửa soi gương để thành quả nguyên.
    Khi cắt: hai nửa tách ra, nghiêng cho mặt cắt (thịt quả, ruột, hạt) ngửa lên. userData.cut = { a, b, d, th, lift } */
 const PUMPKIN_COL = { vo_qua: 0xe27a1f, thit_qua: 0xf6b24c, ruot_qua: 0xf0c25e, xo_ruot: 0xe59a33, hat: 0xf6ead0, cuong: 0x6f7f35 };
-/* Model quả bí mới là MỘT NỬA quả có mặt cắt (texture riêng) nhưng không rõ mặt cắt quay về phía nào: tìm mặt phẳng (nhiều đỉnh nhất nằm ở một đầu trục z), xoay / dời để mặt cắt nằm ở z = 0, quay về +z, thân quả ở z ≤ 0 */
+/* Model quả bí mới là MỘT NỬA quả (quét 3D): mặt cắt có thịt + ruột + hạt, hạt và xơ còn NHÔ LÊN trên mặt phẳng của vành thịt.
+   Nếu ghép hai nửa ngay tại đầu mút (chỗ hạt nhô cao nhất) thì giữa hai nửa có khe thắt. Cách làm:
+   1) tìm trục / phía mặt cắt (trọng tâm bề mặt lệch về phía mặt cắt), quay cho mặt cắt hướng +z;
+   2) tìm mặt phẳng ghép z0 = chỗ quả còn phình gần tối đa (bề ngang ≥ 97,5% bề ngang lớn nhất) tính từ phía mặt cắt vào;
+   3) dời để z0 nằm ở z = 0; các tam giác nằm hẳn phía trên z0 (vành bo, mặt cắt, hạt nhô) tách thành lưới "phần cắt" CHỈ hiện khi bắt đầu cắt → quả nguyên liền khối, không lộ đường ghép. */
 function normalizePumpkinHalf(root) {
   root.updateMatrixWorld(true);
   const bb0 = new THREE.Box3().setFromObject(root), e0 = bb0.getSize(V3()), pre = new THREE.Group(); pre.add(root);
   /* trục cắt: mặc định z; nếu model là tấm mỏng rõ rệt theo x hoặc y (mỏng < 60% chiều z) thì xoay trục đó về z */
   if (e0.x < e0.z * .6 && e0.x <= e0.y) pre.rotation.y = Math.PI / 2; else if (e0.y < e0.z * .6) pre.rotation.x = Math.PI / 2;
   pre.updateMatrixWorld(true);
-  const bb = new THREE.Box3().setFromObject(pre), mid = (bb.min.z + bb.max.z) / 2, dep = Math.max(1e-4, bb.max.z - bb.min.z), eps = dep * .015, v = V3(), w1 = V3(), w2 = V3(), w3 = V3();
-  let nMax = 0, nMin = 0, sA = 0, sAZ = 0; const zs = [], meshes = [];
+  const bb = new THREE.Box3().setFromObject(pre), mid = (bb.min.z + bb.max.z) / 2, dep = Math.max(1e-4, bb.max.z - bb.min.z), eps = dep * .015, W = pre.matrixWorld, v = V3();
+  let nMax = 0, nMin = 0, sA = 0, sAZ = 0; const zs = [], xs = [], ys = [], meshes = [];
   pre.traverse(o => {
-    if (!o.isMesh || !o.geometry.attributes.position) return; const p = o.geometry.attributes.position, ix = o.geometry.index, n = ix ? ix.count : p.count;
+    if (!o.isMesh || !o.geometry.attributes.position) return; const p = o.geometry.attributes.position, ix = o.geometry.index, n = ix ? ix.count : p.count, M = o.matrixWorld;
     meshes.push(o.name + ':' + p.count + (o.material && o.material.map ? '+map' : ''));
-    for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld); zs.push(v.z); if (v.z > bb.max.z - eps) nMax++; if (v.z < bb.min.z + eps) nMin++; }
+    const base = zs.length, vz = new Float32Array(p.count * 3);
+    for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).applyMatrix4(M); vz[i * 3] = v.x; vz[i * 3 + 1] = v.y; vz[i * 3 + 2] = v.z; xs.push(v.x); ys.push(v.y); zs.push(v.z); if (v.z > bb.max.z - eps) nMax++; if (v.z < bb.min.z + eps) nMin++; }
     for (let i = 0; i + 2 < n; i += 3) {   // trọng tâm diện tích bề mặt: nửa quả có trọng tâm lệch về phía mặt cắt
-      const ia = ix ? ix.getX(i) : i, ib = ix ? ix.getX(i + 1) : i + 1, ic = ix ? ix.getX(i + 2) : i + 2;
-      w1.fromBufferAttribute(p, ia).applyMatrix4(o.matrixWorld); w2.fromBufferAttribute(p, ib).applyMatrix4(o.matrixWorld); w3.fromBufferAttribute(p, ic).applyMatrix4(o.matrixWorld);
-      const ar = w2.clone().sub(w1).cross(w3.clone().sub(w1)).length() / 2; sA += ar; sAZ += ar * (w1.z + w2.z + w3.z) / 3;
+      const ia = (ix ? ix.getX(i) : i) * 3, ib = (ix ? ix.getX(i + 1) : i + 1) * 3, ic = (ix ? ix.getX(i + 2) : i + 2) * 3;
+      const ux = vz[ib] - vz[ia], uy = vz[ib + 1] - vz[ia + 1], uz = vz[ib + 2] - vz[ia + 2], wx = vz[ic] - vz[ia], wy = vz[ic + 1] - vz[ia + 1], wz = vz[ic + 2] - vz[ia + 2];
+      const ar = Math.hypot(uy * wz - uz * wy, uz * wx - ux * wz, ux * wy - uy * wx) / 2; sA += ar; sAZ += ar * (vz[ia + 2] + vz[ib + 2] + vz[ic + 2]) / 3;
     }
   });
-  const cz = sA ? sAZ / sA : mid;
-  const flatMax = Math.abs(cz - mid) > dep * .03 ? cz > mid : nMax >= nMin;   // trọng tâm đủ lệch → tin trọng tâm; không thì dùng số đỉnh nằm trên một mặt phẳng
-  /* mặt phẳng cắt thật: nếu có một cụm đỉnh rất đậm (≥ 40% số đỉnh trong 5% ngoài cùng) thì lấy cụm đó (bỏ qua chi tiết nhô ra làm lệch hộp bao); không thì lấy mép hộp bao */
-  const bins = 100, cnt = new Array(bins).fill(0), lo = flatMax ? bb.max.z - dep * .05 : bb.min.z, bw = dep * .05 / bins; let inWin = 0;
-  zs.forEach(z => { const k = Math.floor((z - lo) / bw); if (k >= 0 && k < bins) { cnt[k]++; inWin++; } });
-  let kb = 0; cnt.forEach((c, k) => { if (c > cnt[kb]) kb = k; });
-  const planeZ = inWin > 30 && cnt[kb] >= inWin * .4 ? lo + (kb + .5) * bw : (flatMax ? bb.max.z : bb.min.z);
-  console.info('[quả bí] trục cắt z · mặt cắt ở', flatMax ? '+z' : '-z', '· lệch trọng tâm', ((cz - mid) / dep).toFixed(3), '· đỉnh phẳng', nMax, nMin, '· kích thước', e0.x.toFixed(2), e0.y.toFixed(2), e0.z.toFixed(2), '· mặt phẳng cắt cách đầu hộp', (Math.abs((flatMax ? bb.max.z : bb.min.z) - planeZ) / dep * 100).toFixed(1) + '% độ sâu · lưới', meshes.join(' '));
+  const cz = sA ? sAZ / sA : mid, flatMax = Math.abs(cz - mid) > dep * .03 ? cz > mid : nMax >= nMin;   // trọng tâm đủ lệch → tin trọng tâm; không thì dùng số đỉnh nằm trên một mặt phẳng
+  /* mặt phẳng ghép: trong hệ đã quay (mặt cắt về +z), từ đầu mút phía mặt cắt đi vào, gặp chỗ bề ngang ≥ 97,5% bề ngang lớn nhất */
+  const sg = flatMax ? 1 : -1, B = 80, lo = flatMax ? bb.min.z : -bb.max.z, bw = dep / B, mnx = new Array(B).fill(1e9), mxx = new Array(B).fill(-1e9), mny = new Array(B).fill(1e9), mxy = new Array(B).fill(-1e9);
+  for (let i = 0; i < zs.length; i++) { const k = Math.min(B - 1, Math.max(0, Math.floor((sg * zs[i] - lo) / bw))); if (xs[i] < mnx[k]) mnx[k] = xs[i]; if (xs[i] > mxx[k]) mxx[k] = xs[i]; if (ys[i] < mny[k]) mny[k] = ys[i]; if (ys[i] > mxy[k]) mxy[k] = ys[i]; }
+  const ap = mnx.map((_, k) => mxx[k] > mnx[k] ? Math.sqrt((mxx[k] - mnx[k]) * (mxy[k] - mny[k])) : 0), apMax = Math.max(...ap);
+  let kz = B - 1; while (kz > 0 && ap[kz] < apMax * .975) kz--;
+  const z0 = lo + (kz + .5) * bw;   // trong hệ đã quay
+  console.info('[quả bí] trục cắt z · mặt cắt ở', flatMax ? '+z' : '-z', '· lệch trọng tâm', ((cz - mid) / dep).toFixed(3), '· kích thước', e0.x.toFixed(2), e0.y.toFixed(2), e0.z.toFixed(2), '· mặt phẳng ghép cách đầu mút', ((lo + dep - z0) / dep * 100).toFixed(1) + '% độ sâu · lưới', meshes.join(' '));
   const g = new THREE.Group(), h = new THREE.Group(); g.add(pre); h.add(g);
   if (!flatMax) g.rotation.y = Math.PI;   // mặt cắt đang ở phía −z → quay đầu lại
-  h.updateMatrixWorld(true); const b2 = new THREE.Box3().setFromObject(h), zPlane = flatMax ? planeZ : -planeZ;
-  g.position.set(-(b2.min.x + b2.max.x) / 2, 0, -zPlane + dep * .004);   // mặt cắt nằm ở z = 0, hai nửa chồng nhẹ lên nhau để không hở đường ghép
-  h.userData.zCut = dep * .004; h.userData.tol = Math.max(dep * .012, 1e-4);
+  h.updateMatrixWorld(true); const b2 = new THREE.Box3().setFromObject(h);
+  g.position.set(-(b2.min.x + b2.max.x) / 2, 0, -z0 + dep * .002);   // mặt ghép nằm ở z = 0, hai nửa chồng nhẹ lên nhau
+  h.userData.tol = dep * .003; h.userData.band = dep * .04;
   return h;
 }
-/* Tách mặt cắt (các tam giác nằm trên mặt phẳng cắt) khỏi thân quả: thân tính lại pháp tuyến CHỈ từ các tam giác của thân (làm mượt theo vị trí đỉnh) nên viền mép cắt không bị sáng / tối bất thường; mặt cắt thành lưới riêng có pháp tuyến phẳng.
-   Nhờ vậy khi hai nửa ghép lại thành quả nguyên, đường ghép không lộ viền. h = nhóm đã chuẩn hoá (mặt cắt ở z ≈ 0, quay về +z). */
-function splitPumpkinCutFace(h, zPlane, tol) {
-  h.updateMatrixWorld(true); const list = []; h.traverse(o => { if (o.isMesh && o.geometry.attributes.position) list.push(o); });
+/* Tách mỗi lưới thành "thân" (tam giác có ít nhất một đỉnh ở phía dưới mặt ghép) và "phần cắt" (các tam giác còn lại, hiện khi bắt đầu cắt).
+   Dùng chung bộ đệm đỉnh, chỉ khác chỉ số → không tốn thêm bộ nhớ. Pháp tuyến gần mép ghép được ép nằm trong mặt phẳng ghép → hai nửa soi gương liền mạch về bóng đổ. */
+function splitPumpkinSeam(h) {
+  const tol = h.userData.tol, band = h.userData.band; h.updateMatrixWorld(true); const list = []; h.traverse(o => { if (o.isMesh && o.geometry.attributes.position) list.push(o); });
   list.forEach(m => {
-    const g0 = m.geometry.index ? m.geometry.toNonIndexed() : m.geometry, P = g0.attributes.position, U = g0.attributes.uv, n = P.count, W = m.matrixWorld;
-    const wz = new Float32Array(n), v = V3(); for (let i = 0; i < n; i++) wz[i] = v.fromBufferAttribute(P, i).applyMatrix4(W).z;
-    const onFace = t => wz[t * 3] > zPlane - tol && wz[t * 3 + 1] > zPlane - tol && wz[t * 3 + 2] > zPlane - tol;
-    const tris = n / 3, faceT = [], bodyT = []; for (let t = 0; t < tris; t++) (onFace(t) ? faceT : bodyT).push(t);
-    if (!faceT.length || !bodyT.length) return;   // không có mặt phẳng riêng → giữ nguyên
-    const nloc = V3(0, 0, 1).transformDirection(W.clone().invert()).normalize();   // hướng +z của thế giới trong toạ độ lưới
-    const key = i => Math.round(P.getX(i) * 2e4) + ',' + Math.round(P.getY(i) * 2e4) + ',' + Math.round(P.getZ(i) * 2e4), acc = new Map(), a = V3(), b = V3(), c = V3(), nn = V3();
-    bodyT.forEach(t => {   // pháp tuyến làm mượt từ các tam giác thân (theo diện tích)
-      a.fromBufferAttribute(P, t * 3); b.fromBufferAttribute(P, t * 3 + 1); c.fromBufferAttribute(P, t * 3 + 2); nn.copy(b).sub(a).cross(c.clone().sub(a));
-      for (let k = 0; k < 3; k++) { const q = key(t * 3 + k); const e = acc.get(q) || [0, 0, 0]; e[0] += nn.x; e[1] += nn.y; e[2] += nn.z; acc.set(q, e); }
-    });
-    const mk = (ts, flat) => {
-      const pos = new Float32Array(ts.length * 9), nor = new Float32Array(ts.length * 9), uv = U ? new Float32Array(ts.length * 6) : null;
-      ts.forEach((t, j) => { for (let k = 0; k < 3; k++) { const i = t * 3 + k; pos.set([P.getX(i), P.getY(i), P.getZ(i)], j * 9 + k * 3); if (uv) uv.set([U.getX(i), U.getY(i)], j * 6 + k * 2);
-        if (flat) nor.set([nloc.x, nloc.y, nloc.z], j * 9 + k * 3);
-        else {
-          const e = acc.get(key(i)) || [0, 0, 1]; let l = Math.hypot(e[0], e[1], e[2]) || 1, ex = e[0] / l, ey = e[1] / l, ez = e[2] / l;
-          if (wz[i] > zPlane - tol) { const d = ex * nloc.x + ey * nloc.y + ez * nloc.z; ex -= d * nloc.x; ey -= d * nloc.y; ez -= d * nloc.z; l = Math.hypot(ex, ey, ez) || 1; ex /= l; ey /= l; ez /= l; }   // đỉnh ở mép cắt: pháp tuyến nằm trong mặt phẳng cắt → hai nửa ghép lại có bóng đổ liền mạch, không lộ nếp
-          nor.set([ex, ey, ez], j * 9 + k * 3);
-        } } });
-      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(nor, 3)); if (uv) g.setAttribute('uv', new THREE.BufferAttribute(uv, 2)); return g;
-    };
-    const face = new THREE.Mesh(mk(faceT, true), m.material); face.name = (m.name || 'mesh') + '_matcat'; face.position.copy(m.position); face.quaternion.copy(m.quaternion); face.scale.copy(m.scale);
-    m.geometry = mk(bodyT, false); m.parent.add(face);
+    const g0 = m.geometry, P = g0.attributes.position, n = P.count, M = m.matrixWorld, v = V3(), ixa = g0.index ? g0.index.array : null, nt = (ixa ? ixa.length : n) / 3;
+    const wz = new Float32Array(n); for (let i = 0; i < n; i++) wz[i] = v.fromBufferAttribute(P, i).applyMatrix4(M).z;
+    const keep = [], extra = [];
+    for (let t = 0; t < nt; t++) { const a = ixa ? ixa[t * 3] : t * 3, b = ixa ? ixa[t * 3 + 1] : t * 3 + 1, c = ixa ? ixa[t * 3 + 2] : t * 3 + 2; (Math.min(wz[a], wz[b], wz[c]) <= tol ? keep : extra).push(a, b, c); }
+    if (!extra.length || !keep.length) return;
+    let nAttr = g0.attributes.normal;
+    if (nAttr) {   // pháp tuyến gần mép ghép → nằm trong mặt phẳng ghép (làm mượt theo khoảng cách)
+      const nl = V3(0, 0, 1).transformDirection(M.clone().invert()).normalize(), arr = new Float32Array(nAttr.array.length);
+      for (let i = 0; i < n; i++) {
+        let x = nAttr.getX(i), y = nAttr.getY(i), z = nAttr.getZ(i); const w = Math.max(0, 1 - Math.abs(wz[i]) / band);
+        if (w > 0) { const d = (x * nl.x + y * nl.y + z * nl.z) * w; x -= d * nl.x; y -= d * nl.y; z -= d * nl.z; const l = Math.hypot(x, y, z) || 1; x /= l; y /= l; z /= l; }
+        arr[i * 3] = x; arr[i * 3 + 1] = y; arr[i * 3 + 2] = z;
+      }
+      nAttr = new THREE.BufferAttribute(arr, 3);
+    }
+    const mkG = idx => { const g = new THREE.BufferGeometry(); Object.keys(g0.attributes).forEach(k => g.setAttribute(k, k === 'normal' && nAttr ? nAttr : g0.attributes[k])); g.setIndex(new THREE.BufferAttribute(n > 65535 ? new Uint32Array(idx) : new Uint16Array(idx), 1)); return g; };
+    const ex = new THREE.Mesh(mkG(extra), m.material); ex.name = (m.name || 'mesh') + '_phancat'; ex.position.copy(m.position); ex.quaternion.copy(m.quaternion); ex.scale.copy(m.scale); ex.userData.pkExtra = true; ex.visible = false;
+    m.geometry = mkG(keep); m.parent.add(ex);
   });
 }
 function prepPumpkin(root) {
   let named = false; root.traverse(o => { if (PUMPKIN_COL[o.name] !== undefined) named = true; });
   root.traverse(o => { if (o.isMesh && !o.geometry.attributes.normal) o.geometry.computeVertexNormals(); });   // model không kèm pháp tuyến → tự tính, không thì bị đen
   if (named) root.traverse(o => { if (o.isMesh) o.material = matOf(PUMPKIN_COL[o.name] ?? 0xe27a1f, { roughness: o.name === 'vo_qua' ? .5 : .7, side: THREE.DoubleSide }); });   // model cũ: tô màu theo tên phần
-  else { root.traverse(o => { if (o.isMesh && o.material) { o.material = o.material.clone(); o.material.side = THREE.DoubleSide; } }); root = normalizePumpkinHalf(root); splitPumpkinCutFace(root, root.userData.zCut || 0, root.userData.tol || .01); }   // model mới: giữ texture của model
+  else { root.traverse(o => { if (o.isMesh && o.material) { o.material = o.material.clone(); o.material.side = THREE.DoubleSide; } }); root = normalizePumpkinHalf(root); splitPumpkinSeam(root); }   // model mới: giữ texture của model
   const w = new THREE.Group(), a = new THREE.Group(), b = new THREE.Group(), rb = root.clone(true);
   rb.scale.z = -1; a.add(root); b.add(rb); w.add(a, b);
   const bs = new THREE.Box3().setFromObject(root).getSize(V3()), d = named ? .5 : Math.max(.2, Math.max(bs.x, bs.y) * .22), th = named ? .5 : .6;   // model cũ: giữ số đã chỉnh; model mới: theo cỡ model
@@ -1527,11 +1526,13 @@ function prepPumpkin(root) {
   const lo0 = new THREE.Box3().setFromObject(root).min.y;
   a.position.z = 0; a.rotation.x = 0; w.updateMatrixWorld(true);
   const lift = Math.max(0, new THREE.Box3().setFromObject(root).min.y - lo0);
-  w.userData.cut = { a, b, d, th, lift };
+  const extras = []; w.traverse(o => { if (o.userData && o.userData.pkExtra) extras.push(o); });   // phần cắt của cả hai nửa: chỉ hiện khi bắt đầu cắt
+  w.userData.cut = { a, b, d, th, lift, extras };
   return w;
 }
 function setPumpkinCut(it, e) {
   const C = it.cut; if (!C) return;
+  if (C.extras) C.extras.forEach(m => { m.visible = e > .001; });
   C.a.position.set(0, C.lift * e, -C.d * e); C.a.rotation.x = -C.th * e;
   C.b.position.set(0, C.lift * e, C.d * e); C.b.rotation.x = C.th * e;
 }
