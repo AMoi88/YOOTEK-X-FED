@@ -2209,7 +2209,7 @@ function completeStep1() {
    Bấm sai: báo nhẹ và dụng cụ rung. Nút giữa đáy / "Thao tác nhanh" làm đúng thao tác đang chờ.
    Thao tác kính lúp / kính hiển vi xong thì mở MÀN KẾT QUẢ ở đúng tab mẫu vật. Phase: task → doing → task … → observe (bấm kính lúp xem lại kết quả) → quiz → done.
    ===================================================================================================== */
-const DIR_PIPET = () => V3(.1, -1, -.22), DIR_TRAVEL = () => V3(.55, -.8, -.2), DIR_KNIFE = () => V3(0, -.72, .7), DIR_FORCEPS = () => V3(.12, -.75, -.65);
+const DIR_PIPET = () => V3(.1, -1, -.22), DIR_TRAVEL = () => V3(.55, -.8, -.2), DIR_KNIFE = () => V3(0, -.72, .7), DIR_FORCEPS = () => V3(.04, -1, -.1);   // panh cầm gần như thẳng đứng, mũi chúc xuống (đảo hướng mũi nếu model bị ngược: đổi tip của forceps trong ITEMS thành [x, y, z] tương ứng)
 
 /* Tư thế để đầu làm việc (tip) của dụng cụ tới vị trí tip và hướng theo dir (hướng đầu dụng cụ trong thế giới) */
 function aimPose(it, tip, dir) {
@@ -2529,7 +2529,7 @@ async function cutMoss() {
 /* panh gắp lát cắt lên: mũi panh hạ xuống mép lát cắt, kẹp lại; lát cắt đi theo mũi panh (carry) rồi nhấc lên */
 async function grabSlice() {
   const fo = IT.forceps, ms = IT.mslice, dir = DIR_FORCEPS(); ms.g.updateMatrixWorld(true);
-  const edge = ms.g.localToWorld(V3(ms.size.x * .22, ms.size.y * .5, 0));
+  const edge = ms.g.localToWorld(V3(ms.size.x * .3, ms.size.y * .5, 0));   // mũi panh kẹp ở mép lát cắt
   await flyTo(fo, aimPose(fo, edge.clone().add(V3(0, 1.0, 0)), dir), 850, .7);
   await anim(450, e => setTip(fo, edge.clone().add(V3(0, 1.0 * (1 - e), 0)), dir));
   sfx('click'); carry = { by: fo, it: ms, off: ms.g.position.clone().sub(edge), s0: ms.g.scale.x }; ms.flags.noShadow = true;
