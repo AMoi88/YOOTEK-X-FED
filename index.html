@@ -2583,7 +2583,8 @@ const SIC = (d, z = 18) => '<svg viewBox="0 0 24 24" width="' + z + '" height="'
 /* ← Thao tác trước: dựng lại cảnh tới thao tác trước đó (chạy nhanh, không chuyển động) */
 async function prevAction() {
   const s = state.steps[1]; if (s.phase !== 'task' || s.sub < 1 || state.isAnimating || !ready) return;
-  s.sub--; await applyScene(); renderStep2();
+  s.sub--; if (s.voiced) Object.keys(s.voiced).forEach(k => { if (Number(k) >= s.sub) delete s.voiced[k]; });   // quay lại thao tác trước (và các thao tác sau nó): đọc lại thuyết minh
+  await applyScene(); renderStep2();
 }
 /* Làm thao tác đang chờ (bấm đúng dụng cụ / nút giữa đáy / "Thao tác nhanh") */
 async function runAction(mode) {
