@@ -1458,10 +1458,11 @@ function normalizePumpkinHalf(root) {
   if (e0.x < e0.z * .6 && e0.x <= e0.y) pre.rotation.y = Math.PI / 2; else if (e0.y < e0.z * .6) pre.rotation.x = Math.PI / 2;
   pre.updateMatrixWorld(true);
   const bb = new THREE.Box3().setFromObject(pre), mid = (bb.min.z + bb.max.z) / 2, dep = Math.max(1e-4, bb.max.z - bb.min.z), eps = dep * .015, v = V3(), w1 = V3(), w2 = V3(), w3 = V3();
-  let nMax = 0, nMin = 0, sA = 0, sAZ = 0;
+  let nMax = 0, nMin = 0, sA = 0, sAZ = 0; const zs = [], meshes = [];
   pre.traverse(o => {
     if (!o.isMesh || !o.geometry.attributes.position) return; const p = o.geometry.attributes.position, ix = o.geometry.index, n = ix ? ix.count : p.count;
-    for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld); if (v.z > bb.max.z - eps) nMax++; if (v.z < bb.min.z + eps) nMin++; }
+    meshes.push(o.name + ':' + p.count + (o.material && o.material.map ? '+map' : ''));
+    for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld); zs.push(v.z); if (v.z > bb.max.z - eps) nMax++; if (v.z < bb.min.z + eps) nMin++; }
     for (let i = 0; i + 2 < n; i += 3) {   // trọng tâm diện tích bề mặt: nửa quả có trọng tâm lệch về phía mặt cắt
       const ia = ix ? ix.getX(i) : i, ib = ix ? ix.getX(i + 1) : i + 1, ic = ix ? ix.getX(i + 2) : i + 2;
       w1.fromBufferAttribute(p, ia).applyMatrix4(o.matrixWorld); w2.fromBufferAttribute(p, ib).applyMatrix4(o.matrixWorld); w3.fromBufferAttribute(p, ic).applyMatrix4(o.matrixWorld);
@@ -1470,11 +1471,16 @@ function normalizePumpkinHalf(root) {
   });
   const cz = sA ? sAZ / sA : mid;
   const flatMax = Math.abs(cz - mid) > dep * .03 ? cz > mid : nMax >= nMin;   // trọng tâm đủ lệch → tin trọng tâm; không thì dùng số đỉnh nằm trên một mặt phẳng
-  console.info('[quả bí] trục cắt z · mặt cắt ở', flatMax ? '+z' : '-z', '· lệch trọng tâm', ((cz - mid) / dep).toFixed(3), '· đỉnh phẳng', nMax, nMin);
+  /* mặt phẳng cắt thật: nếu có một cụm đỉnh rất đậm (≥ 40% số đỉnh trong 5% ngoài cùng) thì lấy cụm đó (bỏ qua chi tiết nhô ra làm lệch hộp bao); không thì lấy mép hộp bao */
+  const bins = 100, cnt = new Array(bins).fill(0), lo = flatMax ? bb.max.z - dep * .05 : bb.min.z, bw = dep * .05 / bins; let inWin = 0;
+  zs.forEach(z => { const k = Math.floor((z - lo) / bw); if (k >= 0 && k < bins) { cnt[k]++; inWin++; } });
+  let kb = 0; cnt.forEach((c, k) => { if (c > cnt[kb]) kb = k; });
+  const planeZ = inWin > 30 && cnt[kb] >= inWin * .4 ? lo + (kb + .5) * bw : (flatMax ? bb.max.z : bb.min.z);
+  console.info('[quả bí] trục cắt z · mặt cắt ở', flatMax ? '+z' : '-z', '· lệch trọng tâm', ((cz - mid) / dep).toFixed(3), '· đỉnh phẳng', nMax, nMin, '· kích thước', e0.x.toFixed(2), e0.y.toFixed(2), e0.z.toFixed(2), '· mặt phẳng cắt cách đầu hộp', (Math.abs((flatMax ? bb.max.z : bb.min.z) - planeZ) / dep * 100).toFixed(1) + '% độ sâu · lưới', meshes.join(' '));
   const g = new THREE.Group(), h = new THREE.Group(); g.add(pre); h.add(g);
   if (!flatMax) g.rotation.y = Math.PI;   // mặt cắt đang ở phía −z → quay đầu lại
-  h.updateMatrixWorld(true); const b2 = new THREE.Box3().setFromObject(h);
-  g.position.set(-(b2.min.x + b2.max.x) / 2, 0, -b2.max.z);
+  h.updateMatrixWorld(true); const b2 = new THREE.Box3().setFromObject(h), zPlane = flatMax ? planeZ : -planeZ;
+  g.position.set(-(b2.min.x + b2.max.x) / 2, 0, -zPlane + dep * .004);   // mặt cắt nằm ở z = 0, hai nửa chồng nhẹ lên nhau để không hở đường ghép
   return h;
 }
 function prepPumpkin(root) {
