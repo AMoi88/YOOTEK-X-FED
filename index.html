@@ -1120,31 +1120,29 @@ const TOOLS = ['scope', 'lup', 'knife', 'water', 'pipet', 'slide', 'cover', 'mos
 /* Bố trí trên bàn: pos = [x, z, góc xoay Y]; fit = cỡ hiển thị (h = chiều cao, l = chiều dài lớn nhất; đơn vị cảnh, đã phóng đại các dụng cụ nhỏ cho dễ bấm)
    tip = hướng đầu làm việc trong toạ độ model (dùng để hướng đầu dụng cụ xuống mẫu) · lab = lệch nhãn ghi chú trên màn hình (px) */
 const ITEMS = {
-  /* Hàng SAU: kính hiển vi · khay dụng cụ (kính lúp, dao rọc giấy, ống nhỏ giọt, nước cất, lam kính, lamen)
-     Hàng TRƯỚC: 4 mẫu vật Rêu → Dương xỉ → Thông → Bí ngô (kèm lá non dương xỉ, nón cái thông; lát cắt rêu hiện ra khi cắt). y = mặt khay */
+  /* Hàng TRƯỚC: khay dụng cụ (kính lúp, dao rọc giấy, ống nhỏ giọt, nước cất, lam kính, lamen)
+     Hàng SAU: kính hiển vi · 4 mẫu vật Rêu → Dương xỉ → Thông → Bí ngô (lát cắt rêu hiện ra khi cắt). y = mặt khay */
   scope:   { name: 'Kính hiển vi',  pos: [-9.6, -2.5, -Math.PI / 2], fit: { h: 5.6 }, lab: [0, -52] },
-  lup:     { name: 'Kính lúp',      pos: [-4.9, -2.7, 0],    y: .1, prep: 'lup', fit: { l: 2.1 }, lab: [0, -70] },
-  knife:   { name: 'Dao rọc giấy',       pos: [-2.9, -2.7, .05],  y: .1, fit: { l: 1.5 },  lab: [0, -96], tip: [0, 0, 1] },
-  pipet:   { name: 'Ống nhỏ giọt',  pos: [-1.3, -2.7, 0],    y: .1, fit: { l: 3.1 },  lab: [0, -70], tip: [0, 0, -1] },
-  water:   { name: 'Lọ nước cất', label: 'Nước cất', pos: [.7, -2.7, 0], y: .1, fit: { h: 2.0 }, lab: [0, -64] },
-  slide:   { name: 'Lam kính',      pos: [3.1, -2.7, 0],     y: .1, prep: 'slide', fit: { l: 2.2 }, lab: [0, -72] },
-  cover:   { name: 'Lamen',         pos: [5.3, -2.6, .2],    y: .1, fit: { l: .64 },  lab: [0, -52] },
-  moss:    { name: 'Cây rêu',       pos: [-6.6, 2.8, 0],     y: .1, fit: { h: 1.3 },  lab: [0, -60] },
-  mslice:  { name: 'Lát cắt thân rêu', pos: [-4.8, 4.0, 0],  y: .1, fit: { l: .6 },   hidden: true },
-  fern:    { name: 'Cây dương xỉ',  pos: [-1.9, 2.7, 0],     y: .1, fit: { l: 3.3 },  lab: [0, -50] },
-  fiddle:  { name: 'Lá non dương xỉ', pos: [-3.5, 4.1, .2],  y: .1, fit: { h: 1.0 } },
-  pine:    { name: 'Cành thông',    pos: [2.6, 2.6, 0],      y: .1, fit: { h: 3.1 },  lab: [0, -40] },
-  cone:    { name: 'Nón cái',       pos: [4.4, 4.0, .35],    y: .1, fit: { l: 1.15 } },
-  pumpkin: { name: 'Quả bí ngô',    pos: [7.6, 2.8, -.25],   y: .1, prep: 'pumpkin', fit: { l: 2.5 }, lab: [0, -56] }
+  lup:     { name: 'Kính lúp',      pos: [-4.9, 2.9, 0],    y: .1, prep: 'lup', fit: { l: 2.1 }, lab: [0, -70] },
+  knife:   { name: 'Dao rọc giấy',       pos: [-2.9, 2.9, .05],  y: .1, fit: { l: 1.5 },  lab: [0, -96], tip: [0, 0, 1] },
+  pipet:   { name: 'Ống nhỏ giọt',  pos: [-1.3, 2.9, 0],    y: .1, fit: { l: 3.1 },  lab: [0, -70], tip: [0, 0, -1] },
+  water:   { name: 'Lọ nước cất', label: 'Nước cất', pos: [.7, 2.9, 0], y: .1, fit: { h: 2.0 }, lab: [0, -64] },
+  slide:   { name: 'Lam kính',      pos: [3.1, 2.9, 0],     y: .1, prep: 'slide', fit: { l: 2.2 }, lab: [0, -72] },
+  cover:   { name: 'Lamen',         pos: [5.3, 2.9, .2],    y: .1, fit: { l: .64 },  lab: [0, -52] },
+  moss:    { name: 'Cây rêu',       pos: [-6.6, -2.9, 0],     y: .1, fit: { h: 1.3 },  lab: [0, -60] },
+  mslice:  { name: 'Lát cắt thân rêu', pos: [-4.8, -4.3, 0],  y: .1, fit: { l: .6 },   hidden: true },
+  fern:    { name: 'Cây dương xỉ',  pos: [-1.9, -2.9, 0],     y: .1, fit: { l: 3.3 },  lab: [0, -50] },
+  pine:    { name: 'Cành thông',    pos: [2.6, -2.9, 0],      y: .1, fit: { h: 3.1 },  lab: [0, -40] },
+  pumpkin: { name: 'Quả bí ngô',    pos: [7.6, -2.9, -.25],   y: .1, prep: 'pumpkin', fit: { l: 2.5 }, lab: [0, -56] }
 };
-const TRAYS = [   // khay nhựa: hàng sau (dụng cụ) · hàng trước (mẫu vật)
-  { x: .2, z: -2.7, w: 12.8, d: 3.8 }, { x: .5, z: 3.2, w: 18.6, d: 4.6 }
+const TRAYS = [   // khay nhựa: hàng TRƯỚC (dụng cụ) · hàng SAU (mẫu vật)
+  { x: .2, z: 2.9, w: 12.8, d: 3.8 }, { x: .6, z: -2.9, w: 16.6, d: 4.6 }
 ];
 const TRAY = { floor: .1, wall: .32 };
 const FALLBACK = {   // hình dự phòng (cỡ x, y, z, màu) khi model không tải được
   scope: [3.4, 5.6, 3, 0x6d7478], lup: [.9, .1, 1.8, 0x3a3a3a], knife: [.7, .05, 1.5, 0xc9d2d6], water: [1.0, 2.0, 1.0, 0x7fb6d6], pipet: [.3, .3, 3.1, 0x3a4a6a],
   slide: [2.2, .08, .76, 0xe9fbf8], cover: [.64, .03, .64, 0xbfe3ee], moss: [2, 1.3, 1.9, 0x4f8a2b], fern: [3.3, 2.5, 1.4, 0x3f8f3a], pine: [1.7, 3.1, 2.1, 0x2f6b3a],
-  pumpkin: [2.5, 1.8, 2.4, 0xe8822a], mslice: [.6, .06, .6, 0x6fae3e], fiddle: [.5, 1, .3, 0x7fb24a], cone: [1.15, .6, .6, 0x7a4a22]
+  pumpkin: [2.5, 1.8, 2.4, 0xe8822a], mslice: [.6, .06, .6, 0x6fae3e]
 };
 /* Màu chất lỏng */
 const COL = { water: 0x7cc4ff };
@@ -1466,29 +1464,6 @@ const BUILD = {
     const m = new THREE.Mesh(new THREE.CylinderGeometry(.3, .3, .05, 32), matOf(0x8cc85a, { roughness: .6, transparent: true, opacity: .92 })); m.position.y = .025; g.add(m);
     const r = new THREE.Mesh(new THREE.TorusGeometry(.29, .025, 8, 32).rotateX(Math.PI / 2), matOf(0x4f8a2b)); r.position.y = .05; g.add(r);
     return g;
-  },
-  /* lá non dương xỉ: cuống cong lên, đầu lá cuộn tròn (hình xoắn ốc) */
-  fiddle() {
-    const g = new THREE.Group(), mat = matOf(0x86b84c, { roughness: .65 }), pts = [];
-    for (let i = 0; i <= 10; i++) pts.push(V3(Math.sin(i / 10 * 1.2) * .08, i / 10 * .72, 0));
-    const cx = .08 + .15, cy = .78;
-    for (let i = 0; i <= 40; i++) { const t = i / 40, a = Math.PI + t * Math.PI * 3.4, r = .15 * (1 - t * .82); pts.push(V3(cx + Math.cos(a) * r, cy + Math.sin(a) * r * -1 + .0, 0)); }
-    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 120, .032, 10, false), mat));
-    const b = new THREE.Mesh(new THREE.SphereGeometry(.06, 12, 10), mat); b.position.copy(pts[pts.length - 1]); g.add(b);
-    const soil = new THREE.Mesh(new THREE.CylinderGeometry(.22, .26, .06, 20), matOf(0x6b4a2e, { roughness: .9 })); soil.position.y = .03; g.add(soil);
-    return g;
-  },
-  /* nón cái của cây thông: lõi dài phủ các vảy gỗ xếp xoắn, nằm ngang trên khay */
-  cone() {
-    const g = new THREE.Group(), inner = new THREE.Group(), mat = matOf(0x8a5a2b, { roughness: .8 }), dark = matOf(0x5e3b1a, { roughness: .85 });
-    const core = new THREE.Mesh(new THREE.CapsuleGeometry(.16, .7, 6, 12), dark); inner.add(core);
-    const N = 46;
-    for (let i = 0; i < N; i++) {
-      const t = i / (N - 1), y = -.48 + t * .96, rr = .2 + .1 * Math.sin(Math.PI * (t * .9 + .05)), a = i * 2.4;
-      const sc = new THREE.Mesh(new THREE.SphereGeometry(.11, 10, 8), i % 2 ? mat : dark); sc.scale.set(1.2, .55, .9);
-      sc.position.set(Math.cos(a) * rr, y, Math.sin(a) * rr); sc.lookAt(V3(0, y + .5, 0)); inner.add(sc);
-    }
-    inner.rotation.z = Math.PI / 2; g.add(inner); return g;
   }
 };
 /* Ống nhỏ giọt: thêm cột chất lỏng bên trong ống thuỷ tinh (toạ độ model: trục z, đầu nhọn ở −z) */
@@ -2259,7 +2234,7 @@ async function magnify(id, at) {
 /* ---------- Kính lúp 3D: màn soi giống màn kết quả 2D (mắt kính tròn lớn + thẻ điều khiển), nhưng hình bên trong là cảnh 3D thật của mẫu vật.
    lensCam nhìn xuống phần mẫu vật nằm dưới kính (cùng hướng nhìn của camera chính) → vẽ vào lensRT → chép sang <canvas> trong mắt kính. Chỉ vẽ khi đang soi và khi có thay đổi. ---------- */
 const LENS_MAX = { moss: 8, fern: 6, pine: 6, pumpkin: 5 };   // zoom tối đa theo mẫu vật (nhìn vỡ thì hạ số này)
-const LENS_KEY = { moss: 'moss', fiddle: 'fern', fern: 'fern', pine: 'pine', cone: 'pine', pumpkin: 'pumpkin' };
+const LENS_KEY = { moss: 'moss', fern: 'fern', pine: 'pine', pumpkin: 'pumpkin' };
 const LENS_DEF = 3, LENS_MIN = 1, LENS_MOVE = .1, LENS_MARGIN = .2, LENS_VIEW_K = .55;   // zoom mặc định · bước mũi tên (đơn vị cảnh) · lề vùng bao · nửa vùng nhìn ở ×1 = hệ số × cạnh lớn nhất của mẫu vật
 const LENS_DONE = {};          // mẫu vật đã chỉnh zoom ít nhất một lần
 let lensCam = null, lensRT = null, lensZoom = LENS_DEF, L3 = null, lensPx = 768, lensBuf = null, lensImg = null, _lt, _ld;
@@ -2435,11 +2410,11 @@ const ACTIONS = [
   { drag: 'cover',  drop: 'slide',   cam: 'mossA',    run: putCover },
   { drag: 'slide',  drop: 'scope',   cam: 'overview', run: toScope, view: ['moss', 'x10', 'x40'] },
   /* CHẶNG B — cây dương xỉ */
-  { drag: 'lup',    drop: 'fiddle',  cam: 'work',     run: () => magnify('fiddle'), view: ['fern', 'young'] },
+  { drag: 'lup',    drop: 'fern',    cam: 'work',     run: () => magnify('fern'), view: ['fern', 'young'] },
   { drag: 'lup',    drop: 'fern',    cam: 'work',     run: () => magnify('fern'), view: ['fern', 'sori'] },
   /* CHẶNG C — cành thông */
   { drag: 'lup',    drop: 'pine',    cam: 'work',     run: () => magnify('pine'), view: ['pine', 'cones'] },
-  { drag: 'lup',    drop: 'cone',    cam: 'work',     run: () => magnify('cone'), view: ['pine', 'seed'] },
+  { drag: 'lup',    drop: 'pine',    cam: 'work',     run: () => magnify('pine'), view: ['pine', 'seed'] },
   /* CHẶNG D — quả bí ngô */
   { drag: 'knife',  drop: 'pumpkin', cam: 'work',     run: cutPumpkin },
   { drag: 'lup',    drop: 'pumpkin', cam: 'work',     run: () => magnify('pumpkin'), view: ['pumpkin', 'cut'] }
