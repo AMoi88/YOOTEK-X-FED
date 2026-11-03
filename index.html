@@ -1036,7 +1036,7 @@ const DRACO_PATH = 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs
    Ô link để trống ('') thì tạm đọc bằng giọng máy của trình duyệt theo lời đọc (VOICE1_TEXT / acts[i].say) — thay link mp3 thật vào là xong. */
 const VA = 'https://assets.yoolife.com.vn/yootek/';
 const VOICE1 = {
-  scope: VA + '1793432276171-3344.mp3', lup: VA + '1793432392157-6091.mp3', knife: VA + '1791877309624-7555.mp3', water: VA + '1793432593443-3642.mp3',
+  scope: VA + '1793432276171-3344.mp3', lup: VA + '1793432392157-6091.mp3', knife: VA + '1791877309624-7555.mp3', forceps: VA + '1793697892391-9988.mp3', water: VA + '1793432593443-3642.mp3',
   pipet: VA + '1793432691578-8726.mp3', slide: VA + '1793432753521-5110.mp3', cover: VA + '1793448554220-7554.mp3', moss: VA + '1793433016135-3702.mp3',
   fern: VA + '1793433058172-5916.mp3', pine: VA + '1793433109306-9212.mp3', pumpkin: VA + '1793433689753-6765.mp3'
 };
@@ -1088,7 +1088,7 @@ const TEXT = {
       { g: 'Chặng A · Rêu – Cắt lát thân rêu', t: 'Kéo [dao rọc giấy]{b} vào [thân cây rêu]{b} để cắt một lát thật mỏng.', d: 'Đang cắt lát mỏng thân cây rêu…', btn: 'CẮT LÁT THÂN RÊU',
         voice: VA + '1793690905921-6493.mp3', say: 'Tiếp theo, em dùng dao rọc giấy cắt một lát thật mỏng ngang thân cây rêu. Lưỡi dao rất sắc, em nhớ thao tác cẩn thận nhé.' },
       { g: 'Chặng A · Rêu – Gắp lát cắt', t: 'Kéo [panh gắp]{b} vào [lát cắt thân rêu]{b} để gắp lát cắt lên.', d: 'Đang gắp lát cắt thân rêu…', btn: 'GẮP LÁT CẮT',
-        voice: '' /* chưa có file thu: tạm đọc bằng giọng máy theo say */, say: 'Em dùng panh gắp, gắp nhẹ lát cắt thân rêu lên để không làm rách lát cắt.' },
+        voice: VA + '1793697979475-5921.mp3', say: 'Em dùng panh gắp, gắp nhẹ lát cắt thân rêu lên để không làm rách lát cắt.' },
       { g: 'Chặng A · Rêu – Đặt lát cắt lên lam kính', t: 'Kéo [panh gắp]{b} (đang gắp lát cắt) đặt lên giữa [lam kính]{b}.', d: 'Đang đặt lát cắt lên lam kính…', btn: 'ĐẶT LÁT CẮT LÊN LAM KÍNH',
         voice: VA + '1793433884702-4255.mp3', say: 'Em đặt lát cắt thân rêu vào giữa lam kính.' },
       { g: 'Chặng A · Rêu – Nhỏ nước cất', t: 'Kéo [ống nhỏ giọt]{b} vào [lọ nước cất]{b} để nhỏ một giọt nước lên mẫu.', d: 'Đang lấy nước cất và nhỏ lên lát cắt…', btn: 'NHỎ NƯỚC CẤT',
