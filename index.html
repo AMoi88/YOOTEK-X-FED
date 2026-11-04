@@ -2777,7 +2777,7 @@ const ACTIONS = [
   { drag: 'lup',    drop: 'fern',    cam: 'work',     run: () => magnify('fern', null, true), view: ['fern', 'sori'] },
   /* CHẶNG C — cành thông */
   { drag: 'lup',    drop: 'pine',    cam: 'work',     run: () => magnify('pine'), view: ['pine', 'cones'] },
-  { drag: 'lup',    drop: 'pine',    cam: 'work',     run: () => magnify('pine'), view: ['pine', 'seed'] },
+  { drag: 'lup',    drop: 'pine',    cam: 'work',     run: () => magnify('pine', null, true), view: ['pine', 'seed'] },
   /* CHẶNG D — quả bí ngô */
   { drag: 'knife',  drop: 'pumpkin', cam: 'work',     run: cutPumpkin },
   { drag: 'lup',    drop: 'pumpkin', cam: 'work',     run: () => magnify('pumpkin'), view: ['pumpkin', 'cut'] }
@@ -2882,7 +2882,7 @@ const IMG = {
   fernYoung: '',   // lá non cuộn tròn — nguồn: commons.wikimedia.org File:Matteuccia_struthiopteris_fiddleheads1.jpg
   fernSori: VA + '1793786631630-9047.jpg',   // mặt dưới lá dương xỉ có ổ bào tử (ảnh chụp thật, 600×400 — vùng giữa hiển thị trong mặt tròn)
   pineCones: '',   // lá kim + nón đực + nón cái — nguồn: bioimages.org.uk image.php?id=119654
-  pineSeed: '',    // vảy nón có hạt — nguồn: omeka.uottawa.ca/biodidac/items/show/5119
+  pineSeed: VA + '1793787478258-9306.png',   // nón thông chín, vảy nón xếp xoắn quanh trục (ảnh chụp thật, 575×685 — vùng giữa hiển thị trong mặt tròn)
   pumpkinCut: ''   // quả bí cắt đôi thấy hạt — nguồn: ảnh "Squash cut open to reveal flesh and seeds", temperate.theferns.info/image/Cucurbita+moschata
 };
 const RESULT = {
@@ -2898,7 +2898,7 @@ const RESULT = {
     ] },
     { id: 'pine', name: 'Thông', title: 'Cành thông', desc: 'Lá [hình kim]{b}, chưa có hoa, cơ quan sinh sản là [nón]{b}; hạt nằm [lộ trên lá noãn]{b}.', views: [
       { id: 'cones', btn: 'Lá và nón', mag: 'Kính lúp', img: 'pineCones', labels: [[70, 20, 84, 10, 'Lá kim'], [30.3, 71.9, 16, 84, 'Nón đực'], [68, 52, 84, 70, 'Nón cái']] },
-      { id: 'seed', btn: 'Hạt thông', mag: 'Kính lúp', img: 'pineSeed', labels: [[50, 59, 80, 14, 'Vảy nón (lá noãn)'], [41.6, 80.8, 16, 66, 'Hạt'], [37.5, 60.6, 16, 42, 'Cánh hạt']] }
+      { id: 'seed', btn: 'Hạt thông', mag: 'Ảnh kính lúp', flat: true, img: 'pineSeed', labels: [[63.5, 46.4, 77, 28, 'Vảy nón (lá noãn)'], [50.4, 32.2, 26, 20, 'Trục nón']] }   // ảnh cố định, không phóng to / kéo
     ] },
     { id: 'pumpkin', name: 'Bí ngô', title: 'Quả bí ngô', desc: 'Cây [có hoa và quả]{b}, hạt nằm [bên trong quả]{b}.', views: [
       { id: 'cut', btn: 'Mặt cắt quả', mag: 'Kính lúp', img: 'pumpkinCut', labels: [[93.5, 55, 84, 22, 'Vỏ quả'], [86.7, 54.7, 82, 86, 'Thịt quả'], [34.8, 48.9, 18, 30, 'Hạt']] }
