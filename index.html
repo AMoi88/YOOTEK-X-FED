@@ -202,7 +202,7 @@
 
 </script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bài 35. Quan sát và phân biệt một số nhóm thực vật | YooBook</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -372,19 +372,9 @@ button{font:inherit}
 .sums{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 0;text-align:left}.sum{border:1.5px solid var(--line);border-radius:14px;padding:12px;background:#fafdfc}.sum h4{margin:0 0 6px;font-size:12px;letter-spacing:.08em;color:var(--brand-light)}.sum p{margin:3px 0;font-size:14px;color:var(--ink)}
 
 /* ---------- 9. Màn hẹp / giảm chuyển động ---------- */
-@media (max-width:780px){.main{padding:10px}}
-@media (max-width:620px){
-  :root{--step-w:160px}
-  .titles h1.lg{display:none}.titles h1.sm{display:block}
-  .stage-tools{left:8px;top:8px;max-width:calc(100% - 16px)}.ghost{padding:6px 9px;font-size:11.5px}
-  .stage-nav.prev{left:8px}.stage-nav.next{right:8px}
-  .steps{right:8px;top:8px;gap:6px}.steps .step{font-size:12px;min-height:38px}
-  .dock .panel{width:auto}
-  .action-bar{bottom:10px}.action-bar .btn{padding:10px 18px;font-size:14px}
-  .gatepane,.overlay{padding:8px;justify-content:center}.gate-card,.ov-card{width:100%}
-  .cmp{width:auto}.airtag{display:none!important}.sums{grid-template-columns:1fr}
-}
-@media (max-width:400px){.titles h1.sm{display:none}.titles h1.xs{display:block}.tb-btn{width:34px;height:34px}.intro-card h1{font-size:23px}}
+
+
+
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 /* liên kết tới từng dụng cụ trong chữ nhiệm vụ (bước 1) */
 .panel a[href^="https://tool/"]{color:var(--lime);font-weight:800;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
@@ -413,7 +403,7 @@ body.yd-on .pin,body.yd-on .pin-dot{outline:2px dashed #f2c94c;outline-offset:2p
 .part-card .pc-desc p{margin:0 0 .4em}
 .part-card .pc-act{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .part-card .btn{min-height:36px;padding:7px 14px;font-size:12.5px}
-@media (max-width:620px){.part-card{left:8px;right:8px;width:auto;bottom:70px}}
+
 
 /* ---------- 10. Bổ sung cho bài quan sát tế bào biểu bì hành ---------- */
 .stage,.stage canvas{cursor:default}.stage{background:radial-gradient(ellipse at 50% 58%,#2b7a77 0%,#195658 52%,#0f3f3d 100%)}
@@ -435,52 +425,19 @@ body.yd-on .pin,body.yd-on .pin-dot{outline:2px dashed #f2c94c;outline-offset:2p
 .sv-ctrl .ghost{min-height:36px;font-weight:700;padding:7px 16px}
 .sv-cap{font-size:12px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.65);text-align:center;max-width:min(52vh,44vw,470px)}
 .scope-view.eye-mode{top:auto;bottom:84px;transform:translateX(-50%)}.scope-view.eye-mode.show{animation:none}.scope-view.eye-mode .sv-eye{display:none}
-@media (max-width:620px){.scope-view{left:50%;top:auto;bottom:92px;transform:translateX(-50%);gap:8px}.scope-view.show{animation:none}.sv-eye{width:min(58vw,34vh)}.sv-cap{display:none}}
+
 /* bước 3: phiếu thực hành */
 .pad canvas{width:100%;aspect-ratio:3/2;display:block;border:1px dashed #b9cbc7;border-radius:8px;background:#fff;touch-action:none;cursor:crosshair}
 .stage:not([data-step="0"]) .pin{pointer-events:auto}   /* bước 2: nhãn bấm được để xem popup, chấm neo vẫn không chặn kéo thả */
 /* ---------- 11. Đáp ứng nhiều thiết bị ---------- */
 /* điện thoại dọc / màn hẹp: hàng bước ngang trên cùng, hàng công cụ nhỏ gọn dưới đó, khung nhiệm vụ nằm dưới */
-@media (max-width:620px),(max-width:900px) and (orientation:portrait){
-  .dock .panel{width:auto}
-  .main{padding:6px}
-  .topbar{padding:8px 10px;gap:8px}.logo,.logoclip{height:22px}.badge{font-size:10px}.titles h1{font-size:13px}
-  .steps{left:8px;right:8px;top:8px;width:auto;flex-direction:row;align-items:stretch;gap:6px}
-  .steps:has(.step:only-child){display:none}
-  .steps .step{flex:1 1 0;width:auto;min-height:40px;padding:5px 7px 5px 5px;gap:5px;font-size:11px;border-width:2px;border-radius:12px;line-height:1.2}
-  .step b{width:18px;height:18px;font-size:10px}
-  .stage-tools{left:8px;right:8px;top:auto;bottom:calc(var(--ab-h,46px) + 16px);gap:8px;justify-content:center;max-width:none}
-  .ghost{min-height:34px;padding:6px 10px}.ghost span{display:none}
-  .stage-nav{display:none}
-  .dock .panel.show{padding:7px 10px 8px;border-radius:12px;background:rgba(9,32,31,.58);backdrop-filter:blur(4px);text-align:center}
-  .dock .panel .panel-t{font-size:13.5px;line-height:1.3}.dock .panel .panel-k{font-size:9.5px}.dock .panel .panel-x{font-size:11.5px}.dock .panel .ytm-tip{display:none}.quick-act{display:none!important}.panel .meter{max-width:none;margin-top:3px}
-  .action-bar{bottom:8px}.action-bar .btn{min-height:42px;padding:10px 16px;font-size:13px}
-  .part-card{left:8px;right:8px;bottom:calc(var(--ab-h,46px) + 62px);padding:10px 12px;gap:10px}.part-card h3{font-size:15px}.part-card .pc-desc{font-size:13px}.part-card .pc-act{margin-top:6px}
-  .gate-card,.ov-card{padding:12px;max-height:46%}.gate-card h3{font-size:15px}.gate-opt{padding:9px 10px;font-size:12.5px}
-  .intro-card h1{font-size:clamp(26px,8vw,40px)}.intro-explore{font-size:17px}
-  .scope-view.eye-mode{bottom:calc(var(--ab-h,46px) + 62px)}
-}
+
 /* điện thoại ngang / màn thấp: nén thanh trên, khung nhiệm vụ và nút */
-@media (max-height:520px) and (min-width:621px){
-  .topbar{padding:4px 12px;gap:8px}.logo,.logoclip{height:20px}.badge{display:none}.titles h1.lg{font-size:14px}.tb-btn{width:30px;height:30px}
-  .main{padding:6px}
-  .stage-tools{left:8px;top:auto;bottom:8px;gap:6px}.ghost{min-height:30px;padding:4px 10px;font-size:11px}.ghost span{display:none}
-  .steps{right:8px;top:8px;gap:4px}.steps .step{min-height:32px;padding:4px 8px 4px 5px;font-size:11px;border-width:2px;border-radius:11px}.step b{width:17px;height:17px;font-size:10px}
-  .dock .panel{top:8px}.dock .panel .panel-t{font-size:13.5px;line-height:1.3}.dock .panel .panel-x{font-size:11.5px}.dock .panel .ytm-tip{display:none}.panel-k{font-size:9.5px}
-  .action-bar{bottom:8px}.action-bar .btn{min-height:36px;padding:7px 16px;font-size:13px}
-  .stage-nav{width:32px;height:32px}
-  .part-card{width:min(330px,calc(100% - 32px));bottom:56px;padding:8px 12px}.part-card h3{font-size:14px;margin:0}.part-card .pc-desc{font-size:12px}.part-card .pc-act{margin-top:4px}.part-card .btn{min-height:28px;padding:4px 10px}
-  .gate-card,.ov-card{width:min(360px,100%);padding:10px 12px}.gate-card h3{font-size:14px;margin-bottom:8px}.gate-opt{padding:6px 9px;font-size:12px}.gate-opts{gap:6px}
-  .sv-eye{width:min(44vh,40vw)}.scope-view.eye-mode{bottom:52px}
-  .intro-card{padding:8px 12px}.intro-card h1{font-size:clamp(24px,6vh,40px);margin:4px 0 8px}.intro-sub{font-size:14px}.intro-progress{margin:10px auto 8px}.intro-explore{margin-top:10px;padding:10px 14px;font-size:16px}
-}
+
 /* máy tính bảng dọc: bố cục desktop nhưng nút bước hẹp hơn */
-@media (min-width:621px) and (max-width:900px){
-  :root{--step-w:170px}
-  .dock .panel .panel-t{font-size:15.5px}
-}
+
 /* màn rất lớn */
-@media (min-width:1700px){.dock .panel .panel-t{font-size:19px}.dock .panel .panel-x{font-size:14px}.steps .step{font-size:14px}}
+
 /* ---------- 12. Bộ quy chuẩn UI/UX YooBook (skill yoobook-virtual-lab-ui) ---------- */
 :root{--y-ink:#10302E;--y-ink2:#2C4745;--y-mute:#4A6461;--y-line:#DCE6E4;--y-lime:#C8F04A;--y-lime-b:#A8D62A;--y-lime-soft:#E7F2D0;--y-btn:#0E5A55;--y-btn-h:#0A4743;--y-shadow:0 4px 16px rgba(0,0,0,.18)}
 body,button,input,textarea,select{font-family:'Roboto','Segoe UI',system-ui,sans-serif}
@@ -550,46 +507,10 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 @media (min-width:1000px){.cam-hint{display:block}.stage[data-step="2"] .cam-hint{display:none}}
 
 /* Tablet */
-@media (min-width:621px) and (max-width:1100px){
-  .steps{--step-w:260px}.steps .step{font-size:14px}
-  .stage-tools{left:12px!important;top:12px!important}.steps{right:12px!important;top:12px!important}
-  .dock .panel,.dock .panel.show.drop{width:320px!important;right:12px!important}.action-bar{right:12px!important;bottom:12px!important}
-  .part-card.tip{width:280px!important}
-  .pin b{width:30px;height:30px;font-size:12px}
-}
+
 
 /* Điện thoại: khung 3D tràn mép ở trên, thông tin + nút nằm dưới khung */
-@media (max-width:620px){
-  .main{padding:0!important}
-  .frame{border-radius:0!important;padding-top:56px}
-  .stage{flex:0 0 auto!important;height:clamp(320px,53dvh,450px)}
-  .stage-tools{left:8px!important;top:8px!important}
-  .pin b{width:28px;height:28px;font-size:12px}
-  .pin::after{inset:-8px}
-  /* menu bước thu thành 1 ô viên thuốc "Tên bước · n/3 ▾", bấm để thả xuống khối trắng chứa 3 ô */
-  .steps{--step-w:100%;flex-direction:column!important;left:8px!important;right:8px!important;top:6px!important;width:auto!important;z-index:40}
-  .steps:has(.step:only-child){display:none}
-  .steps .step{width:100%!important}
-  .steps:not(.open) .step:not([aria-pressed="true"]){display:none}
-  .steps .step[aria-pressed="true"]::after{content:'· ' attr(data-n) '/3';flex:0 0 auto;font-size:12px;font-weight:700}
-  .steps .step[aria-pressed="true"]::before{content:'';order:3;flex:0 0 auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);margin-left:2px;transition:transform .2s}
-  .steps.open .step[aria-pressed="true"]::before{transform:rotate(-135deg)}
-  .steps.open{background:#fff;padding:8px;box-shadow:var(--y-shadow);border-radius:18px;gap:8px!important}
-  .steps.open .step{box-shadow:none;border-color:#EEF3F2}.steps.open .step[aria-pressed="true"]{border-color:#7FB23A}
-  /* thông tin dụng cụ / nhiệm vụ nằm dưới khung 3D */
-  .dock{height:auto!important;order:1}
-  .dock .panel,.dock .panel.show.drop{position:static!important;width:auto!important;max-width:none!important}
-  .dock .panel.show{margin:10px 12px 0;padding:0;background:transparent;box-shadow:none;border-radius:0;animation:none}
-  .panel-k{font-size:10.5px}.panel-t{font-size:15px}.panel-x{font-size:13px}
-  .quick-act{margin-top:6px}
-  .frame:has(.part-card.tip.show) .dock .panel{display:none!important}   /* đang xem thông tin dụng cụ: ẩn dòng nhiệm vụ cho gọn */
-  .part-card.tip{position:static!important;order:2;width:auto!important;max-width:none;margin:8px 12px 0;transform:none!important;padding:12px 14px!important;box-shadow:none;border:1px solid var(--y-line)}
-  .part-card.tip.show{display:block}
-  .action-bar{position:static!important;order:9;margin-top:auto;width:100%;max-width:none!important;padding:8px 12px;border-radius:0;box-shadow:none;border-top:1px solid var(--y-line);flex-wrap:wrap;justify-content:center}
-  .action-bar .btn{flex:1 1 0;min-width:0;white-space:normal;line-height:1.2;min-height:44px;padding:8px 10px;font-size:12.5px}
-  .action-bar:not(.show){display:none!important}
-  .sheet-wrap{top:56px!important}
-}
+
 
 /* nút chính xám khi chưa đủ điều kiện (bước 1) */
 .action-bar .btn[disabled]{background:#D3DEDB;color:#4E6461;opacity:1;pointer-events:auto;cursor:not-allowed;box-shadow:none;animation:none}
@@ -620,17 +541,8 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .quick-act{min-height:32px;margin-top:0;padding:0 12px;font-size:12px;border-radius:10px;gap:5px}
 .panel .quick-act:not(.bolt){margin-top:4px}
 .panel-x .hrow .quick-act{display:inline-flex}
-@media (min-width:621px) and (max-width:1100px){.dock .panel,.dock .panel.show.drop{width:290px!important}}
-@media (max-width:620px){
-  .dock .panel.show{margin:8px 12px 0;padding:10px 12px;background:rgba(255,255,255,.97);border:1px solid #DCE6E4;border-radius:14px}
-  .dock .panel,.dock .panel.show.drop{width:auto!important}
-  .part-card.tip{padding:10px 12px!important}
-  /* cụm 4 icon bản gọn: nút 34px, icon 16px */
-  .stage-tools{padding:3px!important;border-radius:11px;box-shadow:0 2px 10px rgba(0,0,0,.18);gap:0!important}
-  .stage-tools .ghost{width:34px;height:34px;min-height:34px!important;border-radius:8px}
-  .stage-tools .ghost svg{width:16px;height:16px}
-  .stage-tools .tdiv{height:18px;margin:0 3px}
-}
+
+
 
 /* chữ thẻ nhiệm vụ: thắng các luật cỡ chữ cũ của khung giao diện gốc */
 .dock .panel .panel-k{font-size:10px!important}
@@ -659,7 +571,7 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .sv-act .btn:not(.alt){background:#0E5A55;color:#fff}
 .sv-act .btn.alt{background:#fff;color:#0E5A55;border:1.5px solid #0E5A55}
 .frame:has(.scope-view.show) .cam-hint{display:none}
-@media (min-width:621px) and (max-width:1100px){.sv-card{width:330px}.scope-view .sv-eye{left:calc((100% - 362px) / 2);width:min(440px,62vh,calc(100vw - 420px))}}
+
 /* nhãn tên thành phần trên ảnh ×40 (nút "Hiện tên thành phần") */
 .sv-view{display:contents}
 .sv-labels{position:absolute;inset:0;display:none;pointer-events:none}
@@ -670,24 +582,7 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .sv-lbtn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:44px;padding:0 14px;border:1.5px solid #D3DEDB;border-radius:12px;background:#fff;color:#10302E;font:700 14px Roboto,'Segoe UI',sans-serif;cursor:pointer}
 .sv-lbtn[aria-pressed="true"]{background:#E7F2D0;border-color:#A8D62A;color:#0E5A55}
 .sv-note{margin:0!important;padding:8px 12px;border-radius:10px;background:#FFF4E0;color:#8A4B00!important;font-size:13px!important;line-height:1.45!important}
-@media (max-width:620px){
-  /* điện thoại: ảnh thị kính nằm trên nền cảnh (dưới menu bước), thẻ thông tin cuộn được ở dưới, nút cố định đáy */
-  .frame:has(.scope-view.show),.frame:has(.sheet-wrap.show){background:#EEF3F2}
-  .scope-view{position:absolute!important;inset:56px 0 0 0!important;z-index:11;display:none;flex-direction:column;align-items:stretch;gap:0;background:#fff;pointer-events:auto}
-  .scope-view.show{display:flex}
-  .sv-view{display:flex;align-items:center;justify-content:center;flex:0 0 auto;height:clamp(236px,37dvh,330px);background:radial-gradient(ellipse at 50% 55%,#2b7a77 0%,#195658 55%,#0f3f3d 100%)}
-  .scope-view .sv-eye{position:relative;left:auto;top:auto;transform:none;margin:0;width:min(68vw,31dvh)}
-  .scope-view .sv-mag{font-size:13px;padding:3px 14px;top:-12px}
-  .frame:has(.scope-view.show) .action-bar{display:none!important}
-  .scope-view.show{background:#fff}
-  .sv-lb{font-size:11px;padding:3px 8px}
-  .sv-card{position:static;flex:1 1 auto;min-height:0;overflow:auto;width:auto;margin:0;padding:14px 16px 100px;gap:10px;border-radius:0;box-shadow:none;border:0}
-  .sv-card h2{font-size:18px}.sv-card p{font-size:14px;line-height:1.55}
-  .sv-act{position:absolute;left:0;right:0;bottom:0;z-index:5;margin:0;padding:12px 16px 20px;background:#fff;border-top:1px solid #DCE6E4;flex-wrap:nowrap}
-  .sv-act .btn{min-height:52px;border-radius:14px;font-size:16px}
-  .sv-act .btn.alt{width:52px;padding:0;justify-content:center;flex:0 0 auto}.sv-act .btn.alt .t{display:none}
-  .sv-act #svNext{flex:1 1 0;justify-content:center}
-}
+
 
 /* ---------- 13. Bước 3 · Phiếu thực hành (theo skill yoobook-virtual-lab-ui) ---------- */
 .sheet-wrap{--aw:290px;position:absolute;inset:0;z-index:12;display:none;background:#EEF3F2;border-radius:0;box-shadow:none;overflow:auto;padding:16px;color:#10302E}
@@ -739,41 +634,12 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 @media print{body *{visibility:hidden}.sheet-wrap,.sheet-wrap *{visibility:visible}.sheet-wrap{position:static;overflow:visible}.sheet-actions,.sheet-aside{display:none}}
 
 /* menu bước nằm ở cột trái trên màn Phiếu (desktop / tablet) */
-@media (min-width:821px){.frame:has(.stage[data-step="2"]) .steps{left:16px!important;right:auto!important}}
-@media (min-width:621px) and (max-width:1100px){.sheet-wrap{--aw:260px}.sheet-paper{padding:22px}.sheet-table thead th:first-child,.sheet-table tbody th{width:130px}}
-@media (min-width:621px) and (max-width:820px){.sheet-wrap{padding-right:292px}.sheet-aside{display:none}}
+
+
+
 
 /* điện thoại: tab theo cột bảng, mỗi tab xếp dọc 3 trường; thanh đáy gồm nút làm lại (icon) + tải PDF */
-@media (max-width:620px){
-  .sheet-wrap{top:56px!important;padding:4px 12px 12px}   /* nằm dưới ô menu bước, nội dung không trượt ra sau ô đó */
-  .sheet-layout{flex-direction:column;gap:12px}
-  .sheet-aside{display:block;flex:none;width:100%;padding-top:0}
-  .sheet-res{flex-direction:row;align-items:center;gap:12px;padding:10px 12px;border-radius:14px}
-  .sheet-res .k{display:none}
-  .sheet-res img{width:56px;height:56px;border-width:2px;flex:0 0 auto}
-  .sheet-res .btn{width:auto;flex:1 1 auto;min-height:44px;font-size:13.5px}
-  .sheet-main{width:100%}
-  .sheet-info{flex-wrap:nowrap;gap:10px}.sheet-info label{flex:1 1 0;min-width:0}.sheet-info label.cls{flex:0 0 96px}
-  .sheet-paper{padding:18px 16px;gap:16px;border-radius:16px}
-  .sheet-head h2{font-size:22px}
-  .sheet-tabs{display:flex;gap:4px;padding:4px;background:#EEF3F2;border-radius:12px}
-  .sheet-tabs button{flex:1 1 0;height:44px;border:0;border-radius:9px;background:transparent;color:#10302E;font:700 14px Roboto,'Segoe UI',sans-serif;cursor:pointer}
-  .sheet-tabs button[aria-selected="true"]{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
-  .sheet-wrap .sheet-table,.sheet-wrap .sheet-table tbody,.sheet-wrap .sheet-table tr,.sheet-wrap .sheet-table th,.sheet-wrap .sheet-table td{display:block;width:auto!important;border:0;padding:0}
-  .sheet-wrap .sheet-table thead{display:none}
-  .sheet-wrap .sheet-table tr{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-  .sheet-wrap .sheet-table tbody th{background:none;font-size:14px}
-  .sheet-wrap .sheet-table td[data-c]{display:none}
-  .sheet-wrap .sheet-table[data-tab="0"] td[data-c="0"],.sheet-wrap .sheet-table[data-tab="1"] td[data-c="1"],.sheet-wrap .sheet-table[data-tab="2"] td[data-c="2"],.sheet-wrap .sheet-table[data-tab="3"] td[data-c="3"]{display:block}
-  .sheet-tabs button{font-size:13px;padding:0 4px}
-  .sheet-table textarea{min-height:76px}
-  .sheet-actions{position:sticky;bottom:-12px;margin:0 -12px -12px;border-radius:0;box-shadow:none;border-top:1px solid #DCE6E4;padding:12px 16px 20px;flex-wrap:wrap}
-  .sheet-actions .grp{display:contents}
-  .sheet-actions .btn{min-height:52px;border-radius:14px;font-size:16px}
-  .sheet-actions .btn.alt{width:52px;padding:0;justify-content:center;flex:0 0 auto}.sheet-actions .btn.alt .t{display:none}
-  .sheet-actions #shPdf{flex:1 1 0}
-  .sheet-msg{order:-1;flex:1 0 100%}.sheet-msg:not([data-s]){display:none}
-}
+
 
 /* ---------- Kiến thức + câu hỏi: modal giữa màn trên cảnh tối (theo skill) ---------- */
 .gatepane,.overlay{align-items:center;justify-content:center;padding:24px;background:rgba(6,24,22,.84)}
@@ -796,19 +662,14 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .ov-point::before{display:none}
 .ov-point mark,.ov-point .ytm-b{background:#E7F2D0;color:#10302E;padding:0 4px;border-radius:4px}
 .ov-card .btn{min-height:52px;border-radius:14px;font-size:16px;background:#0E5A55;color:#fff}
-@media (min-width:621px) and (max-width:1100px){.gate-card,.ov-card{width:min(620px,100%);padding:22px}.gate-card h3{font-size:19px}}
-@media (max-width:620px){
-  .gatepane,.overlay{align-items:flex-end;padding:0}
-  .gate-card,.ov-card{width:100%;max-height:90%;padding:18px 16px 20px;border-radius:20px 20px 0 0}
-  .gate-card h3{font-size:17px}.gate-opt{font-size:14px;min-height:52px;padding:10px 12px}
-  .ov-card h2{font-size:20px}.ov-point{font-size:15px}
-}
+
+
 /* màn kết quả: hàng tab mẫu vật + hàng chọn cách quan sát (kính lúp / ×10 / ×40 …) */
 .sv-seg button{padding:0 6px;font-size:13.5px}
 .sv-seg button:disabled{opacity:.38;cursor:not-allowed}
 .sv-sub{background:transparent;padding:0;gap:6px}.sv-sub button{height:34px;border:1.5px solid #D3DEDB;font-size:13px}.sv-sub button[aria-pressed="true"]{background:#E7F2D0;border-color:#A8D62A;color:#0E5A55}
 .sv-sub[hidden],.sv-lbtn[hidden],.sv-card p[hidden]{display:none}
-@media (min-width:621px){.sv-card{max-height:calc(100% - 214px);overflow:auto;gap:12px;padding:18px 20px 0}.sv-card .sv-act{position:sticky;bottom:0;margin:0 -20px;padding:10px 20px 18px;background:#fff}}   /* không đè menu bước góc trên phải */
+   /* không đè menu bước góc trên phải */
 .sv-card p.sv-d2{font-size:14px;padding:8px 12px;border-radius:10px;background:#F4F8F7}
 .ov-point ul{margin:0;padding-left:1.1em}.ov-point li{margin:.25em 0}
 
@@ -830,7 +691,7 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .vol-card.ok .vthumb{border-color:#1C8A3A}.vol-card.over .vthumb{border-color:#C2402E}
 .vol-card .vtick{display:flex;justify-content:space-between;margin:3px 0 0;padding:0 1px;font-size:9.5px;color:#4A6461}
 .vol-card .vh{margin:6px 0 0;font-size:11.5px;line-height:1.4;color:#4A6461}
-@media (max-width:620px){.vol-card{left:10px;right:10px;top:auto;bottom:10px;width:auto}}
+
 /* ---------- Màn kết quả: kính lúp thật (viền, cán, vệt sáng) + phóng to / kéo ảnh. View kính hiển vi (×10 / ×40) giữ nguyên ---------- */
 .sv-clip{position:absolute;inset:0;border-radius:50%}
 .sv-zoom{position:absolute;inset:0;transform-origin:0 0}
@@ -867,8 +728,7 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .sv-zb:disabled{opacity:.4;cursor:not-allowed}
 .sv-zr{flex:0 0 auto;height:44px;padding:0 12px;border:1.5px solid #D3DEDB;border-radius:12px;background:#fff;color:#10302E;font:700 13px Roboto,'Segoe UI',sans-serif;cursor:pointer}
 .sv-card p.sv-zh{margin:0;font-size:12px;line-height:1.4;color:#4A6461}
-@media (max-width:620px){.sv-eye.lens .sv-rim{inset:-12px;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 11px));mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 11px))}
-  .sv-eye.lens .sv-handle{width:50%}.sv-handle i{width:66%}.scope-view .sv-eye.lens .sv-mag{top:-30px}.sv-zbox{padding:10px}}
+
 /* ---------- Kính lúp 3D: thẻ SOI KÍNH LÚP (cùng phong cách .vol-card) ---------- */
 #lvCanvas{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;display:block;background:#0b1a19;touch-action:none;user-select:none}
 .lens-view .sv-eye.lens .sv-clip{cursor:grab}.lens-view .sv-eye.lens.dragging .sv-clip{cursor:grabbing}
@@ -887,11 +747,323 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .lc-card.rev .sv-zh{display:none}
 .lc-chips{display:flex;gap:6px;flex-wrap:wrap}.lc-chips span{padding:4px 11px;border-radius:99px;font:700 12.5px/1.3 Roboto,'Segoe UI',sans-serif;background:#EEF3F2;color:#8AA09D}
 .lc-chips span.on{background:#E7F2D0;color:#0E5A55}.lc-chips span.now{background:#10302E;color:#C8F04A}
-@media (min-width:621px){.lc-card .sv-act{position:sticky;bottom:-22px;margin:0 -22px -22px;padding:10px 22px 22px;background:#fff;z-index:2}}
+
 .lc-done[aria-disabled="true"]{opacity:.42;cursor:not-allowed}
-@media (max-width:620px){.lc-card .sv-zh{display:none}
-  .lc-card .lc-name{margin:0 0 2px;font-size:14px}.lc-card .lc-zt output{font-size:20px}.lc-zrow{margin:0 0 4px}
-  .lc-pad{display:flex;gap:6px;margin:0 0 8px}.lc-pad .lc-c{flex:1 1 auto;width:auto}.lc-pad .lc-lf{order:1}.lc-pad .lc-up{order:2}.lc-pad .lc-dn{order:3}.lc-pad .lc-rt{order:4}.lc-pad .lc-c{order:5}}
+/* =====================================================================================================
+   14. RESPONSIVE WEB DESIGN — HỆ BREAKPOINT DUY NHẤT (thay toàn bộ @media rải rác trước đây)
+   -----------------------------------------------------------------------------------------------------
+   PHONE   ≤ 600px          điện thoại dọc (360 · 390 · 412)
+   TABLET  601 – 1024px     máy tính bảng dọc 768 / ngang 1024
+   LAPTOP  1025 – 1599px    1366×768 · 1440×900 (bố cục gốc)
+   LARGE   ≥ 1600px         màn chiếu lớp học 1920×1080 · 2560×1440 (--u phóng chữ / nút / khung)
+   SHORT   max-height:500px điện thoại ngang / cửa sổ thấp  → khung nhiệm vụ thành DẢI bên phải
+   COARSE  pointer:coarse   cảm ứng: vùng chạm ≥ 44×44px, khoảng cách giữa nút ≥ 8px
+
+   Ba KIỂU BỐ CỤC (loại trừ nhau, phủ kín mọi kích thước):
+     STACK  cao > 500 và (≤ 600px  hoặc  ≤ 1024px & màn dọc) : thanh bước thu gọn trên cùng · khung 3D · thẻ nhiệm vụ DƯỚI khung
+     WIDE   cao > 500 và (≥ 1025px hoặc 601–1024px & màn ngang): bố cục gốc — thẻ nổi trên cảnh, menu bước góc phải
+     RAIL   cao ≤ 500                                         : khung 3D bên trái · DẢI (menu bước, nhiệm vụ, nút) bên phải
+   (CSS không cho dùng var() trong điều kiện @media nên các giá trị được chép nguyên ở từng khối.)
+   ===================================================================================================== */
+
+/* ---------- 14.1 Biến dùng chung ---------- */
+:root{
+  --u:1;                       /* hệ số phóng theo màn lớn (LARGE) */
+  --tap:44px;                  /* vùng chạm tối thiểu */
+  --gap:16px;                  /* lề giữa các thẻ nổi và mép khung */
+  --sw:290px;                  /* bề rộng ô menu bước */
+  --step-h:50px;--step-g:10px; /* cao ô bước · khoảng cách giữa các ô */
+  --panel-w:320px;             /* thẻ nhiệm vụ */
+  --card-w:380px;              /* thẻ kết quả (kính hiển vi / kính lúp) */
+  --pill-h:56px;               /* dải chứa ô bước thu gọn (STACK) */
+  --rail-w:300px;              /* dải bên phải (RAIL) */
+  --sa-t:env(safe-area-inset-top,0px);--sa-r:env(safe-area-inset-right,0px);--sa-b:env(safe-area-inset-bottom,0px);--sa-l:env(safe-area-inset-left,0px);
+  --steps-h:calc(var(--gap) * 2 + var(--step-h) * 3 + var(--step-g) * 2);   /* chiều cao cả cụm 3 ô bước */
+}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{max-width:100%;overflow-x:hidden}
+.app{height:100vh;height:100dvh;padding:0 var(--sa-r) 0 var(--sa-l);touch-action:manipulation}   /* manipulation: tắt nhấp đúp để phóng to, vẫn cho pinch của trình duyệt */
+.stage,.stage canvas,#lvCanvas,.padbox canvas{touch-action:none}                                  /* khung 3D / bảng vẽ: không bị phóng to hay cuộn nhầm khi chạm */
+.topbar{padding-top:calc(10px + var(--sa-t))}
+.main{padding-bottom:max(14px,var(--sa-b))}
+/* tiêu đề luôn MỘT dòng, dài thì cắt bằng "…" (bỏ 3 biến thể .lg/.sm/.xs) */
+.titles h1.sm,.titles h1.xs{display:none!important}
+.titles h1.lg{display:block!important;font-size:clamp(14px,1.2vw + 8px,22px)}
+.steps{--step-w:var(--sw)}
+.steps .step{min-height:var(--step-h)}
+.sheet-aside{padding-top:var(--steps-h)}
+.sheet-wrap{--aw:var(--sw);overflow-x:hidden}
+.sheet-table th,.sheet-table td{min-width:0}
+.sheet-table thead th:first-child,.sheet-table tbody th{width:clamp(110px,13vw,170px)}
+.sheet-table textarea,.sheet-info input{max-width:100%}
+.padbox canvas{max-width:100%}
+/* hàng tab mẫu vật / cách quan sát: KHÔNG xuống dòng, cuộn ngang */
+.sv-seg{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.sv-seg::-webkit-scrollbar{display:none}
+.sv-seg,.sv-card>*{flex-shrink:0}   /* thẻ cuộn dọc: không để các hàng bị ép thấp */
+.sv-seg button{flex:1 0 auto;white-space:nowrap;min-width:max-content;padding:0 14px}
+/* nhãn tên thành phần trên ảnh ×40: không tràn ra ngoài vòng tròn */
+.sv-lb{max-width:34%;white-space:normal;text-align:center;line-height:1.15;padding:3px 9px;font-size:clamp(11px,1.5vmin,13px)}
+/* hộp thể tích / thẻ kính lúp: giữ trong khung */
+.vol-card,.part-card.tip,.gate-card,.ov-card,.sv-card{max-width:100%}
+.sv-card{overflow-x:hidden}
+/* màn giới thiệu: cuộn được khi quá thấp, canh giữa an toàn (không cắt đầu thẻ) */
+.intro-loader{overflow:auto;align-items:flex-start;justify-content:center;padding:var(--sa-t) var(--sa-r) var(--sa-b) var(--sa-l)}
+.intro-wrap{margin:auto;padding:12px 0}
+.intro-card h1{overflow-wrap:anywhere}
+
+/* ---------- 14.2 COARSE: vùng chạm ≥ 44×44, khoảng cách ≥ 8px ---------- */
+@media (pointer:coarse){
+  .tb-btn,.ghost,.stage-tools .ghost,.steps .step,.btn,.quick-act,.gate-opt,.sv-seg button,.sv-sub button,.sv-lbtn,.sv-act .btn,.sheet-tools button,.sheet-tabs button,.sheet-actions .btn,.lc-b,.lc-c,.sv-zb,.sv-zr,.part-card .btn,.intro-explore,.fallback-retry,.pin{min-height:var(--tap)!important;min-width:var(--tap)}
+  .pin{justify-content:center}
+  .part-card.tip .pc-x,.panel-k .back{width:var(--tap);height:var(--tap);min-width:var(--tap)}
+  .part-card.tip .pc-x{top:4px;right:4px}.part-card.tip .pc-body{padding-right:var(--tap)}
+  .stage-tools{gap:8px!important}.action-bar{gap:8px!important}.sv-act{gap:8px}.sv-sub,.sv-seg{gap:8px}.sheet-tools{gap:8px}.gate-opts{gap:10px}.gate-actions{gap:10px}.lc-zrow,.lc-pad{gap:8px}.sv-zrow{gap:8px}
+  .panel a[href^="https://tool/"]{padding:12px 4px;margin:-12px -4px}                 /* liên kết trong câu: mở rộng vùng chạm mà không đổi dòng */
+  .sv-zb,.lc-b{min-width:var(--tap)}
+  input[type=range]{min-height:var(--tap)}
+}
+
+/* ---------- 14.3 TABLET 601–1024: thu nhỏ cỡ khung (dùng cho WIDE ngang; STACK có luật riêng) ---------- */
+@media (min-width:601px) and (max-width:1024px){
+  :root{--sw:240px;--step-h:46px;--step-g:8px;--panel-w:300px;--card-w:340px;--gap:12px}
+  .steps .step{font-size:14px;min-height:var(--step-h)}
+  .part-card.tip{width:280px!important}
+  .pin b{width:30px;height:30px;font-size:12px}
+  .sheet-paper{padding:22px}
+  .gate-card,.ov-card{width:min(640px,100%);padding:24px}.gate-card h3{font-size:20px}
+  .gate-opts{grid-template-columns:repeat(2,minmax(0,1fr))}                              /* tablet: đáp án 2 cột */
+  .sv-card{padding:18px}
+}
+
+/* ---------- 14.4 WIDE (bố cục gốc: LAPTOP + TABLET ngang) ---------- */
+@media (min-width:1025px) and (min-height:501px),(min-width:601px) and (max-width:1024px) and (orientation:landscape) and (min-height:501px){
+  .stage-tools{left:var(--gap)!important;top:var(--gap)!important}
+  .steps{right:var(--gap)!important;top:var(--gap)!important}
+  .dock .panel,.dock .panel.show.drop{width:var(--panel-w)!important;right:var(--gap)!important;bottom:calc(var(--ab-h,0px) + var(--gap) + 12px)!important}
+  .action-bar{right:var(--gap)!important;bottom:var(--gap)!important}
+  .frame:has(.stage[data-step="2"]) .steps{left:var(--gap)!important;right:auto!important}   /* Bước 3: menu bước ở cột trái, phiếu bên phải */
+  .sv-card{width:var(--card-w);max-height:calc(100% - var(--steps-h) - var(--gap));overflow:auto;gap:12px;padding:18px 20px 0}
+  .sv-card .sv-act,.lc-card .sv-act{position:sticky;bottom:0;margin:0 -20px;padding:10px 20px 18px;background:#fff;z-index:2}
+  .lc-card .sv-act{bottom:-22px;margin:0 -22px -22px;padding:10px 22px 22px}
+  .scope-view .sv-eye{left:calc((100% - var(--card-w) - var(--gap) * 2) / 2);width:min(calc(540px * var(--u)),66vh,calc(100vw - var(--card-w) - 130px))}
+  .sv-card,.lc-card{right:var(--gap);bottom:var(--gap)}
+  .vol-card{left:var(--gap);width:calc(300px * var(--u))}
+}
+/* Màn ngang thấp vừa phải (laptop 768 cao): nén thẻ kết quả để thanh phóng to / mũi tên không nằm dưới nếp gập */
+@media (min-height:501px) and (max-height:820px) and (min-width:1025px),(min-height:501px) and (max-height:820px) and (min-width:601px) and (max-width:1024px) and (orientation:landscape){
+  :root{--step-h:42px;--step-g:8px;--gap:12px}
+  .lc-card .sv-zh,.sv-card p.sv-zh{display:none}
+  .sv-card{gap:8px;padding:14px 18px 0}.sv-card h2{font-size:20px}.sv-card p{line-height:1.5}
+  .sv-seg button{height:36px}.sv-sub button{height:32px}.sv-zbox{padding:8px 10px}.sv-note{padding:6px 10px}
+  .lc-card .lc-name{margin-bottom:2px}.lc-zrow{margin:0 0 4px}
+}
+
+/* ---------- 14.5 PILL (STACK + RAIL): menu bước thu thành 1 ô "Tên bước · n/3 ▾", bấm để xổ danh sách ---------- */
+@media (max-width:600px),(max-width:1024px) and (orientation:portrait),(max-height:500px){
+  .steps{--step-w:100%;flex-direction:column!important;z-index:40;gap:8px!important}
+  .steps:has(.step:only-child){display:none}
+  .steps .step{width:100%!important;min-height:var(--tap)}
+  .steps:not(.open) .step:not([aria-pressed="true"]){display:none}
+  .steps .step[aria-pressed="true"]::after{content:'· ' attr(data-n) '/3';flex:0 0 auto;font-size:14px;font-weight:700}
+  .steps .step[aria-pressed="true"]::before{content:'';order:3;flex:0 0 auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);margin-left:2px;transition:transform .2s}
+  .steps.open .step[aria-pressed="true"]::before{transform:rotate(-135deg)}
+  .steps.open{background:#fff;padding:8px;box-shadow:var(--y-shadow);border-radius:18px}
+  .steps.open .step{box-shadow:none;border-color:#EEF3F2}.steps.open .step[aria-pressed="true"]{border-color:#7FB23A}
+  .steps .step{font-size:15px}
+  .sheet-wrap{top:var(--pill-h)!important}
+  .frame:has(.scope-view.show),.frame:has(.sheet-wrap.show){background:#EEF3F2}
+}
+
+/* ---------- 14.6 STACK: khung 3D trên · thẻ nhiệm vụ / nút dưới khung (không chồng nhau) ---------- */
+@media (max-width:600px) and (min-height:501px),(max-width:1024px) and (orientation:portrait) and (min-height:501px){
+  :root{--gap:8px;--pill-h:56px}
+  .main{padding:0 0 var(--sa-b)!important}
+  .frame{border-radius:0!important;padding-top:var(--pill-h)}
+  .stage{flex:1 1 0!important;height:auto!important;min-height:clamp(240px,38dvh,720px)}   /* khung 3D chiếm phần còn lại: luôn lớn */
+  .stage-tools{left:8px!important;top:8px!important}
+  .steps{left:8px!important;right:8px!important;top:6px!important;width:auto!important}
+  .dock{height:auto!important;order:1;flex:0 1 auto;min-height:0;overflow:auto}
+  .dock .panel,.dock .panel.show.drop{position:static!important;width:auto!important;max-width:none!important}
+  .dock .panel.show{margin:8px 12px 0;padding:10px 12px;background:rgba(255,255,255,.97);border:1px solid #DCE6E4;border-radius:14px;box-shadow:none;animation:none;text-align:left}
+  .quick-act{margin-top:0}
+  .frame:has(.part-card.tip.show) .dock .panel{display:none!important}          /* đang xem thông tin dụng cụ: ẩn dòng nhiệm vụ cho gọn */
+  .part-card.tip{position:static!important;order:2;width:auto!important;max-width:none;margin:8px 12px 0;transform:none!important;padding:10px 12px!important;box-shadow:none;border:1px solid var(--y-line);flex:0 1 auto;overflow:auto}
+  .part-card.tip.show{display:block}
+  .action-bar{position:static!important;order:9;margin-top:auto;width:100%;max-width:none!important;padding:8px 12px calc(8px + var(--sa-b));border-radius:0;box-shadow:none;border-top:1px solid var(--y-line);flex-wrap:wrap;justify-content:center;flex:0 0 auto}
+  .action-bar .btn{flex:1 1 0;min-width:0;white-space:normal;line-height:1.2;min-height:var(--tap);padding:8px 10px;font-size:14px}
+  .action-bar:not(.show){display:none!important}
+  /* thẻ thể tích nước cất: nằm ở ĐÁY khung 3D, gọn, không che lam kính ở giữa */
+  .vol-card{left:8px;right:8px;top:auto;bottom:8px;width:auto;padding:8px 12px 8px}
+  .vol-card .vh,.vol-card .vtick{display:none}
+  .vol-card .vn{font-size:24px}
+  /* màn kết quả (kính hiển vi / kính lúp): ảnh ở trên, thẻ cuộn được ở dưới, nút cố định đáy */
+  .scope-view{position:absolute!important;inset:var(--pill-h) 0 0 0!important;z-index:11;display:none;flex-direction:column;align-items:stretch;gap:0;background:#fff;pointer-events:auto}
+  .scope-view.show{display:flex;background:#fff}
+  .sv-view{display:flex;align-items:center;justify-content:center;flex:0 0 auto;height:clamp(236px,37dvh,560px);background:radial-gradient(ellipse at 50% 55%,#2b7a77 0%,#195658 55%,#0f3f3d 100%)}
+  .scope-view .sv-eye{position:relative;left:auto;top:auto;transform:none;margin:0;width:min(68vw,31dvh,480px)}
+  .scope-view .sv-mag{font-size:14px;padding:3px 14px;top:-12px}
+  .scope-view .sv-eye.lens .sv-mag{top:-30px}
+  .frame:has(.scope-view.show) .action-bar{display:none!important}
+  .sv-card{position:static!important;flex:1 1 auto;min-height:0;overflow:auto;width:100%;max-width:760px;margin:0 auto;padding:14px 16px calc(96px + var(--sa-b));gap:10px;border-radius:0;box-shadow:none;border:0;max-height:none}
+  .sv-card .sv-act,.lc-card .sv-act{position:absolute;left:0;right:0;bottom:0;z-index:5;margin:0;padding:12px 16px calc(16px + var(--sa-b));background:#fff;border-top:1px solid #DCE6E4;flex-wrap:nowrap}
+  .sv-card .sv-act .btn{min-height:52px;border-radius:14px;font-size:16px}
+  .sv-card .sv-act .btn.alt{width:52px;padding:0;justify-content:center;flex:0 0 auto}.sv-card .sv-act .btn.alt .t{display:none}
+  .sv-act #svNext{flex:1 1 0;justify-content:center}
+  .sv-card h2{font-size:clamp(18px,3vw,24px)}.sv-card p{font-size:14px;line-height:1.55}
+  .lc-card .sv-zh{display:none}
+  .lc-card .lc-name{margin:0 0 2px;font-size:15px}.lc-card .lc-zt output{font-size:20px}.lc-zrow{margin:0 0 4px}
+  .lc-pad{display:flex;gap:8px;margin:0 0 8px}
+  .sv-zbox{padding:10px}
+  /* màn kết quả bước 3: tab theo cột bảng; thanh đáy luôn thấy nút Tải PDF */
+  .sheet-wrap{padding:4px 12px 12px}
+  .sheet-layout{flex-direction:column;gap:12px;width:100%;max-width:760px;margin:0 auto}
+  .sheet-aside{display:block;flex:none;width:100%;padding-top:0}
+  .sheet-res{flex-direction:row;align-items:center;gap:12px;padding:10px 12px;border-radius:14px}
+  .sheet-res .k{display:none}
+  .sheet-res img{width:56px;height:56px;border-width:2px;flex:0 0 auto}
+  .sheet-res .btn{width:auto;flex:1 1 auto;min-height:var(--tap);font-size:14px}
+  .sheet-main{width:100%}
+  .sheet-info{flex-wrap:nowrap;gap:10px}.sheet-info label{flex:1 1 0;min-width:0}.sheet-info label.cls{flex:0 0 96px}
+  .sheet-paper{padding:18px 16px;gap:16px;border-radius:16px}
+  .sheet-head h2{font-size:22px}
+  .sheet-tabs{display:flex;gap:4px;padding:4px;background:#EEF3F2;border-radius:12px}
+  .sheet-tabs button{flex:1 1 0;height:var(--tap);border:0;border-radius:9px;background:transparent;color:#10302E;font:700 14px Roboto,'Segoe UI',sans-serif;cursor:pointer;padding:0 4px}
+  .sheet-tabs button[aria-selected="true"]{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+  .sheet-wrap .sheet-table,.sheet-wrap .sheet-table tbody,.sheet-wrap .sheet-table tr,.sheet-wrap .sheet-table th,.sheet-wrap .sheet-table td{display:block;width:auto!important;border:0;padding:0}
+  .sheet-wrap .sheet-table thead{display:none}
+  .sheet-wrap .sheet-table tr{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .sheet-wrap .sheet-table tbody th{background:none;font-size:14px}
+  .sheet-wrap .sheet-table td[data-c]{display:none}
+  .sheet-wrap .sheet-table[data-tab="0"] td[data-c="0"],.sheet-wrap .sheet-table[data-tab="1"] td[data-c="1"],.sheet-wrap .sheet-table[data-tab="2"] td[data-c="2"],.sheet-wrap .sheet-table[data-tab="3"] td[data-c="3"]{display:block}
+  .sheet-table textarea{min-height:76px;font-size:14px}
+  .sheet-actions{position:sticky;bottom:-12px;margin:0 -12px -12px;border-radius:0;box-shadow:none;border-top:1px solid #DCE6E4;padding:12px 16px calc(20px + var(--sa-b));flex-wrap:wrap}
+  .sheet-actions .grp{display:contents}
+  .sheet-actions .btn{min-height:52px;border-radius:14px;font-size:16px}
+  .sheet-actions .btn.alt{width:52px;padding:0;justify-content:center;flex:0 0 auto}.sheet-actions .btn.alt .t{display:none}
+  .sheet-actions #shPdf{flex:1 1 0}
+  .sheet-msg{order:-1;flex:1 0 100%}.sheet-msg:not([data-s]){display:none}
+  .intro-card h1{font-size:clamp(26px,8vw,48px)}.intro-explore{font-size:17px}
+}
+
+/* ---------- 14.7 RAIL: điện thoại ngang / cửa sổ thấp — 3D bên trái, dải nhiệm vụ bên phải ---------- */
+@media (max-height:500px){
+  :root{--gap:8px;--rail-w:clamp(236px,34vw,320px);--pill-h:52px}
+  .topbar{padding:calc(4px + var(--sa-t)) 12px 4px;gap:8px}.logo,.logoclip{height:22px}.badge{display:none}.titles h1.lg{font-size:14px}
+  .tb-btn{width:36px;height:36px}
+  .main{padding:6px 6px max(6px,var(--sa-b))}
+  .frame{border-radius:12px}
+  .stage{margin-right:var(--rail-w)}                                               /* 3D nhường chỗ cho dải bên phải */
+  .stage-tools{left:8px!important;top:8px!important}
+  .cam-hint{display:none!important}
+  .steps{left:auto!important;right:8px!important;top:6px!important;width:calc(var(--rail-w) - 16px)!important}
+  .dock .panel,.dock .panel.show.drop{top:calc(var(--pill-h) + 6px)!important;left:auto!important;right:8px!important;bottom:auto!important;width:calc(var(--rail-w) - 16px)!important;max-width:none!important;max-height:calc(100% - var(--pill-h) - 6px - var(--ab-h,0px) - 18px);overflow:auto}
+  .dock .panel.show{padding:8px 10px}
+  .quick-act{margin-top:0}
+  .action-bar{right:8px!important;left:auto!important;bottom:8px!important;width:calc(var(--rail-w) - 16px);max-width:none!important;flex-wrap:wrap;justify-content:stretch}
+  .action-bar .btn{flex:1 1 auto;min-height:var(--tap);padding:8px 10px;font-size:14px;white-space:normal;line-height:1.2}
+  .frame:has(.part-card.tip.show) .dock .panel{display:none!important}
+  .part-card.tip{max-width:calc(100% - 16px);padding:10px 12px!important}
+  .vol-card{left:8px;top:64px;width:min(260px,calc(100% - 16px));padding:8px 12px}
+  .vol-card .vh,.vol-card .vtick{display:none}
+  /* màn kết quả: ảnh tròn bên trái · thẻ cuộn được bên phải (dưới ô bước) */
+  .scope-view .sv-eye{left:calc((100% - var(--rail-w)) / 2);width:min(calc(100dvh - 130px),calc(100vw - var(--rail-w) - 60px))}
+  .sv-card{top:calc(var(--pill-h) + 6px);right:8px;bottom:8px;width:calc(var(--rail-w) - 16px);max-height:none;overflow:auto;gap:8px;padding:12px 14px 0}
+  .sv-card .sv-act,.lc-card .sv-act{position:sticky;bottom:0;margin:0 -14px;padding:8px 14px 12px;background:#fff;z-index:2}
+  .lc-card .sv-act{bottom:0}
+  .sv-card h2{font-size:18px}.sv-card p{font-size:14px;line-height:1.5}
+  .lc-card .sv-zh{display:none}
+  .scope-view .sv-mag{top:-14px;font-size:14px}.scope-view .sv-eye.lens .sv-mag{top:-30px}
+  /* Bước 3 */
+  .sheet-wrap{padding:8px 12px;--aw:200px}
+  .sheet-aside{padding-top:0;gap:8px}
+  .sheet-res{padding:10px}.sheet-res img{width:110px;height:110px}
+  .sheet-paper{padding:14px;gap:12px}.sheet-head h2{font-size:20px}
+  .sheet-table textarea{min-height:64px}
+  /* hỏi đáp + kết luận */
+  .gatepane,.overlay{padding:8px}
+  .gate-card,.ov-card{width:min(640px,100%);max-height:100%;padding:12px 16px;border-radius:16px}
+  .gate-card h3{font-size:16px;margin-bottom:8px}.gate-opts{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gate-opt{min-height:var(--tap);padding:6px 10px;font-size:14px}
+  .ov-card h2{font-size:18px;margin:2px 0 8px}.ov-point{padding:8px 12px;font-size:14px}.ov-thumb{height:56px}.ov-card .btn{min-height:var(--tap);margin-top:8px;font-size:15px}
+  /* màn giới thiệu */
+  .intro-card{padding:6px 12px}.intro-card h1{font-size:clamp(22px,7vh,36px);margin:4px 0 6px}.intro-sub{font-size:14px}.intro-progress{margin:8px auto}.intro-explore{margin-top:8px;padding:8px 14px;font-size:16px}.intro-credit{margin-top:6px}
+}
+
+/* ---------- 14.8 PHONE ≤600: cỡ chữ nội dung ≥ 14px, nhẹ máy ---------- */
+@media (max-width:600px),(max-height:500px){
+  .dock .panel .panel-k{font-size:12px!important}.dock .panel .panel-t{font-size:15px!important}.dock .panel .panel-t .gd{font-size:14px!important}.dock .panel .panel-x{font-size:14px!important}
+  .panel-k .tk{font-size:12px}.panel-x .hint{font-size:14px}.quick-act{font-size:14px;min-height:var(--tap)}
+  .part-card.tip .pc-kick{font-size:12px}.part-card.tip h3{font-size:16px}.part-card.tip .pc-desc{font-size:14px}
+  .gate-opt,.sv-seg button,.sv-sub button,.sv-lbtn,.sheet-tools button,.sheet-tabs button{font-size:14px}
+  .gate-kicker,.sv-k,.ov-kicker{font-size:12px}
+  .sv-zt,.sv-note,.sv-card p.sv-d2,.lc-card .lc-zt,.lc-c,.sheet-info label,.sheet-msg,.sheet-foot,.sheet-table th,.sheet-table textarea,.padbox .hint,.vol-card .vt,.vol-card .vg,.vol-card .vu{font-size:14px!important}
+  .vol-card .vchip{font-size:12px}.vol-card .vtick{font-size:12px}
+  .toast{font-size:14px}.loading p,.fallback p{font-size:14px}.ov-note{font-size:14px}
+  .lc-chips span{font-size:13px}
+  /* nhẹ GPU: bỏ làm mờ nền / bóng lọc / bóng thừa */
+  .ghost,.dock .panel.show.drop,.gate-card,.stage-nav,.airtag,.cmp{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .leaders line,.hand-hint,.hand-hint svg{filter:none!important}
+  .sv-eye.lens .sv-rim{filter:none;inset:-12px;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 11px));mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 11px))}
+  .sv-eye.lens .sv-handle{width:50%}.sv-handle i{width:66%}
+  .pin b{width:30px;height:30px;font-size:13px}
+  /* tên dụng cụ: chỉ hiện khi chạm chọn */
+  .pins.names .pin:not(.on) span{display:none}
+  .pins.names .pin:not(.on){padding:0!important;background:transparent!important}
+  .pins.names .pin.on span{max-width:50vw;overflow:hidden;text-overflow:ellipsis}
+}
+/* điện thoại dọc: màn gập đáy (bottom-sheet) */
+@media (max-width:600px){
+  .badge{display:none}.topbar{padding-top:calc(8px + var(--sa-t));padding-bottom:8px;gap:8px}.logo,.logoclip{height:24px}.titles h1.lg{font-size:15px}
+  .gatepane,.overlay{align-items:flex-end;padding:0}
+  .gate-card,.ov-card{width:100%;max-width:none;max-height:90%;max-height:min(90%,90dvh);padding:18px 16px calc(20px + var(--sa-b));border-radius:20px 20px 0 0}
+  .gate-card h3{font-size:17px}.gate-opts{grid-template-columns:1fr}.gate-opt{min-height:52px;padding:10px 12px}
+  .ov-card h2{font-size:20px}.ov-point{font-size:15px}
+  .sv-lb{font-size:11px;padding:2px 7px}
+}
+
+/* ---------- 14.9 LARGE ≥1600: màn chiếu lớp học — chữ ≥ 16px, nút & khung to hơn ---------- */
+@media (min-width:1600px){
+  :root{--u:1.2;--tap:calc(44px * var(--u));--gap:calc(16px * var(--u));--sw:calc(290px * var(--u));--step-h:calc(50px * var(--u));--step-g:calc(10px * var(--u));--panel-w:calc(320px * var(--u));--card-w:calc(380px * var(--u))}
+  body{font-size:16px}
+  .topbar{gap:calc(12px * var(--u));padding-left:calc(16px * var(--u));padding-right:calc(16px * var(--u))}
+  .logo,.logoclip{height:calc(27px * var(--u))}.badge{font-size:14px}
+  .titles h1.lg{font-size:calc(20px * var(--u))}
+  .tb-btn{width:calc(38px * var(--u));height:calc(38px * var(--u))}
+  .steps .step{font-size:calc(15px * var(--u));gap:calc(12px * var(--u))}
+  .steps .step b{width:calc(26px * var(--u));height:calc(26px * var(--u));font-size:calc(13px * var(--u))}
+  .stage-tools .ghost{width:calc(44px * var(--u));height:calc(44px * var(--u));min-height:calc(44px * var(--u))!important}
+  .stage-tools .ghost svg{width:calc(20px * var(--u));height:calc(20px * var(--u))}
+  .stage-tools .tdiv{height:calc(24px * var(--u))}
+  .dock .panel .panel-k{font-size:14px!important}.panel-k .tk{font-size:14px}
+  .dock .panel .panel-t{font-size:calc(15px * var(--u))!important}
+  .dock .panel .panel-t .gd,.dock .panel .panel-x,.panel-x .hint{font-size:16px!important}
+  .quick-act{font-size:16px;min-height:calc(36px * var(--u))}
+  .panel-k .back{width:calc(30px * var(--u));height:calc(30px * var(--u))}
+  .action-bar .btn{min-height:calc(46px * var(--u));font-size:16px;padding:0 calc(20px * var(--u))}
+  .part-card.tip{width:calc(320px * var(--u))!important}
+  .part-card.tip .pc-kick{font-size:14px}.part-card.tip h3{font-size:calc(16px * var(--u))}.part-card.tip .pc-desc{font-size:16px}
+  .pin b{width:calc(34px * var(--u));height:calc(34px * var(--u));font-size:calc(13px * var(--u))}
+  .pins.names .pin span{font-size:16px}
+  .cam-hint{font-size:16px}.toast{font-size:16px}.loading p,.fallback p{font-size:16px}
+  .vol-card .vt{font-size:16px}.vol-card .vn{font-size:calc(30px * var(--u))}.vol-card .vu,.vol-card .vg,.vol-card .vh{font-size:16px}.vol-card .vchip{font-size:14px}.vol-card .vtick{font-size:14px}
+  .gate-card,.ov-card{width:min(calc(700px * var(--u)),100%);padding:calc(28px * var(--u))}
+  .gate-card h3{font-size:calc(22px * var(--u))}.gate-opt{font-size:calc(15px * var(--u));min-height:calc(52px * var(--u))}.gate-fb{font-size:16px}.gate-kicker{font-size:14px}
+  .ov-card h2{font-size:calc(24px * var(--u))}.ov-point{font-size:calc(16px * var(--u))}.ov-note{font-size:16px}.ov-kicker{font-size:14px}.ov-card .btn{font-size:calc(16px * var(--u))}
+  .sv-card h2{font-size:calc(22px * var(--u))}.sv-card p,.sv-card p.sv-d2{font-size:16px}.sv-k{font-size:14px}
+  .sv-seg button,.sv-sub button,.sv-lbtn{font-size:16px;height:calc(44px * var(--u))}.sv-sub button{height:calc(38px * var(--u))}
+  .sv-act .btn{font-size:16px;min-height:calc(44px * var(--u))}
+  .sv-note,.sv-zt,.lc-card .lc-zt,.lc-c,.lc-chips span,.sv-zr,.sv-card p.sv-zh,.lc-card .sv-zh{font-size:16px!important}
+  .lc-card .lc-name{font-size:calc(15px * var(--u))}.lc-card .lc-zt output,.sv-zt output{font-size:calc(22px * var(--u))}
+  .sv-lb{font-size:calc(13px * var(--u))}.sv-mag{font-size:calc(14px * var(--u))}
+  .scope-view .sv-mag{font-size:calc(16px * var(--u))}
+  .sheet-paper{padding:calc(32px * var(--u))}
+  .sheet-head h2{font-size:calc(28px * var(--u))}.sheet-kick,.sheet-msg,.sheet-foot,.sheet-res .k{font-size:14px}
+  .sheet-info label,.sheet-intro,.sheet-table th,.sheet-table textarea,.sheet-tools button,.padbox .hint{font-size:16px}
+  .sheet-info input{font-size:16px}
+  .sheet-actions .btn,.sheet-res .btn{font-size:16px}
+  .intro-meta{font-size:16px}.intro-credit{font-size:16px}.intro-kicker{font-size:16px}.intro-explore{font-size:calc(20px * var(--u))}
+}
+@media (min-width:2200px){:root{--u:1.5}}
 </style>
 </head>
 <body>
@@ -1173,6 +1345,12 @@ const state = {
 };
 
 /* ---------- Tiện ích DOM ---------- */
+/* ----- Điều kiện bố cục (khớp đúng khối @media trong CSS mục 14) ----- */
+const MQ = {
+  phone: matchMedia('(max-width:600px)'),
+  stack: matchMedia('(max-width:600px) and (min-height:501px), (max-width:1024px) and (orientation:portrait) and (min-height:501px)'),   // 3D trên · thẻ nhiệm vụ dưới
+  pill: matchMedia('(max-width:600px), (max-width:1024px) and (orientation:portrait), (max-height:500px)')                                   // menu bước thu thành 1 ô
+};
 const $ = id => document.getElementById(id);
 const stage = $('stage'), toast = $('toast'), panel = $('panel'), actionBar = $('actionBar'), loadingEl = $('loadingEl'), fallback = $('fallback');
 let lessonEntered = false, userActed = false, FAST = false;   // FAST: chạy lại nhanh các thao tác (khôi phục cảnh), không có chuyển động
@@ -1260,7 +1438,7 @@ function placePanel() {
   if (!steps || !frame) return;
   const hidden = getComputedStyle(steps).display === 'none';
   const fr = frame.getBoundingClientRect(), sr = steps.getBoundingClientRect();
-  if (fr.width <= 620 || (fr.width <= 900 && fr.height > fr.width) || hidden) {   // màn hẹp / dọc: khung nhiệm vụ nằm dưới hàng bước và hàng công cụ
+  if (MQ.stack.matches || hidden) {   // màn hẹp / dọc: khung nhiệm vụ nằm dưới hàng bước và hàng công cụ
     const tb = document.querySelector('.stage-tools'), bot = Math.max(hidden ? 0 : sr.bottom, tb && tb.getBoundingClientRect().top < sr.bottom + 40 ? tb.getBoundingClientRect().bottom : 0);   // hàng công cụ ở trên cùng thì tránh; ở đáy thì bỏ qua
     panel.style.top = (bot ? bot - fr.top + 6 : 12) + 'px'; panel.style.right = '10px'; panel.style.left = '10px';
   }
@@ -1887,13 +2065,13 @@ function updateTags() {
   const on = (st === 0 || pinsOn(st)) && lessonEntered && !(st === 0 && s0.phase === 'quiz') && !scopeOpen && !$('overlay').classList.contains('show');
   box.style.display = svg.style.display = on ? '' : 'none'; box.classList.toggle('names', !!pinsOn(st)); if (!on) { $('partCard').style.visibility = 'hidden'; return; }
   camera.updateMatrixWorld();
-  const W = renderer.domElement.clientWidth, H = renderer.domElement.clientHeight, small = W < 620 ? .85 : 1;
+  const W = renderer.domElement.clientWidth, H = renderer.domElement.clientHeight, small = W < 600 && !matchMedia('(pointer:coarse)').matches ? .85 : 1;   // cảm ứng: giữ nguyên cỡ để vùng chạm ≥ 44px
   const card = $('partCard'); card.style.visibility = '';
   TAGS.forEach(t => {
     const it = IT[t.id]; if (!it || !it.g.visible) { t.lab.style.display = t.dot.style.display = 'none'; t.line.style.display = 'none'; return; }
     const dim = st === 0 && !!s0.focus && s0.focus !== t.id, foc = st === 0 && s0.focus === t.id;
     anchorOf(t.id, _w); const v = _w.project(camera), x = (v.x + 1) / 2 * W, y = (1 - v.y) / 2 * H, vis = v.z < 1 && Math.abs(v.x) < 1.05 && Math.abs(v.y) < 1.05;
-    const off = it.cfg.lab || [0, -56], lx = x + off[0] * (W < 620 ? .6 : 1), ly = y + off[1] * (W < 620 ? .6 : 1);
+    const off = it.cfg.lab || [0, -56], lx = x + off[0] * (W < 600 ? .6 : 1), ly = y + off[1] * (W < 600 ? .6 : 1);
     t.lab.style.display = t.dot.style.display = vis ? '' : 'none'; t.line.style.display = vis && !dim ? '' : 'none';
     t.lx = lx; t.ly = ly; t.vis = vis;
     t.lab.style.transform = 'translate3d(' + lx + 'px,' + ly + 'px,0) translate(-50%,-50%) scale(' + small + ')';
@@ -1902,17 +2080,17 @@ function updateTags() {
     [t.lab, t.dot, t.line].forEach(e => e.classList.toggle('dim', dim)); t.lab.classList.toggle('on', foc); t.dot.classList.toggle('on', foc); t.lab.classList.toggle('seen', st === 0 && s0.seen.includes(t.id));
   });
   /* bong bóng mô tả nằm ngay cạnh số ghi chú đang mở */
-  if (W < 620) card.style.transform = '';   // điện thoại: thẻ thông tin nằm dưới khung 3D
+  if (MQ.stack.matches) card.style.transform = '';   // điện thoại: thẻ thông tin nằm dưới khung 3D
   else if (card.classList.contains('tip') && card.classList.contains('show')) {
     const tg = TAGS.find(x => x.id === card.dataset.tip);
     if (!tg || !tg.vis) { card.style.visibility = 'hidden'; return; }
     const cw = card.offsetWidth, ch = card.offsetHeight, gap = 20, cx = Math.min(W - 8 - cw, Math.max(8, tg.lx - cw / 2));
     /* chọn vị trí không đè lên chính số ghi chú và nằm trọn trong khung: màn hẹp ưu tiên dưới / trên số, màn rộng ưu tiên bên phải / trái */
     const side = [[tg.lx + gap, Math.max(8, tg.ly - 16)], [tg.lx - gap - cw, Math.max(8, tg.ly - 16)]], vert = [[cx, tg.ly - gap - ch], [cx, tg.ly + gap]];
-    const cand = W < 620 ? vert.concat(side) : side.concat(vert);
-    const pr = $('panel').getBoundingClientRect(), sr = renderer.domElement.getBoundingClientRect(), top0 = W < 620 && pr.height ? Math.max(8, pr.bottom - sr.top + 6) : 8;   // màn hẹp: không đè lên khung nhiệm vụ
+    const cand = MQ.stack.matches ? vert.concat(side) : side.concat(vert);
+    const pr = $('panel').getBoundingClientRect(), sr = renderer.domElement.getBoundingClientRect(), top0 = MQ.stack.matches && pr.height ? Math.max(8, pr.bottom - sr.top + 6) : 8;   // màn hẹp: không đè lên khung nhiệm vụ
     const avoid = ['.steps', '.stage-tools', '#panel.show', '#actionBar.show'].map(q => document.querySelector(q)).filter(Boolean).map(e => e.getBoundingClientRect()).filter(r => r.width).map(r => [r.left - sr.left - 6, r.top - sr.top - 6, r.right - sr.left + 6, r.bottom - sr.top + 6]);   // không đè menu bước, cụm icon, thẻ nhiệm vụ, cụm nút
-    const free = (px, py) => W < 620 || avoid.every(([l, tp, r, bt]) => px + cw < l || px > r || py + ch < tp || py > bt);
+    const free = (px, py) => MQ.stack.matches || avoid.every(([l, tp, r, bt]) => px + cw < l || px > r || py + ch < tp || py > bt);
     let pos = cand.find(([px, py]) => px >= 8 && py >= top0 && px + cw <= W - 8 && py + ch <= H - 8 && free(px, py));
     if (!pos) pos = cand.find(([px, py]) => px + cw < tg.lx - 16 || px > tg.lx + 16 || py + ch < tg.ly - 16 || py > tg.ly + 16) || vert[0];
     const x = Math.min(W - 8 - cw, Math.max(8, pos[0])), y = Math.min(H - ch - 8, Math.max(8, pos[1]));
@@ -2168,7 +2346,7 @@ function renderStep1() {
 /* chưa chọn dụng cụ: ẩn thẻ; điện thoại thì hiện dòng nhắc cố định dưới khung 3D */
 function clearToolCard() {
   const el = $('partCard');
-  if (matchMedia('(max-width:620px)').matches && state.currentStep === 0) { el.className = 'part-card tip show'; el.dataset.tip = ''; el.innerHTML = '<div class="pc-desc">Chạm vào số trên bàn để xem ghi chú dụng cụ, mẫu vật.</div>'; }
+  if (MQ.stack.matches && state.currentStep === 0) { el.className = 'part-card tip show'; el.dataset.tip = ''; el.innerHTML = '<div class="pc-desc">Chạm vào số trên bàn để xem ghi chú dụng cụ, mẫu vật.</div>'; }
   else el.classList.remove('show');
 }
 function showToolCard(g) {
@@ -2340,13 +2518,13 @@ async function dropOn(pip, kind) {
 /* soi kính lúp: kính lúp bay tới, mắt kính nằm ngang phía trên mẫu vật (điểm at trong toạ độ nhóm mẫu vật), camera lại gần.
    Học sinh tự soi bằng kính lúp 3D (mặt kính hiển thị chính model mẫu vật phía sau, phóng to theo thời gian thực) rồi bấm XONG QUAN SÁT; kính về chỗ cũ.
    Làm nhanh / dựng lại cảnh (FAST): bỏ qua bước soi, kính lượn nhẹ rồi về như cũ. */
-async function magnify(id, at) {
+async function magnify(id, at, flat) {   // flat: kết quả là ảnh 2D (không mở màn soi 3D)
   const lp = IT.lup, T = IT[id]; T.g.updateMatrixWorld(true);
   const top = T.g.localToWorld(at ? V3(...at) : V3(0, T.size.y, 0)), lens = lp.lensLocal.clone().applyQuaternion(lp.home.quat);
   const pos = top.clone().add(V3(0, .75, 0)).sub(lens);
   await flyTo(lp, { pos, quat: lp.home.quat.clone() }, 900, .9);
   if (!FAST) camTo('tool_' + id, 900);
-  if (!FAST && lensRT) await lensSession(id);   // kể cả "Làm nhanh": vẫn mở màn soi 3D (có bảng kết quả); chỉ khi dựng lại cảnh (FAST) mới bỏ qua
+  if (!FAST && lensRT && !flat) await lensSession(id);   // kể cả "Làm nhanh": vẫn mở màn soi 3D (có bảng kết quả); chỉ khi dựng lại cảnh (FAST) mới bỏ qua
   else await anim(1200, (e, k) => { const a = k * Math.PI * 2; lp.g.position.copy(pos).add(V3(Math.sin(a) * .22, -.25 * Math.sin(k * Math.PI), (1 - Math.cos(a)) * .12)); });
   sfx('click'); captureLens(lp); await sleep(250);
   await dropTool(lp);
@@ -2596,7 +2774,7 @@ const ACTIONS = [
   { drag: 'slide',  drop: 'scope',   cam: 'overview', run: toScope, view: ['moss', 'x10', 'x40'] },
   /* CHẶNG B — cây dương xỉ */
   { drag: 'lup',    drop: 'fern',    cam: 'work',     run: () => magnify('fern'), view: ['fern', 'young'] },
-  { drag: 'lup',    drop: 'fern',    cam: 'work',     run: () => magnify('fern'), view: ['fern', 'sori'] },
+  { drag: 'lup',    drop: 'fern',    cam: 'work',     run: () => magnify('fern', null, true), view: ['fern', 'sori'] },
   /* CHẶNG C — cành thông */
   { drag: 'lup',    drop: 'pine',    cam: 'work',     run: () => magnify('pine'), view: ['pine', 'cones'] },
   { drag: 'lup',    drop: 'pine',    cam: 'work',     run: () => magnify('pine'), view: ['pine', 'seed'] },
@@ -2611,7 +2789,7 @@ function renderStep2() {
     const A = ACTIONS[s.sub], X = T.acts[s.sub]; camFor(A.cam, 1000);
     setPanel('Nhiệm vụ ' + (s.sub + 1) + '/' + ACTIONS.length + ' · ' + X.g, X.t, T.tip, [{ label: X.btn, fn: runAction, quick: true }]);
     /* thẻ thao tác: hàng 1 = THAO TÁC n/N + thanh N đoạn + nút ← ; tiêu đề; hướng dẫn; hàng cuối = gợi ý kéo thả + nút Làm nhanh */
-    const phone = matchMedia('(max-width:620px)').matches, q = $('quickAct');
+    const phone = MQ.phone.matches, q = $('quickAct');
     $('panelK').innerHTML = '<div class="trow"><span class="tk">THAO TÁC ' + (s.sub + 1) + '/' + ACTIONS.length + '</span><div class="seg" aria-hidden="true">' + ACTIONS.map((_, k) => '<i class="' + (k < s.sub ? 'on' : k === s.sub ? 'now' : '') + '"></i>').join('') + '</div><button type="button" class="back" id="pBack" aria-label="Thao tác trước" title="Thao tác trước"' + (s.sub ? '' : ' disabled') + '>' + SIC('<path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>', 14) + '</button></div>';
     $('panelT').innerHTML = '<div class="ttl">' + YT.mdInline(X.g) + '</div><div class="gd">' + YT.md(X.t) + '</div>';
     $('panelX').innerHTML = '<div class="hrow"><span class="hint">' + SIC('<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M11 11.5v-2a1.5 1.5 0 0 1 3 0V12"/><path d="M14 10.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-3l-2.5-4.5a1.5 1.5 0 0 1 2.6-1.5L8 15"/>', 14) + (phone ? 'Chạm giữ, kéo tới vùng nhấp nháy' : 'Nhấn giữ, kéo tới vùng nhấp nháy') + '</span></div>';
@@ -2716,7 +2894,7 @@ const RESULT = {
     ] },
     { id: 'fern', name: 'Dương xỉ', title: 'Cây dương xỉ', desc: 'Lá non [cuộn tròn ở đầu]{b}; mặt dưới lá già có các [ổ bào tử]{b}.', views: [
       { id: 'young', btn: 'Lá non', mag: 'Kính lúp', img: 'fernYoung', labels: [[65.8, 27.3, 80, 14, 'Lá non cuộn tròn'], [42.2, 73, 20, 72, 'Cuống lá']] },
-      { id: 'sori', btn: 'Mặt dưới lá già', mag: 'Kính lúp', img: 'fernSori', labels: [[58.5, 29.8, 18, 18, 'Ổ bào tử'], [68.6, 65, 84, 78, 'Mặt dưới lá']] }
+      { id: 'sori', btn: 'Mặt dưới lá già', mag: 'Kính lúp', flat: true, img: 'fernSori', labels: [[66.6, 48, 78, 24, 'Ổ bào tử'], [40, 54.5, 22, 74, 'Mặt dưới lá']] }
     ] },
     { id: 'pine', name: 'Thông', title: 'Cành thông', desc: 'Lá [hình kim]{b}, chưa có hoa, cơ quan sinh sản là [nón]{b}; hạt nằm [lộ trên lá noãn]{b}.', views: [
       { id: 'cones', btn: 'Lá và nón', mag: 'Kính lúp', img: 'pineCones', labels: [[70, 20, 84, 10, 'Lá kim'], [30.3, 71.9, 16, 84, 'Nón đực'], [68, 52, 84, 70, 'Nón cái']] },
@@ -2808,25 +2986,36 @@ const DRAW = {
     fid([[300, 680], [292, 540], [240, 400], [265, 250]], 370, 250, 105, 2.3, 30);
     fid([[150, 690], [150, 580], [120, 500], [128, 430]], 170, 430, 42, 2, 13);
   },
-  /* Mặt dưới lá dương xỉ: lá chét xẻ thùy, mặt dưới nhạt có gân; ổ bào tử tròn nâu xếp 2 hàng hai bên gân giữa, vài ổ còn mày che */
+  /* Mặt dưới lá dương xỉ (theo ảnh mẫu): trục lá (cuống chính) olive cong từ góc dưới phải lên góc trên trái, hai bên là các lá chét
+     xẻ thùy, mặt dưới xanh nhạt có gân; trên mỗi thùy có hai hàng ổ bào tử tròn nâu đỏ nằm sát hai bên gân giữa, một số ổ còn màng che (nhạt hơn) */
   fernSori(g) {
-    bgFill(g, '#eaf1db', '#bccf9b'); const r = rng(9); g.lineCap = 'round';
-    g.strokeStyle = '#5f7f33'; g.lineWidth = 14; g.beginPath(); g.moveTo(40, 615); g.lineTo(615, 45); g.stroke(); g.strokeStyle = 'rgba(210,235,160,.5)'; g.lineWidth = 4; g.stroke();
-    for (let i = 0; i < 7; i++) {
-      const t = .07 + i * .135, bx = 40 + t * 575, by = 615 - t * 570, len = 225 - i * 15;
-      [-1, 1].forEach(s => {
-        const a = -Math.PI / 4 + s * 1.2, W = 40 - i * 1.5, hw = u => W * Math.pow(Math.sin(Math.PI * Math.pow(u, .75)), .85) * (1 + .1 * Math.cos(u * 34));
-        g.save(); g.translate(bx, by); g.rotate(a); g.beginPath(); g.moveTo(0, 0);
-        for (let u = 0; u <= 1.001; u += .02) g.lineTo(u * len, -hw(u)); for (let u = 1; u >= -.001; u -= .02) g.lineTo(u * len, hw(u)); g.closePath();
-        g.fillStyle = lg(g, 0, -W, 0, W, ['#bcd896', '#a6c47c']); g.fill(); g.strokeStyle = '#78a04a'; g.lineWidth = 2; g.stroke();
-        g.strokeStyle = 'rgba(110,150,70,.55)'; g.lineWidth = 1; for (let u = .06; u < .95; u += .06) [-1, 1].forEach(q => { g.beginPath(); g.moveTo(u * len, 0); g.lineTo((u + .05) * len, q * hw(u + .05) * .9); g.stroke(); });
-        g.strokeStyle = '#86a850'; g.lineWidth = 3; g.beginPath(); g.moveTo(0, 0); g.lineTo(len * .96, 0); g.stroke();
-        for (let k = 1; k <= 7; k++) { const u = k / 8.6; [-1, 1].forEach(q => { const x = u * len + (r() - .5) * 3, y = q * hw(u) * .52 + (r() - .5) * 3, m = r() < .3;
-          ell(g, x + 1.5, y + 2.5, 9, 8, 0, 'rgba(40,60,20,.25)'); sph(g, x, y, 8.5 + r() * 1.5, 8 + r(), 0, m ? '#e4c27a' : '#c7803a', m ? '#b98a40' : '#5c2e0e');
-          if (m) { g.beginPath(); g.arc(x, y, 7, .3, 3.4); g.strokeStyle = '#f3e6bf'; g.lineWidth = 2.5; g.stroke(); } }); }
-        g.restore();
-      });
-    }
+    bgFill(g, '#f3f4ef', '#d3d9c6'); const r = rng(21); g.lineCap = 'round'; g.lineJoin = 'round';
+    const R = [[585, 705], [488, 430], [316, 268], [66, 84]], B = t => bez(R, t), tg = t => { const a = B(Math.max(0, t - .01)), b = B(Math.min(1, t + .01)); return Math.atan2(b[1] - a[1], b[0] - a[0]); };
+    DRAW.soriPts = [];
+    /* trục lá: thon dần về ngọn, có vệt sáng */
+    const rach = (w0, w1, c) => { for (let i = 0; i < 160; i++) { const t0 = i / 160, t1 = (i + 1) / 160, a = B(t0), b = B(t1); g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.lineWidth = w0 + (w1 - w0) * t0; g.strokeStyle = c; g.stroke(); } };
+    rach(19, 4, '#6d7a2c'); rach(15, 2.6, '#a2ad45'); rach(5, 1, 'rgba(240,244,170,.6)');
+    const pinna = (bx, by, ang, len, W, k0) => {
+      const n = Math.max(6, Math.round(len / 17)), hw = u => W * Math.pow(Math.sin(Math.PI * Math.pow(u, .72)), .8) * (.66 + .34 * Math.abs(Math.cos(u * n * Math.PI)));
+      g.save(); g.translate(bx, by); g.rotate(ang);
+      g.beginPath(); g.moveTo(0, 0); for (let u = 0; u <= 1.001; u += .008) g.lineTo(u * len, -hw(u)); for (let u = 1; u >= -.001; u -= .008) g.lineTo(u * len, hw(u)); g.closePath();
+      g.shadowColor = 'rgba(40,60,20,.28)'; g.shadowBlur = 9; g.shadowOffsetY = 3; g.fillStyle = lg(g, 0, -W, 0, W, ['#a9ca78', '#8fb862', '#a3c673']); g.fill(); g.shadowColor = 'transparent';
+      g.strokeStyle = '#6f9942'; g.lineWidth = 1.6; g.stroke();
+      g.strokeStyle = 'rgba(100,140,60,.5)'; g.lineWidth = 1; for (let k = 1; k < n; k++) { const u = k / n; [-1, 1].forEach(q => { g.beginPath(); g.moveTo(u * len, 0); g.lineTo(u * len, q * hw(u) * .92); g.stroke(); }); }
+      g.strokeStyle = '#86a84e'; g.lineWidth = 2.6; g.beginPath(); g.moveTo(0, 0); g.lineTo(len * .97, 0); g.stroke();
+      const sr = Math.min(5.6, Math.max(3.2, len * .017));
+      for (let k = 1; k < n; k++) { const u = k / n; if (u < .1 || u > .93) continue; [-1, 1].forEach(q => {
+        const x = u * len + (r() - .5) * 2.2, y = q * hw(u) * (.36 + r() * .08), pale = r() < .16, rr = sr * (.85 + r() * .3);
+        ell(g, x + 1.6, y + 2.4, rr * 1.05, rr, 0, 'rgba(40,55,18,.3)');
+        sph(g, x, y, rr, rr * .95, 0, pale ? '#e4cf9c' : '#bf7648', pale ? '#b8955a' : '#8a4423');
+        if (pale) { g.beginPath(); g.arc(x, y, rr * .86, .4, 3.5); g.strokeStyle = '#f5ead0'; g.lineWidth = 2.4; g.stroke(); }
+        else ell(g, x - rr * .3, y - rr * .32, rr * .26, rr * .18, 0, 'rgba(255,225,190,.35)');
+        DRAW.soriPts.push([bx + Math.cos(ang) * x - Math.sin(ang) * y, by + Math.sin(ang) * x + Math.cos(ang) * y, k0]); }); }
+      g.restore();
+    };
+    for (let i = 0; i < 12; i++) { const t = .1 + i * .078, [bx, by] = B(t), th = tg(t), len = 36 + 262 * Math.pow(1 - t, .66), W = len * .125;
+      [-1, 1].forEach(s => pinna(bx, by, th + s * (1.08 + (r() - .5) * .12), len * (.94 + r() * .1), W, i)); }
+    rach(3, .8, 'rgba(244,248,190,.55)');
   },
   /* Cành thông: lá kim mọc từng bó 2 có bẹ ở gốc, cành vỏ sần nâu; cụm nón đực vàng nhỏ ở gốc chồi; nón cái hoá gỗ, vảy xếp xoắn */
   pineCones(g) {
@@ -2891,7 +3080,7 @@ function viewOk(tab, view) {
 function openScopeView(tab, view, mode) {
   if ((mode || 'review') !== 'flow') {   // xem lại kết quả: ảnh kính lúp thay bằng soi 3D; ×10 / ×40 giữ ảnh chụp
     const T0 = tabOf(tab || sv.tab), vw = view || T0.views[0].id, V0 = T0.views.find(v => v.id === vw) || T0.views[0];
-    if (V0.mag === 'Kính lúp' && TAB_ITEM[T0.id] && IT.lup) { closeScopeView(); openLensReview(T0.id, V0.id, mode || 'review'); return; }
+    if (V0.mag === 'Kính lúp' && !V0.flat && TAB_ITEM[T0.id] && IT.lup) { closeScopeView(); openLensReview(T0.id, V0.id, mode || 'review'); return; }
     closeLensReview();
   }
   sv.mode = mode || 'review';
@@ -2941,6 +3130,7 @@ function syncLabels() {
 /* ---------- Kính lúp: phóng to ×1 → ×6 (bước 0,5), kéo ảnh, lăn chuột, chụm 2 ngón; nhãn đi theo ảnh ---------- */
 const LZ = { min: 1, max: 6, def: 2, z: 2, px: -.5, py: -.5, labels: [] };   // px, py: dịch chuyển theo tỉ lệ cạnh mặt kính (tx = px × cạnh)
 const isLensView = () => { const T = tabOf(sv.tab), V = T.views.find(v => v.id === sv.view) || T.views[0]; return V.mag === 'Kính lúp'; };
+const isFlatView = () => { const T = tabOf(sv.tab), V = T.views.find(v => v.id === sv.view) || T.views[0]; return !!V.flat; };   // kính lúp nhưng kết quả là ảnh 2D
 const fmtZ = z => String(Math.round(z * 10) / 10).replace('.', ',');
 function lensReset(z) { LZ.z = z == null ? LZ.def : z; LZ.px = LZ.py = (1 - LZ.z) / 2; }
 function lensApply() {
@@ -3010,8 +3200,8 @@ function initScopeView() {
   initLens();
   const d2 = document.createElement('p'); d2.id = 'svDesc2'; d2.className = 'sv-d2'; d2.hidden = true; $('svSub').after(d2);
   const swap = () => { const e = $('svCanvas'); e.classList.remove('sv-swap'); void e.offsetWidth; e.classList.add('sv-swap'); syncScopeBtns(); };
-  $('svTabs').addEventListener('click', e => { const b = e.target.closest('button[data-tab]'); if (!b || b.disabled || b.dataset.tab === sv.tab) return; const T = tabOf(b.dataset.tab); sv.tab = T.id; sv.view = (T.views.find(v => viewOk(T.id, v.id)) || T.views[0]).id; if (sv.mode !== 'flow' && isLensView() && IT.lup) { closeScopeView(); openLensReview(sv.tab, sv.view, sv.mode); return; } lensReset(); swap(); });
-  $('svSub').addEventListener('click', e => { const b = e.target.closest('button[data-view]'); if (!b || b.disabled || b.dataset.view === sv.view) return; sv.view = b.dataset.view; if (sv.mode !== 'flow' && isLensView() && IT.lup) { closeScopeView(); openLensReview(sv.tab, sv.view, sv.mode); return; } lensReset(); swap(); });
+  $('svTabs').addEventListener('click', e => { const b = e.target.closest('button[data-tab]'); if (!b || b.disabled || b.dataset.tab === sv.tab) return; const T = tabOf(b.dataset.tab); sv.tab = T.id; sv.view = (T.views.find(v => viewOk(T.id, v.id)) || T.views[0]).id; if (sv.mode !== 'flow' && isLensView() && !isFlatView() && IT.lup) { closeScopeView(); openLensReview(sv.tab, sv.view, sv.mode); return; } lensReset(); swap(); });
+  $('svSub').addEventListener('click', e => { const b = e.target.closest('button[data-view]'); if (!b || b.disabled || b.dataset.view === sv.view) return; sv.view = b.dataset.view; if (sv.mode !== 'flow' && isLensView() && !isFlatView() && IT.lup) { closeScopeView(); openLensReview(sv.tab, sv.view, sv.mode); return; } lensReset(); swap(); });
   $('svLabelBtn').addEventListener('click', () => { svLabelsOn = !svLabelsOn; syncLabels(); });   // Hiện / ẩn tên bộ phận
   $('svBack').addEventListener('click', resultLeave);
   $('svNext').addEventListener('click', resultNext);
@@ -3070,7 +3260,7 @@ function makePad(wrap) {
   const cv = wrap.querySelector('canvas'), g = cv.getContext('2d'), box = wrap.querySelector('.padbox'); let down = false, erase = false;
   g.lineCap = 'round'; g.lineJoin = 'round';
   const pt = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; };
-  cv.addEventListener('pointerdown', e => { down = true; box.classList.add('drawn'); cv.setPointerCapture(e.pointerId); const [x, y] = pt(e); g.globalCompositeOperation = erase ? 'destination-out' : 'source-over'; g.lineWidth = erase ? 22 : 3; g.strokeStyle = '#17202a'; g.beginPath(); g.moveTo(x, y); g.lineTo(x + .1, y + .1); g.stroke(); e.preventDefault(); });
+  cv.addEventListener('pointerdown', e => { down = true; box.classList.add('drawn'); cv.setPointerCapture(e.pointerId); const [x, y] = pt(e); g.globalCompositeOperation = erase ? 'destination-out' : 'source-over'; g.lineWidth = (erase ? 22 : 3) * Math.max(.75, cv.width / (cv.getBoundingClientRect().width || cv.width)); g.strokeStyle = '#17202a'; g.beginPath(); g.moveTo(x, y); g.lineTo(x + .1, y + .1); g.stroke(); e.preventDefault(); });
   cv.addEventListener('pointermove', e => { if (!down) return; const [x, y] = pt(e); g.lineTo(x, y); g.stroke(); g.beginPath(); g.moveTo(x, y); });
   ['pointerup', 'pointercancel'].forEach(ev => cv.addEventListener(ev, () => { down = false; }));
   const setMode = er => { erase = er; wrap.querySelectorAll('[data-mode="pen"],[data-mode="erase"]').forEach(b => b.setAttribute('aria-pressed', (b.dataset.mode === 'erase') === er ? 'true' : 'false')); };
@@ -3164,6 +3354,7 @@ async function loadModels() {
 }
 function resize() {
   if (!renderer || !camera) return; const w = stage.clientWidth, h = stage.clientHeight; if (w < 1 || h < 1) return;
+  const pr = Math.min(devicePixelRatio || 1, innerWidth <= 600 ? 1.5 : (lowEnd ? 1.25 : 1.8)); if (renderer.getPixelRatio() !== pr) renderer.setPixelRatio(pr);   // điện thoại ≤600px: tối đa 1.5
   renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); applyCam();
   if (ready && lessonEntered) camTo(lastPreset, 0);
   placePanel();
@@ -3176,7 +3367,7 @@ async function init3D() {
     const [{ OrbitControls }, { GLTFLoader }, { DRACOLoader }] = await Promise.all([import('three/addons/controls/OrbitControls.js'), import('three/addons/loaders/GLTFLoader.js'), import('three/addons/loaders/DRACOLoader.js')]);
     lowEnd = (navigator.deviceMemory && navigator.deviceMemory <= 4) || /Android|iPhone|iPad/i.test(navigator.userAgent);
     renderer = new THREE.WebGLRenderer({ antialias: !lowEnd, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, lowEnd ? 1.25 : 1.8)); renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.shadowMap.enabled = false; renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth <= 600 ? 1.5 : (lowEnd ? 1.25 : 1.8))); renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.1;
     stage.insertBefore(renderer.domElement, stage.firstChild);
     scene = new THREE.Scene(); camera = new THREE.PerspectiveCamera(42, 1, .05, 200); camera.position.set(0, 13, 12.6);
@@ -3195,12 +3386,14 @@ async function init3D() {
     } catch (e) { console.warn('[3D] không tạo được môi trường phản xạ', e); }
     const glassKey = new THREE.DirectionalLight(0xffffff, 1.1); glassKey.position.set(-6, 3, 9); scene.add(glassKey);   // vệt sáng trên kính
     gltfLoader = new GLTFLoader(); const draco = new DRACOLoader(); draco.setDecoderPath(DRACO_PATH); gltfLoader.setDRACOLoader(draco); clock = new THREE.Clock();
-    new ResizeObserver(resize).observe(stage);
+    let rzT = 0; const resizeSoon = () => { clearTimeout(rzT); rzT = setTimeout(resize, 120); };   // gom nhiều lần đổi cỡ (xoay máy, kéo cửa sổ) thành 1 lần dựng lại
+    new ResizeObserver(resizeSoon).observe(stage); addEventListener('orientationchange', resizeSoon); addEventListener('resize', resizeSoon);
+    if (window.visualViewport) visualViewport.addEventListener('resize', resizeSoon);
     const loop = () => { requestAnimationFrame(loop); const dt = Math.min(.05, clock.getDelta()); if (!ready || !lessonEntered) return; controls.update(); tick(dt, clock.elapsedTime); updateTags(); applyViewShift(); renderLens(); renderer.render(scene, camera); };
     const errors = await loadModels();
     await loadTable(loadedModels.table);
     buildScene(loadedModels); ready = true; loadingEl.style.display = 'none'; resize(); initPick(); initLens3D(); initScopeView(); camTo('overview', 0);
-    YT.expose && YT.expose({ THREE, scene, camera, controls, renderer, IT, state, ACTIONS, camTo, showStep, runAction, viewTool, FX, openScopeView, voice, buildSheetPdf });   // để kiểm thử
+    YT.expose && YT.expose({ THREE, scene, camera, controls, renderer, IT, state, ACTIONS, camTo, showStep, runAction, viewTool, FX, openScopeView, voice, buildSheetPdf, DRAW, imgOf });   // để kiểm thử
     loop();
     $('introStatus').innerHTML = '<span class="ready-dot"></span>' + (errors.length ? 'Sẵn sàng · một số mô hình dùng hình dự phòng' : 'Sẵn sàng');
     $('introBar').style.cssText = 'width:100%;animation:none';
@@ -3259,7 +3452,7 @@ $('btnPrevStep').addEventListener('click', () => showStep(state.currentStep - 1)
 $('btnNextStep').addEventListener('click', () => showStep(state.currentStep + 1));
 document.querySelectorAll('.step').forEach(b => b.addEventListener('click', () => showStep(Number(b.dataset.step))));
 /* điện thoại: menu bước thu thành một ô "Tên bước · n/3", bấm để thả xuống / thu lại */
-const stepsBar = document.querySelector('.steps'), phoneMQ = matchMedia('(max-width:620px)');
+const stepsBar = document.querySelector('.steps'), phoneMQ = MQ.pill;
 stepsBar.addEventListener('click', ev => {
   const b = ev.target.closest('.step'); if (!b || !phoneMQ.matches) return;
   if (b.getAttribute('aria-pressed') === 'true') { ev.stopImmediatePropagation(); stepsBar.classList.toggle('open'); } else stepsBar.classList.remove('open');
