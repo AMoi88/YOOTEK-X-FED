@@ -1,0 +1,217 @@
+{
+ "size": "768x1024",
+ "touch": true,
+ "screens": {
+  "01-intro": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "02-step1": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38",
+    ".pin \"1Kính hiển vi\" 30x30",
+    ".pin \"2Kính lúp\" 30x30",
+    ".pin \"3Dao rọc giấy\" 30x30",
+    ".pin \"4Panh gắp\" 30x30",
+    ".pin \"5Nước cất\" 30x30",
+    ".pin \"6Ống nhỏ giọt\" 30x30",
+    ".pin \"7Lam kính\" 30x30",
+    ".pin \"8Lamen\" 30x30",
+    ".pin \"9Cây rêu\" 30x30",
+    ".pin \"10Cây dương xỉ\" 30x30",
+    ".pin \"11Cành thông\" 30x30",
+    ".pin \"12Quả bí ngô\" 30x30"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "03-step1-card": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38",
+    ".pin \"2Kính lúp\" 30x30",
+    ".pin \"4Panh gắp\" 30x30",
+    ".pin \"9Cây rêu\" 30x30",
+    "#pcClose \"✕\" 28x28"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "04-gate": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "05-overlay": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "06-step2-task": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38",
+    "#pBack \"Thao tác trước\" 28x28"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "07-step2-water": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38",
+    "#pBack \"Thao tác trước\" 28x28"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "08-volcard": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "09-lens-flow": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "10-scope2d": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38",
+    "button \"Rêu\" 68x40",
+    "button \"Dương xỉ\" 68x40",
+    "button \"Thông\" 68x40",
+    "button \"Bí ngô\" 68x40",
+    "button \"Kính lúp\" 93x34",
+    "button \"Vật kính ×10\" 93x34",
+    "button \"Vật kính ×40\" 93x34"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "11-lens-review": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38",
+    "button \"Rêu\" 68x40",
+    "button \"Dương xỉ\" 68x40",
+    "button \"Thông\" 68x40",
+    "button \"Bí ngô\" 68x40",
+    "button \"Kính lúp\" 93x34",
+    "button \"Vật kính ×10\" 93x34",
+    "button \"Vật kính ×40\" 93x34"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "12-sheet": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38",
+    "button \"Bút\" 71x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40",
+    "button \"Bút\" 71x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40",
+    "button \"Bút\" 71x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40",
+    "button \"Bút\" 71x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "13-sheet-bottom": {
+   "scrollW": 768,
+   "innerW": 768,
+   "scrollH": 1024,
+   "innerH": 1024,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 38x38",
+    "button \"Bút\" 71x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40",
+    "button \"Bút\" 71x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40",
+    "button \"Bút\" 71x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40",
+    "button \"Bút\" 71x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40"
+   ],
+   "off": [],
+   "overlap": []
+  }
+ },
+ "errors": []
+}

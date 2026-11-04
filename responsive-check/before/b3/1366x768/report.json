@@ -1,0 +1,141 @@
+{
+ "size": "1366x768",
+ "touch": false,
+ "screens": {
+  "01-intro": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "02-step1": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "03-step1-card": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "04-gate": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "05-overlay": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "06-step2-task": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "07-step2-water": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "08-volcard": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "09-lens-flow": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "10-scope2d": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "11-lens-review": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [
+    "#lcMinus \"－\" [988,756,1032,800]",
+    "#lcRange \"Độ phóng đại kính \" [1038,756,1254,800]",
+    "#lcPlus \"＋\" [1260,756,1304,800]"
+   ],
+   "overlap": []
+  },
+  "12-sheet": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "13-sheet-bottom": {
+   "scrollW": 1366,
+   "innerW": 1366,
+   "scrollH": 768,
+   "innerH": 768,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  }
+ },
+ "errors": []
+}

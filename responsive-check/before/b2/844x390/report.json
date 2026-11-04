@@ -1,0 +1,192 @@
+{
+ "size": "844x390",
+ "touch": true,
+ "screens": {
+  "01-intro": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "02-step1": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30",
+    ".pin \"1Kính hiển vi\" 30x30",
+    ".pin \"2Kính lúp\" 30x30",
+    ".pin \"3Dao rọc giấy\" 30x30",
+    ".pin \"4Panh gắp\" 30x30",
+    ".pin \"5Nước cất\" 30x30",
+    ".pin \"6Ống nhỏ giọt\" 30x30",
+    ".pin \"7Lam kính\" 30x30",
+    ".pin \"8Lamen\" 30x30",
+    ".pin \"9Cây rêu\" 30x30",
+    ".pin \"10Cây dương xỉ\" 30x30",
+    ".pin \"11Cành thông\" 30x30",
+    ".pin \"12Quả bí ngô\" 30x30"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "03-step1-card": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30",
+    ".pin \"2Kính lúp\" 30x30"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "04-gate": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30"
+   ],
+   "off": [
+    ".gate-opt \"DBí ngô\" [134,352,710,404]"
+   ],
+   "overlap": []
+  },
+  "05-overlay": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "06-step2-task": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30",
+    "#quickAct \"Làm nhanh\" 96x37"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "07-step2-water": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30",
+    "#quickAct \"Làm nhanh\" 96x37"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "08-volcard": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30",
+    "#quickAct \"Làm nhanh\" 266x32"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "09-lens-flow": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "10-scope2d": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "11-lens-review": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30"
+   ],
+   "off": [],
+   "overlap": []
+  },
+  "12-sheet": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30"
+   ],
+   "off": [
+    "textarea \"Tên mẫu vật — Rêu\" [461,376,527,482]",
+    "textarea \"Tên mẫu vật — Dươn\" [548,376,615,482]",
+    "textarea \"Tên mẫu vật — Hạt \" [636,376,702,482]",
+    "textarea \"Tên mẫu vật — Hạt \" [723,376,789,482]"
+   ],
+   "overlap": []
+  },
+  "13-sheet-bottom": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [
+    "#btnFullscreen \"Toàn màn hình\" 30x30",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40",
+    "button \"Tẩy\" 73x40",
+    "button \"Xoá hình\" 77x40"
+   ],
+   "off": [],
+   "overlap": []
+  }
+ },
+ "errors": []
+}
