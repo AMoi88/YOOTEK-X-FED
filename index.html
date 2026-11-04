@@ -591,8 +591,9 @@ button:focus-visible,a:focus-visible,.pin:focus-visible{outline:3px solid #2B7FD
 .sheet-aside{flex:0 0 var(--aw);width:var(--aw);padding-top:186px;display:flex;flex-direction:column;gap:12px}   /* chừa chỗ cho menu bước (3 ô × 50px + 2 khoảng 10px) */
 .sheet-res{padding:16px;background:#fff;border-radius:16px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .sheet-res .k{align-self:flex-start;font-size:12px;font-weight:700;color:#4A6461;letter-spacing:.05em}
-.sheet-res img{width:180px;height:180px;border-radius:50%;object-fit:cover;background:#0A1C1B;border:3px solid #0A1C1B}
 .sheet-res .btn{width:100%;display:flex;justify-content:center;align-items:center;gap:8px;min-height:44px;font-size:14px;border-radius:12px}
+.sheet-rv{display:flex;flex-direction:column;gap:8px;width:100%}
+.sheet-res .btn span{min-width:0}
 .sheet-main{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:14px}
 .sheet-paper{background:#fff;border-radius:18px;padding:32px;box-shadow:0 2px 10px rgba(16,48,46,.06);display:flex;flex-direction:column;gap:18px;color:#10302E;max-width:none;margin:0}
 .sheet-head{display:flex;flex-direction:column;gap:4px;text-align:left}
@@ -919,10 +920,9 @@ html,body{max-width:100%;overflow-x:hidden}
   .sheet-wrap{padding:4px 12px 12px}
   .sheet-layout{flex-direction:column;gap:12px;width:100%;max-width:760px;margin:0 auto}
   .sheet-aside{display:block;flex:none;width:100%;padding-top:0}
-  .sheet-res{flex-direction:row;align-items:center;gap:12px;padding:10px 12px;border-radius:14px}
-  .sheet-res .k{display:none}
-  .sheet-res img{width:56px;height:56px;border-width:2px;flex:0 0 auto}
-  .sheet-res .btn{width:auto;flex:1 1 auto;min-height:var(--tap);font-size:14px}
+  .sheet-res{padding:12px;border-radius:14px;gap:8px}
+  .sheet-rv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}                    /* 4 nút xem lại xếp 2×2 */
+  .sheet-res .btn{white-space:normal;line-height:1.2;min-height:var(--tap);font-size:14px;padding:8px 10px}
   .sheet-main{width:100%}
   .sheet-info{flex-wrap:nowrap;gap:10px}.sheet-info label{flex:1 1 0;min-width:0}.sheet-info label.cls{flex:0 0 96px}
   .sheet-paper{padding:18px 16px;gap:16px;border-radius:16px}
@@ -977,7 +977,7 @@ html,body{max-width:100%;overflow-x:hidden}
   /* Bước 3 */
   .sheet-wrap{padding:8px 12px;--aw:200px}
   .sheet-aside{padding-top:0;gap:8px}
-  .sheet-res{padding:10px}.sheet-res img{width:110px;height:110px}
+  .sheet-res{padding:10px}
   .sheet-paper{padding:14px;gap:12px}.sheet-head h2{font-size:20px}
   .sheet-table textarea{min-height:64px}
   /* hỏi đáp + kết luận */
@@ -3246,7 +3246,8 @@ const SHEET = {
     { label: 'Đặc điểm nhận biết', type: 'text', hint: 'Mạch dẫn, rễ, lá, hoa, hạt, cơ quan sinh sản…' },
     { label: 'Hình vẽ', type: 'draw' }
   ],
-  result: { img: 'fernSori', alt: 'Mặt dưới lá dương xỉ có các ổ bào tử', btn: 'Xem lại kết quả quan sát', tab: 'fern', view: 'sori' }
+  /* xem lại kết quả: mỗi nhóm một nút, mở màn kết quả ở tab tương ứng */
+  reviews: [{ tab: 'moss', btn: 'Xem lại kết quả rêu' }, { tab: 'fern', btn: 'Xem lại kết quả dương xỉ' }, { tab: 'pine', btn: 'Xem lại kết quả cây thông' }, { tab: 'pumpkin', btn: 'Xem lại kết quả bí ngô' }]
 };
 const LIB = { h2c: 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', pdf: 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js' };
 const loadScript = src => new Promise((res, rej) => {
@@ -3283,7 +3284,7 @@ function initSheet() {
   const el = $('sheet'); if (!el) return;
   const esc = YT.esc || (x => x);
   el.innerHTML = `<div class="sheet-layout">
-  <aside class="sheet-aside" aria-label="Kết quả quan sát"><div class="sheet-res"><span class="k">KẾT QUẢ EM ĐÃ QUAN SÁT</span><img src="${imgOf(SHEET.result.img)}" alt="${esc(SHEET.result.alt)}" draggable="false"><button type="button" class="btn alt" id="shScope">${ICON.eye}${esc(SHEET.result.btn)}</button></div></aside>
+  <aside class="sheet-aside" aria-label="Xem lại kết quả quan sát"><div class="sheet-res"><span class="k">XEM LẠI KẾT QUẢ QUAN SÁT</span><div class="sheet-rv" role="group" aria-label="Xem lại kết quả">${SHEET.reviews.map(r => `<button type="button" class="btn alt" data-rv="${r.tab}">${ICON.eye}<span>${esc(r.btn)}</span></button>`).join('')}</div></div></aside>
   <section class="sheet-main" aria-label="Phiếu thực hành">
   <div class="sheet-paper" id="sheetPaper">
     <div class="sheet-head"><div class="sheet-kick">${esc(SHEET.sub)}</div><h2>${esc(SHEET.title)}</h2></div>
@@ -3302,7 +3303,7 @@ function initSheet() {
   el.querySelectorAll('.pad').forEach(makePad);
   $('shDate').textContent = new Date().toLocaleDateString('vi-VN');
   $('shPdf').addEventListener('click', downloadSheet);
-  $('shScope').addEventListener('click', async () => { await showStep(1); openScopeView(SHEET.result.tab, SHEET.result.view, 'review'); });
+  el.querySelectorAll('[data-rv]').forEach(b => b.addEventListener('click', async () => { await showStep(1); openScopeView(b.dataset.rv, null, 'review'); }));
   const tbl = el.querySelector('.sheet-table');
   el.querySelectorAll('.sheet-tabs button').forEach(b => b.addEventListener('click', () => { tbl.dataset.tab = b.dataset.t; el.querySelectorAll('.sheet-tabs button').forEach(x => x.setAttribute('aria-selected', x === b ? 'true' : 'false')); }));
   $('shReset').addEventListener('click', () => {
