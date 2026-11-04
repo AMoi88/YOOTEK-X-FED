@@ -1,0 +1,137 @@
+{
+ "size": "360x740",
+ "touch": true,
+ "screens": {
+  "01-intro": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "02-step1": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "03-step1-card": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "04-gate": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "05-overlay": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "06-step2-task": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "07-step2-water": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "08-volcard": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "09-lens-flow": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "10-scope2d": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "11-lens-review": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "12-sheet": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "13-sheet-bottom": {
+   "scrollW": 360,
+   "innerW": 360,
+   "scrollH": 740,
+   "innerH": 740,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  }
+ },
+ "errors": []
+}

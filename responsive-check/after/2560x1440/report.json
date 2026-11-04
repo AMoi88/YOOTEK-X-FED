@@ -1,0 +1,137 @@
+{
+ "size": "2560x1440",
+ "touch": false,
+ "screens": {
+  "01-intro": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "02-step1": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "03-step1-card": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "04-gate": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "05-overlay": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "06-step2-task": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "07-step2-water": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "08-volcard": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "09-lens-flow": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "10-scope2d": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "11-lens-review": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "12-sheet": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "13-sheet-bottom": {
+   "scrollW": 2560,
+   "innerW": 2560,
+   "scrollH": 1440,
+   "innerH": 1440,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  }
+ },
+ "errors": []
+}

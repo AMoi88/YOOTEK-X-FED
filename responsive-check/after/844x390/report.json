@@ -1,0 +1,150 @@
+{
+ "size": "844x390",
+ "touch": true,
+ "screens": {
+  "01-intro": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "02-step1": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "03-step1-card": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "04-gate": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "05-overlay": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "06-step2-task": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "07-step2-water": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "08-volcard": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "09-lens-flow": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": [],
+   "scroll": [
+    "#lcMinus \"－\"",
+    "#lcRange \"Độ phóng đại kính \"",
+    "#lcPlus \"＋\""
+   ]
+  },
+  "10-scope2d": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": [],
+   "scroll": [
+    "button \"Bí ngô\"",
+    "button \"Vật kính ×40\""
+   ]
+  },
+  "11-lens-review": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": [],
+   "scroll": [
+    "button \"Bí ngô\"",
+    "button \"Vật kính ×40\""
+   ]
+  },
+  "12-sheet": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  },
+  "13-sheet-bottom": {
+   "scrollW": 844,
+   "innerW": 844,
+   "scrollH": 390,
+   "innerH": 390,
+   "hscroll": false,
+   "small": [],
+   "off": [],
+   "overlap": []
+  }
+ },
+ "errors": []
+}
